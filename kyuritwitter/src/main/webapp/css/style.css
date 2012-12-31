@@ -1,0 +1,30 @@
+body {
+	background:#C0DEED;
+	margin: 25px 25px 25px 25px;
+}
+
+<!-- layout jsp table -->
+table{
+	width: 80%;
+}
+td.contents {
+	background-color: #ffffff;
+	padding: 25px 25px 25px 25px;
+
+}
+td.menu {
+	background-color: #ffffff;
+	width: 25%;
+}
+
+
+<!-- layout jsp table END  -->
+
+.highlight {
+	background-color:#FF9D9D;
+	border-bottom:#F30 1px solid;
+	border-top:#F30 1px solid;
+	padding: 4px 10px
+}
+
+/***** Main Layout ****/
