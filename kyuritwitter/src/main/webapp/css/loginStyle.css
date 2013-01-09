@@ -1,23 +1,5 @@
-
-a {
-color : #0099cc;
-text-decoration : none;
-}
-a:hover {
-color : #00ccff;
-}
-a img {
-border : none;
-}
-h1 {
-font-size : 1.6em;
-height : 20px;
-padding-top : 0;
-}
-h2 {
-font-size : 1.2em;
-height : 20px;
-padding-top : 0;
+body{
+	color:#1F1B1B;
 }
 .highlight {
 background-color : #ff9d9d;
@@ -272,3 +254,13 @@ label.w1{
 	font-size:1.2em;
 	margin : 40px 40px 40px 40px;
 }
+.login_form{
+	margin-top:250px;
+	margin-right:350px;
+	margin-left:350px;
+}
+.top_comment{
+	padding-top:50px;
+	color:#ffffff;
+}
+

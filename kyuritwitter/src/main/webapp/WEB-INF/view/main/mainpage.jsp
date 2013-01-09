@@ -1,48 +1,43 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
-
-<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
-<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 
 
-<style type="text/css">
-input.style{
-width:50%;
-height:6em;
-}
-</style>
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+
+
+		<style type="text/css">
+			input.style{
+			width:50%;
+			height:6em;
+			}
+		</style>
 
 <!--<tiles:insert page="/WEB-INF/view/common/header.jsp"  />-->
-<title>メインページ</title>
-</head>
-<body>
-<tiles:insert template="/WEB-INF/view/common/layout.jsp" flush="true">
-<tiles:put name="title" value="followedpage" />
-<tiles:put name="content" type="string">
-<br>
-<!-- 吹き出し -->
-<div id="baroon">
-<div id="balloon-p1"></div>
-	<div id="balloon-p2"></div>
-	<div id="balloon-c">
+		<title>メインページ</title>
+	</head>
+	<body>
+		<tiles:insert template="/WEB-INF/view/common/layout.jsp" flush="true">
+		<tiles:put name="title" value="followedpage" />
+		<tiles:put name="content" type="string">
 
 
 <!-- mainページのときだけ、つぶやきformを出力する -->
-<c:if test="${fFlag==0}">
-<div class="scroll"></div>
-<s:form>
+		<c:if test="${fFlag==0}">
 
-	いまなにしてる？<html:errors property="tubuyaki" /><br>
-	<input type="text" name="tubuyaki"  class="style"  value="" />
+		<div class="scroll"></div>
+		<s:form>
 
-<input type="submit" name = "ins_tubuyaki" value="投稿する" class="input_button" />
-</s:form>
-<font size="2" color=#999999>最新のつぶやき：
-${mydata.newMur}　${mydata.newMurD}</font><br>
-</c:if>
+			いまなにしてる？<html:errors property="tubuyaki" /><br>
+
+			<input type="submit" name = "ins_tubuyaki" value="投稿する" class="input_button" />
+		</s:form>
+		<font size="2" color=#999999>最新のつぶやき：
+		${mydata.newMur}　${mydata.newMurD}</font><br>
+		</c:if>
 <br>
 <br>
 <br>
@@ -109,8 +104,6 @@ ${tubuyaki.tuser.usernick}</span></s:link>
 
 </c:if>
 
-</div>
-</div>
 </tiles:put>
 </tiles:insert>
 </body>

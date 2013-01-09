@@ -7,6 +7,14 @@ import javax.servlet.jsp.*;
 public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
+static private org.apache.jasper.runtime.ProtectedFunctionMapper _jspx_fnmap_0;
+
+static {
+  _jspx_fnmap_0= org.apache.jasper.runtime.ProtectedFunctionMapper.getMapForFunction("f:url", org.seasar.struts.taglib.S2Functions.class, "url", new Class[] {java.lang.String.class});
+}
+
+  private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+
   private static java.util.List _jspx_dependants;
 
   static {
@@ -16,9 +24,10 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fform;
-  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody;
-  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fproperty_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fproperty;
+
+  private javax.el.ExpressionFactory _el_expressionfactory;
+  private org.apache.AnnotationProcessor _jsp_annotationprocessor;
 
   public Object getDependants() {
     return _jspx_dependants;
@@ -27,23 +36,20 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspInit() {
     _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fform = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fproperty = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
+    _jsp_annotationprocessor = (org.apache.AnnotationProcessor) getServletConfig().getServletContext().getAttribute(org.apache.AnnotationProcessor.class.getName());
   }
 
   public void _jspDestroy() {
     _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005fform.release();
-    _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.release();
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fproperty_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fproperty.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
         throws java.io.IOException, ServletException {
 
-    JspFactory _jspxFactory = null;
     PageContext pageContext = null;
     HttpSession session = null;
     ServletContext application = null;
@@ -55,7 +61,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 
 
     try {
-      _jspxFactory = JspFactory.getDefaultFactory();
       response.setContentType("text/html;charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
@@ -75,54 +80,99 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("<html>\r\n");
-      out.write("<head>\r\n");
-      out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n");
+      out.write("\t<head>\r\n");
+      out.write("\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n");
+      out.write("\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\r\n");
+      out.write("\t\t<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/css/bootstrap-responsive.css\" />\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/css/bootstrap.css\" />\r\n");
       out.write("\r\n");
-      out.write("<link rel=\"Stylesheet\" href=\"");
+      out.write("\t\t<script type=\"text/javascript\" src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/js/bootstrap.js\"></script>\r\n");
+      out.write("\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/css/style.css\" />\r\n");
-      out.write("<link rel=\"Stylesheet\" href=\"");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/css/cssfile.css\" />\r\n");
-      out.write("<link rel=\"Stylesheet\" href=\"");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/css/loginStyle.css\" />\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/css/loginboot.css\" />\r\n");
       out.write("\r\n");
+      out.write("\t\t<script type=\"text/javascript\" src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/js/jquery.js\"></script>\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\t\t");
       if (_jspx_meth_tiles_005finsert_005f0(_jspx_page_context))
         return;
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\t\t<script type=\"text/javascript\">\r\n");
+      out.write("\t\t$(function(){\r\n");
+      out.write("\t\t\t$('#user_register').load('");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${f:url('login_register')}", java.lang.String.class, (PageContext)_jspx_page_context, _jspx_fnmap_0, false));
+      out.write("');\r\n");
+      out.write("\t\t\t});\r\n");
       out.write("\r\n");
-      out.write("<title>login</title>\r\n");
-      out.write("</head>\r\n");
-      out.write("<body>\r\n");
-      out.write("<div id=\"baroon\">\r\n");
-      out.write("<div id=\"balloon-p1\"></div>\r\n");
-      out.write("\t<div id=\"balloon-p2\"></div>\r\n");
-      out.write("\t<div id=\"balloon-c\">\r\n");
-      out.write("<h2>ログイン</h2>\r\n");
-      out.write("<br>\r\n");
+      out.write("\t\t</script>\r\n");
+      out.write("\r\n");
+      out.write("\t\t<title>login</title>\r\n");
+      out.write("\t</head>\r\n");
+      out.write("\r\n");
+      out.write("\t<body>\r\n");
+      out.write("\t\t<div class=\"login_form container-fluid\">\r\n");
+      out.write("\r\n");
+      out.write("\t\t\t<div class=\"row\">\r\n");
+      out.write("\t\t\t\t<div class=\"top_comment span7\">\r\n");
+      out.write("\t\t\t\t\t<h4>Twitterへようこそ<br>\r\n");
+      out.write("\t\t\t\t\t家族や友達、身近な生活の中や気になる会社やブランドで、今、何が起きているのかを見つけよう。</h4>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\t\t\t\t<div class=\"offset1 span4\">\r\n");
+      out.write("\t\t\t\t<!-- <div class=\"loginformdiv\">  -->\r\n");
+      out.write("\r\n");
+      out.write("\t\t\t\t\t<pre id=\"login\">\r\n");
+      out.write("\t\t\t\t\t");
       if (_jspx_meth_s_005fform_005f0(_jspx_page_context))
         return;
       out.write("\r\n");
+      out.write("\t\t\t\t\t</pre>\r\n");
       out.write("\r\n");
+      out.write("\t\t\t\t\t<pre id=\"user_register\">\r\n");
+      out.write("\t\t\t\t\t");
       if (_jspx_meth_s_005fform_005f1(_jspx_page_context))
         return;
       out.write("\r\n");
-      out.write("</div>\r\n");
-      out.write("</div>\r\n");
+      out.write("\t\t\t\t\t</pre>\r\n");
       out.write("\r\n");
-      out.write("</body>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t</div>\r\n");
+      out.write("\t\t</div>\r\n");
+      out.write("\r\n");
+      out.write("\t</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
         if (out != null && out.getBufferSize() != 0)
-          out.clearBuffer();
+          try { out.clearBuffer(); } catch (java.io.IOException e) {}
         if (_jspx_page_context != null) _jspx_page_context.handlePageException(t);
+        else log(t.getMessage(), t);
       }
     } finally {
-      if (_jspxFactory != null) _jspxFactory.releasePageContext(_jspx_page_context);
+      _jspxFactory.releasePageContext(_jspx_page_context);
     }
   }
 
@@ -134,6 +184,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f0 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
     _jspx_th_tiles_005finsert_005f0.setPageContext(_jspx_page_context);
     _jspx_th_tiles_005finsert_005f0.setParent(null);
+    // /WEB-INF/view/login/index.jsp(19,2) name = page type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_tiles_005finsert_005f0.setPage("/WEB-INF/view/common/header.jsp");
     int _jspx_eval_tiles_005finsert_005f0 = _jspx_th_tiles_005finsert_005f0.doStartTag();
     if (_jspx_th_tiles_005finsert_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -156,25 +207,14 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     if (_jspx_eval_s_005fform_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\r\n");
-        out.write("    ");
-        if (_jspx_meth_html_005ferrors_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
-          return true;
-        out.write("\r\n");
-        out.write("\t<label class=\"w1\" for=\"userid\">名前:</label>\r\n");
-        out.write("\t<input type=\"text\" name=\"UserName\" class=\"\" id=\"userid\"/>\r\n");
-        out.write("\t<br>\r\n");
-        out.write("\t<label class=\"w1\" for=\"pass\">パスワード:</label>\r\n");
-        out.write("\t<input type=\"password\" name=\"Pass\" autocomplete=\"off\" id=\"pass\"/>\r\n");
-        out.write("\t<!--");
-        if (_jspx_meth_html_005ftext_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
-          return true;
-        out.write("</div><br>-->\r\n");
-        out.write("<br>\r\n");
-        out.write("\t");
+        out.write("\t\t\t\t\t\t<p><input type=\"text\" name=\"UserName\" class=\"form_style\" id=\"userid\" placeholder=\"ユーザ名、またはメールアドレス\"/></p>\r\n");
+        out.write("\t\t\t\t\t\t<p><input type=\"password\" name=\"Pass\" autocomplete=\"off\" class=\"form_style\" id=\"pass\" placeholder=\"パスワード\"/></p>\r\n");
+        out.write("\t\t\t\t\t<p class=\"login_buton\">");
         if (_jspx_meth_s_005fsubmit_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
-        out.write('\r');
-        out.write('\n');
+        out.write("</p>\r\n");
+        out.write("\r\n");
+        out.write("\t\t\t\t\t");
         int evalDoAfterBody = _jspx_th_s_005fform_005f0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -188,41 +228,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_html_005ferrors_005f0(javax.servlet.jsp.tagext.JspTag _jspx_th_s_005fform_005f0, PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  html:errors
-    org.apache.struts.taglib.html.ErrorsTag _jspx_th_html_005ferrors_005f0 = (org.apache.struts.taglib.html.ErrorsTag) _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.get(org.apache.struts.taglib.html.ErrorsTag.class);
-    _jspx_th_html_005ferrors_005f0.setPageContext(_jspx_page_context);
-    _jspx_th_html_005ferrors_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    int _jspx_eval_html_005ferrors_005f0 = _jspx_th_html_005ferrors_005f0.doStartTag();
-    if (_jspx_th_html_005ferrors_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.reuse(_jspx_th_html_005ferrors_005f0);
-      return true;
-    }
-    _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.reuse(_jspx_th_html_005ferrors_005f0);
-    return false;
-  }
-
-  private boolean _jspx_meth_html_005ftext_005f0(javax.servlet.jsp.tagext.JspTag _jspx_th_s_005fform_005f0, PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  html:text
-    org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
-    _jspx_th_html_005ftext_005f0.setPageContext(_jspx_page_context);
-    _jspx_th_html_005ftext_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    _jspx_th_html_005ftext_005f0.setProperty("Pass");
-    int _jspx_eval_html_005ftext_005f0 = _jspx_th_html_005ftext_005f0.doStartTag();
-    if (_jspx_th_html_005ftext_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
-      return true;
-    }
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
-    return false;
-  }
-
   private boolean _jspx_meth_s_005fsubmit_005f0(javax.servlet.jsp.tagext.JspTag _jspx_th_s_005fform_005f0, PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
@@ -231,6 +236,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f0 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fproperty.get(org.seasar.struts.taglib.S2SubmitTag.class);
     _jspx_th_s_005fsubmit_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
+    // /WEB-INF/view/login/index.jsp(48,28) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setProperty("loginSubmit");
     int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
     if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -240,7 +246,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
         _jspx_th_s_005fsubmit_005f0.doInitBody();
       }
       do {
-        out.write("ログインする");
+        out.write("ログイン");
         int evalDoAfterBody = _jspx_th_s_005fsubmit_005f0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -269,11 +275,12 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     if (_jspx_eval_s_005fform_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\r\n");
-        out.write("<b>ユーザ登録(無料)</b>\r\n");
+        out.write("\t\t\t\t\t\t<b>ユーザ登録(無料)</b>\r\n");
+        out.write("\t\t\t\t\t\t");
         if (_jspx_meth_s_005fsubmit_005f1(_jspx_th_s_005fform_005f1, _jspx_page_context))
           return true;
         out.write("\r\n");
-        out.write("\r\n");
+        out.write("\t\t\t\t\t");
         int evalDoAfterBody = _jspx_th_s_005fform_005f1.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -295,6 +302,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f1 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fproperty.get(org.seasar.struts.taglib.S2SubmitTag.class);
     _jspx_th_s_005fsubmit_005f1.setPageContext(_jspx_page_context);
     _jspx_th_s_005fsubmit_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f1);
+    // /WEB-INF/view/login/index.jsp(56,6) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f1.setProperty("userentry");
     int _jspx_eval_s_005fsubmit_005f1 = _jspx_th_s_005fsubmit_005f1.doStartTag();
     if (_jspx_eval_s_005fsubmit_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {

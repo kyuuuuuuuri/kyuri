@@ -1,15 +1,16 @@
 package root.action;
 
+import javasource.passwordhash;
+
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.exception.ActionMessagesException;
 
+import root.SuperAction;
 import root.entity.Tuser;
 import root.form.LoginForm;
-
-import root.SuperAction;
 
 
 public class LoginAction extends SuperAction{
@@ -28,6 +29,11 @@ public class LoginAction extends SuperAction{
     	return "index.jsp";
 	}
 
+    @Execute(validator=false)
+    public String login_register() {
+    	return "/user/index.jsp";
+    }
+
     @Execute(validator = true, input="/login/index.jsp", urlPattern="main")
     public String loginSubmit(){
 
@@ -36,9 +42,10 @@ public class LoginAction extends SuperAction{
 			mine=userDto.userID;
 			return "/main/";
 		}
-
-    	String userName=loginForm.UserName;
-    	String pass=loginForm.Pass;
+	  	String userName=loginForm.UserName;
+    	//String pass=loginForm.Pass;
+		passwordhash e = new passwordhash();
+		String pass = e.getpassword(loginForm.Pass);
 
     	//ユーザが存在するか検証
     	Tuser result =tuserService.findByName(userName);
@@ -46,6 +53,8 @@ public class LoginAction extends SuperAction{
     	if(result==null || (!pass.equals(result.passWord))){//ユーザ名が登録されていなかったら…
     		throw new ActionMessagesException("パスワードとユーザ名が一致しません",false);
     	}
+
+		System.out.println("kyuuri" + pass);
 
     	//ユーザＩＤをセッション登録する
     	userDto.userID=result.userid;

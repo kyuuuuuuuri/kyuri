@@ -28,6 +28,13 @@ input.input_button{
 	height:3em;
 }
 
+.maintwitline {
+	margin-left: 450px;
+	margin-right: 450px;
+	padding:10px;
+	background-color:#468A6F;
+}
+
 <!--吹き出しCSS-->
 #balloon {
 	position: absolute;
@@ -66,3 +73,7 @@ input.input_button{
 	height:18px;
 	width:0px;
 }
+
+
+<!--bootStrap用レイアウト-->
+

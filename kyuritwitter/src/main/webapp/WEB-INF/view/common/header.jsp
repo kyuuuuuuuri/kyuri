@@ -1,32 +1,42 @@
 <html>
-<head>
-<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
+	<head>
 
-</head>
-<body>
-<font size="6">
-<s:link href="/main/main"><img src="${f:url('/img/twitter.jpg')}"></s:link>
-</font>
-<c:if test="${ mine == 0 }">
+	</head>
+	<body>
 
-<s:link href="/main/">ホーム</s:link>
-　
-<s:link href="/user/">ユーザ登録</s:link>
-　
-<s:link href="/login/">ログイン</s:link>
 
-</c:if>
+		<c:if test="${ mine == 0 }">
+			<div class="navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<ul class="nav">
+							<li><s:link href="/main/"><span class="header_font">ホーム</span></s:link></li>
+							<li class="divider-vertical"></li>
+							<li><s:link href="/user/"><span class="header_font">ユーザ登録</span></s:link></li>
+							<li class="divider-vertical"></li>
+							<li><s:link href="/login/"><span class="header_font">ログイン</span></s:link></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</c:if>
 
-<c:if test="${ mine != 0 }">
+		<c:if test="${ mine != 0 }">
+			<div class="navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<ul class="nav">
+							<li><s:link href="/main/"><span class="header_font">ホーム</span></s:link></li>
 
-<s:link href="/main/">ホーム</s:link>
-　
-<s:link href="/search/">友人を検索</s:link>
-　
-<s:link href="logout">ログアウト</s:link>
+							<li><s:link href="/search/"><span class="header_font">友人を検索</span></s:link></li>
 
-</c:if>
+							<li><s:link href="logout"><span class="header_font">ログアウト</span></s:link></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</c:if>
 
-</body>
+	</body>
 </html>
 

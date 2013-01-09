@@ -1,3 +1,4 @@
+<div class="sidebar">
 <table border="0">
 <tr>
 <td colspan="3"><h2>${mydata.usernick }</h2></td>
@@ -10,3 +11,4 @@
 <td>${mydata.postNum }　　<s:link href="/main/showdata/${mydata.usernick}"style="text-decoration: none">投稿数</s:link></td>
 </tr>
 </table>
+</div>

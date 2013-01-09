@@ -7,6 +7,8 @@ import javax.servlet.jsp.*;
 public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
+  private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+
   private static java.util.List _jspx_dependants;
 
   static {
@@ -18,6 +20,9 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody;
 
+  private javax.el.ExpressionFactory _el_expressionfactory;
+  private org.apache.AnnotationProcessor _jsp_annotationprocessor;
+
   public Object getDependants() {
     return _jspx_dependants;
   }
@@ -26,6 +31,8 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     _005fjspx_005ftagPool_005ftiles_005fgetAsString_0026_005fname_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
+    _jsp_annotationprocessor = (org.apache.AnnotationProcessor) getServletConfig().getServletContext().getAttribute(org.apache.AnnotationProcessor.class.getName());
   }
 
   public void _jspDestroy() {
@@ -37,7 +44,6 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
         throws java.io.IOException, ServletException {
 
-    JspFactory _jspxFactory = null;
     PageContext pageContext = null;
     HttpSession session = null;
     ServletContext application = null;
@@ -49,7 +55,6 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
 
 
     try {
-      _jspxFactory = JspFactory.getDefaultFactory();
       response.setContentType("text/html;charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
@@ -69,68 +74,91 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("<html>\r\n");
-      out.write("<head>\r\n");
-      out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n");
-      out.write("<meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\r\n");
-      out.write("<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">\r\n");
+      out.write("\t<head>\r\n");
+      out.write("\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n");
+      out.write("\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\r\n");
+      out.write("\t\t<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/css/bootstrap-responsive.css\" />\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/css/bootstrap.css\" />\r\n");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/js/bootstrap.js\" />\r\n");
       out.write("\r\n");
-      out.write("<link rel=\"Stylesheet\" href=\"");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/css/style.css\" />\r\n");
-      out.write("<link rel=\"Stylesheet\" href=\"");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/css/cssfile.css\" />\r\n");
-      out.write("<link rel=\"Stylesheet\" href=\"");
+      out.write("\t\t<link rel=\"Stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/css/loginStyle.css\" />\r\n");
       out.write("\r\n");
-      out.write("<script type=\"text/javascript\" src=\"");
+      out.write("\t\t<script type=\"text/javascript\" src=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/js/jquery.js\"></script>\r\n");
       out.write("\r\n");
       out.write("\r\n");
-      out.write("<title>");
+      out.write("\t\t<title>");
       if (_jspx_meth_tiles_005fgetAsString_005f0(_jspx_page_context))
         return;
       out.write("</title>\r\n");
       out.write("\r\n");
       out.write("\r\n");
-      out.write("</head>\r\n");
-      out.write("<body>\r\n");
+      out.write("\t</head>\r\n");
+      out.write("\t<body>\r\n");
       out.write("\r\n");
-      out.write("<table width=\"80%\">\r\n");
-      out.write("\r\n");
-      out.write("  <tr><td colspan=\"2\">");
+      out.write("\t\t\t");
       if (_jspx_meth_tiles_005finsert_005f0(_jspx_page_context))
         return;
-      out.write("</td></tr>\r\n");
-      out.write("  <tr>\r\n");
-      out.write("\t<td class=\"contents\" >");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\t\t<div class=\"container-fluid\">\r\n");
+      out.write("\t\t\t<div class=\"maintwitline\">\r\n");
+      out.write("\t\t\t\t<div class=\"container\">\r\n");
+      out.write("\t\t\t\t\t<div class=\"row\">\r\n");
+      out.write("\t\t\t\t\t\t<div class=\"span4\">\r\n");
+      out.write("\t\t\t\t\t\t");
       if (_jspx_meth_tiles_005finsert_005f1(_jspx_page_context))
         return;
-      out.write("</td>\r\n");
-      out.write("    <td class=\"menu\" width=\"20%\" valign=\"top\">");
+      out.write("\r\n");
+      out.write("\t\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t\t<div class=\"span8\">\r\n");
+      out.write("\t\t\t\t\t\t");
       if (_jspx_meth_tiles_005finsert_005f2(_jspx_page_context))
         return;
-      out.write("</td>\r\n");
-      out.write("  </tr>\r\n");
-      out.write("  <tr><td colspan=\"2\">");
+      out.write("\r\n");
+      out.write("\t\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\r\n");
+      out.write("\t\t\t</div>\r\n");
+      out.write("\t\t</div>\r\n");
+      out.write("\r\n");
+      out.write("\t\t<div id=\"footer\">\r\n");
+      out.write("\t\t\t");
       if (_jspx_meth_tiles_005finsert_005f3(_jspx_page_context))
         return;
-      out.write("</td></tr>\r\n");
-      out.write("</table>\r\n");
       out.write("\r\n");
-      out.write("</body>\r\n");
+      out.write("\t\t</div>\r\n");
+      out.write("\t\t</div>\r\n");
+      out.write("\r\n");
+      out.write("\t</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
         if (out != null && out.getBufferSize() != 0)
-          out.clearBuffer();
+          try { out.clearBuffer(); } catch (java.io.IOException e) {}
         if (_jspx_page_context != null) _jspx_page_context.handlePageException(t);
+        else log(t.getMessage(), t);
       }
     } finally {
-      if (_jspxFactory != null) _jspxFactory.releasePageContext(_jspx_page_context);
+      _jspxFactory.releasePageContext(_jspx_page_context);
     }
   }
 
@@ -142,6 +170,7 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.tiles.GetAttributeTag _jspx_th_tiles_005fgetAsString_005f0 = (org.apache.struts.taglib.tiles.GetAttributeTag) _005fjspx_005ftagPool_005ftiles_005fgetAsString_0026_005fname_005fnobody.get(org.apache.struts.taglib.tiles.GetAttributeTag.class);
     _jspx_th_tiles_005fgetAsString_005f0.setPageContext(_jspx_page_context);
     _jspx_th_tiles_005fgetAsString_005f0.setParent(null);
+    // /WEB-INF/view/common/layout.jsp(17,9) name = name type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_tiles_005fgetAsString_005f0.setName("title");
     int _jspx_eval_tiles_005fgetAsString_005f0 = _jspx_th_tiles_005fgetAsString_005f0.doStartTag();
     if (_jspx_th_tiles_005fgetAsString_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -160,6 +189,7 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f0 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
     _jspx_th_tiles_005finsert_005f0.setPageContext(_jspx_page_context);
     _jspx_th_tiles_005finsert_005f0.setParent(null);
+    // /WEB-INF/view/common/layout.jsp(23,3) name = page type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_tiles_005finsert_005f0.setPage("/WEB-INF/view/common/header.jsp");
     int _jspx_eval_tiles_005finsert_005f0 = _jspx_th_tiles_005finsert_005f0.doStartTag();
     if (_jspx_th_tiles_005finsert_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -175,16 +205,17 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  tiles:insert
-    org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f1 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
+    org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f1 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
     _jspx_th_tiles_005finsert_005f1.setPageContext(_jspx_page_context);
     _jspx_th_tiles_005finsert_005f1.setParent(null);
-    _jspx_th_tiles_005finsert_005f1.setAttribute("content");
+    // /WEB-INF/view/common/layout.jsp(31,6) name = page type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_tiles_005finsert_005f1.setPage("/WEB-INF/view/common/menu.jsp");
     int _jspx_eval_tiles_005finsert_005f1 = _jspx_th_tiles_005finsert_005f1.doStartTag();
     if (_jspx_th_tiles_005finsert_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody.reuse(_jspx_th_tiles_005finsert_005f1);
+      _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.reuse(_jspx_th_tiles_005finsert_005f1);
       return true;
     }
-    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody.reuse(_jspx_th_tiles_005finsert_005f1);
+    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.reuse(_jspx_th_tiles_005finsert_005f1);
     return false;
   }
 
@@ -193,16 +224,17 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  tiles:insert
-    org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f2 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
+    org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f2 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
     _jspx_th_tiles_005finsert_005f2.setPageContext(_jspx_page_context);
     _jspx_th_tiles_005finsert_005f2.setParent(null);
-    _jspx_th_tiles_005finsert_005f2.setPage("/WEB-INF/view/common/menu.jsp");
+    // /WEB-INF/view/common/layout.jsp(34,6) name = attribute type = java.lang.String reqTime = false required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_tiles_005finsert_005f2.setAttribute("content");
     int _jspx_eval_tiles_005finsert_005f2 = _jspx_th_tiles_005finsert_005f2.doStartTag();
     if (_jspx_th_tiles_005finsert_005f2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.reuse(_jspx_th_tiles_005finsert_005f2);
+      _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody.reuse(_jspx_th_tiles_005finsert_005f2);
       return true;
     }
-    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.reuse(_jspx_th_tiles_005finsert_005f2);
+    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fattribute_005fnobody.reuse(_jspx_th_tiles_005finsert_005f2);
     return false;
   }
 
@@ -214,6 +246,7 @@ public final class layout_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f3 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
     _jspx_th_tiles_005finsert_005f3.setPageContext(_jspx_page_context);
     _jspx_th_tiles_005finsert_005f3.setParent(null);
+    // /WEB-INF/view/common/layout.jsp(42,3) name = page type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_tiles_005finsert_005f3.setPage("/WEB-INF/view/common/footer.jsp");
     int _jspx_eval_tiles_005finsert_005f3 = _jspx_th_tiles_005finsert_005f3.doStartTag();
     if (_jspx_th_tiles_005finsert_005f3.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {

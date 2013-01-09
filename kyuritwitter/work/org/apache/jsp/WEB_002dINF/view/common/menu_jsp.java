@@ -7,6 +7,8 @@ import javax.servlet.jsp.*;
 public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
+  private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+
   private static java.util.List _jspx_dependants;
 
   static {
@@ -16,12 +18,17 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref;
 
+  private javax.el.ExpressionFactory _el_expressionfactory;
+  private org.apache.AnnotationProcessor _jsp_annotationprocessor;
+
   public Object getDependants() {
     return _jspx_dependants;
   }
 
   public void _jspInit() {
     _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
+    _jsp_annotationprocessor = (org.apache.AnnotationProcessor) getServletConfig().getServletContext().getAttribute(org.apache.AnnotationProcessor.class.getName());
   }
 
   public void _jspDestroy() {
@@ -31,7 +38,6 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
         throws java.io.IOException, ServletException {
 
-    JspFactory _jspxFactory = null;
     PageContext pageContext = null;
     HttpSession session = null;
     ServletContext application = null;
@@ -43,7 +49,6 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
 
 
     try {
-      _jspxFactory = JspFactory.getDefaultFactory();
       response.setContentType("text/html;charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
@@ -62,6 +67,7 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("  \r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("<div class=\"sidebar\">\r\n");
       out.write("<table border=\"0\">\r\n");
       out.write("<tr>\r\n");
       out.write("<td colspan=\"3\"><h2>");
@@ -91,16 +97,18 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
         return;
       out.write("</td>\r\n");
       out.write("</tr>\r\n");
-      out.write("</table>");
+      out.write("</table>\r\n");
+      out.write("</div>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
         if (out != null && out.getBufferSize() != 0)
-          out.clearBuffer();
+          try { out.clearBuffer(); } catch (java.io.IOException e) {}
         if (_jspx_page_context != null) _jspx_page_context.handlePageException(t);
+        else log(t.getMessage(), t);
       }
     } finally {
-      if (_jspxFactory != null) _jspxFactory.releasePageContext(_jspx_page_context);
+      _jspxFactory.releasePageContext(_jspx_page_context);
     }
   }
 
@@ -112,7 +120,9 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f0 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f0.setParent(null);
+    // /WEB-INF/view/common/menu.jsp(7,25) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f0.setHref((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("/followlist/followpage/${mydata.userid }", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+    // /WEB-INF/view/common/menu.jsp(7,25) name = style type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f0.setStyle("text-decoration: none");
     int _jspx_eval_s_005flink_005f0 = _jspx_th_s_005flink_005f0.doStartTag();
     if (_jspx_eval_s_005flink_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -147,7 +157,9 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f1 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f1.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f1.setParent(null);
+    // /WEB-INF/view/common/menu.jsp(8,27) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f1.setHref((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("/followlist/followedlist/${mydata.userid }", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+    // /WEB-INF/view/common/menu.jsp(8,27) name = style type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f1.setStyle("text-decoration: none");
     int _jspx_eval_s_005flink_005f1 = _jspx_th_s_005flink_005f1.doStartTag();
     if (_jspx_eval_s_005flink_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -182,7 +194,9 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f2 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f2.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f2.setParent(null);
+    // /WEB-INF/view/common/menu.jsp(11,24) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f2.setHref((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("/main/showdata/${mydata.usernick}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+    // /WEB-INF/view/common/menu.jsp(11,24) name = style type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f2.setStyle("text-decoration: none");
     int _jspx_eval_s_005flink_005f2 = _jspx_th_s_005flink_005f2.doStartTag();
     if (_jspx_eval_s_005flink_005f2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {

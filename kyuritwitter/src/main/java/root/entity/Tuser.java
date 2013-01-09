@@ -3,6 +3,7 @@ package root.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 
 /**
  * Tuserエンティティクラス
- * 
+ *
  */
 @Entity
 @Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2012/05/22 14:16:24")
@@ -36,7 +37,7 @@ public class Tuser implements Serializable {
     public String usernick;
 
     /** passWordプロパティ */
-    @Column(length = 20, nullable = false, unique = false)
+    @Column(length = 100, nullable = false, unique = false)
     public String passWord;
 
     /** mailadプロパティ */
