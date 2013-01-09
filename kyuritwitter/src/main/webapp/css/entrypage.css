@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+pre{
+	margin: 0 auto;
+	margin-top:50px;
+	width:800px;
+
+	padding:100px;
+	padding-top:80px;
+	white-space:nowrap;
+}
+form{
+	margin:0px;
+	padding:0px;
+}
+
+input[type="text"]{
+	height:30px;
+	width:400px;
+
+}
+.username_alert{
+	margin-left:15px;
+}
+
+h4{
+	margin-bottom:40px;
+}
+
+
+.alert_css{
+	color:#cc0033;
+}
+
+.success_css{
+	color:#339966;
+}
+
+#pass{
+	height:30px;
+	width:400px;
+}

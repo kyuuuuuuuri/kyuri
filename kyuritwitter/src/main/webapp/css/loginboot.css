@@ -1,0 +1,63 @@
+.loginformdiv{
+	background-color: white;
+	border: 1px solid #CCC;
+	padding:20px;
+}
+
+.user_submit_div{
+	background-color: white;
+	border: 1px solid #CCC;
+	padding:20px;
+	margin-top:20px;
+}
+
+div.login_form input{
+	height:30px;
+	width:80px;
+}
+
+div.login_form .form_style{
+	height:35px;
+	width:250px;
+	margin:0px;
+}
+
+
+.login_buton{
+	text-align: right;
+}
+
+.header_font{
+	font-size:15;
+	color:#A9A9A9;
+
+}
+.header_font:hover{
+	font-size:15;
+	color:#ffffff;
+}
+a{
+	text-decoration:none;
+}
+a:link{
+	margin-top:20px;
+	text-decoration:none;
+}
+div.top_div{
+	width:800px;
+	margin-right:350px;
+}
+pre{
+	padding:15px 30px 10px 10px;
+	white-space:nowrap;
+}
+span{
+	margin:0px;
+}
+li{
+	line-height:5px;
+}
+form{
+	margin:0px;
+	padding:0px;
+}
