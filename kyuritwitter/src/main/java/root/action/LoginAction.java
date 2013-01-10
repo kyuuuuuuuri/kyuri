@@ -50,11 +50,13 @@ public class LoginAction extends SuperAction{
     	//ユーザが存在するか検証
     	Tuser result =tuserService.findByName(userName);
 
+    	System.out.println("kyuuri" + pass + result.passWord);
+
     	if(result==null || (!pass.equals(result.passWord))){//ユーザ名が登録されていなかったら…
     		throw new ActionMessagesException("パスワードとユーザ名が一致しません",false);
     	}
 
-		System.out.println("kyuuri" + pass);
+
 
     	//ユーザＩＤをセッション登録する
     	userDto.userID=result.userid;
