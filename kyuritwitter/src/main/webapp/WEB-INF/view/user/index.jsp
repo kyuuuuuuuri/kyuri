@@ -1,4 +1,6 @@
-<%@page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=utf-8" %>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
 
 
 	<s:form>

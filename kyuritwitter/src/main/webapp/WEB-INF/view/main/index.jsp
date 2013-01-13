@@ -25,19 +25,6 @@
 				$(this).css("color","#000");
 		});
 
-
-		//delete
-//		$("#deletesubmit").click(function(e){
-//
-//			var delete_userid= $(this).attr('style');
-
-//			$.post('${f:url('delete1')}', {
-//				'delete_id' : delete_userid
-//				}, function(){
-//					alert('成功！！');
-//					("#twitmain").remove();
-//				});
-//		});
 		//retwit Ajax
 		$("#retwit").click(function(){
 
@@ -62,23 +49,11 @@ height:3em;
 </head>
 <body>
 <br>
-<!-- 吹き出し -->
-<div id="baroon">
-<div id="balloon-p1"></div>
-	<div id="balloon-p2"></div>
-	<div id="balloon-c">
-
 
 <!-- mainページのときだけ、つぶやきformを出力する -->
 <c:if test="${fFlag==0}">
 
-<s:form>
 
-	いまなにしてる？<html:errors property="tubuyaki" /><br>
-	<input type="text" name="tubuyaki"  class="style"  value="" />
-
-<input type="submit" name = "ins_tubuyaki" value="投稿する" class="input_button" />
-</s:form>
 <font size="2" color=#999999>最新のつぶやき：
 ${mydata.newMur}　${mydata.newMurD}</font><br>
 </c:if>
@@ -162,6 +137,12 @@ ${tubuyaki.tuser.usernick}</s:link>
 <td>${mydata.postNum }<br><s:link href="showdata/${mydata.userid}" style="text-decoration: none">投稿数</s:link></td>
 
 </tr>
+<s:form>
+
+	<input type="text" name="tubuyaki"  class="style"  value="" />
+
+	<input type="submit" name = "ins_tubuyaki" value="Twitter" class="input_button" />
+</s:form>
 </table>
 <!-- ***********ページング*********** -->
 <br clear="left">
@@ -171,7 +152,6 @@ ${tubuyaki.tuser.usernick}</s:link>
 <c:if test="${hasNext}">
 	<a href="?page=${page+1 }">次へ&gt;</a>
 </c:if>
-</div>
-</div>
+
 </body>
 </html>

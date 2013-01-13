@@ -1,3 +1,7 @@
+<%@ page contentType="text/html; charset=utf-8" %>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
 <tiles:insert template="/WEB-INF/view/common/layout.jsp" flush="true">
 <tiles:put name="title" value="followedpage" />
 <tiles:put name="content" type="string">
