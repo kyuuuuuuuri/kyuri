@@ -1,5 +1,5 @@
-
-<!--mainpageƒe[ƒuƒ‹ƒŒƒCƒAƒEƒg-->
+@charset "utf-8";
+<!--mainpageãƒ†ãƒ¼ãƒ–ãƒ«ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ-->
 #table-main{
 border:1px #f0f8ff solid;
 border-collapse:collapse;
@@ -18,7 +18,7 @@ border-spacing:0;
 	padding:5px;
 	border-wicth:0 0 1px 1px;
 }
-<!--mainpage‚Â‚Ô‚â‚«˜gƒŒƒCƒAƒEƒg-->
+<!--mainpageã¤ã¶ã‚„ãæž ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ-->
 input.input_style{
 	width:100%;
 	height:3em;
@@ -35,7 +35,7 @@ input.input_button{
 	background-color:#468A6F;
 }
 
-<!--‚«o‚µCSS-->
+<!--å¹ãå‡ºã—CSS-->
 #balloon {
 	position: absolute;
 	/* width: 200px; */
@@ -60,7 +60,7 @@ input.input_button{
 	clear: left;
 }
 
-<!--ƒpƒXƒ[ƒh‹­“x—p-->
+<!--ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å¼·åº¦ç”¨-->
 #psContainer{
 	height:18px;
 	width:100px;
@@ -75,5 +75,5 @@ input.input_button{
 }
 
 
-<!--bootStrap—pƒŒƒCƒAƒEƒg-->
+<!--bootStrapç”¨ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ-->
 

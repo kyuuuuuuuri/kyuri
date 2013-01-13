@@ -22,7 +22,7 @@
 
 		<tiles:insert page="/WEB-INF/view/common/header.jsp"  />
 
-		<script type="text/javascript">
+		<script type="text/javascript" charset="UTF-8">
 		$(function(){
 			$('#user_register').load('${f:url('login_register')}');
 			});
