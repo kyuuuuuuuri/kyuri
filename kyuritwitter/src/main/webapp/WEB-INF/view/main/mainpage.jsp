@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html>
@@ -82,7 +82,8 @@ ${tubuyaki.tuser.usernick}</span></s:link>
 
 <p id="twitid">${f:br(tubuyaki.murmur)}</p><br>
 <font color=#808080 size="2">
-<fmt:formatDate value="${tubuyaki.dateTime}"pattern="yyyy年MM月dd日 HH時mm分ss秒"/></font>
+<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
+</font>
 
 <!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
 <c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
