@@ -89,7 +89,7 @@ ${tubuyaki.tuser.usernick}</span></s:link>
 <c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
 <s:link href="/main/retwit/${tubuyaki.murmurid }">リツイート</s:link>
 <s:form style="margin: 0px; float: left;">
-<input type="button"   onclick="replyan('${status.index}');" value="返信"/>
+<input type="button" onclick="replyan('${status.index}');" value="返信"/>
 </s:form>
 </c:if>
 

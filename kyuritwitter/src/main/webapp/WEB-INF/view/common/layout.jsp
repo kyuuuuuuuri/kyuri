@@ -35,7 +35,7 @@
 						<tiles:insert page="/WEB-INF/view/common/menu.jsp" />
 					</div>
 					<div class="span8">
-						<tiles:insert attribute="content" />
+						<tiles:insert attribute = "content" />
 					</div>
 				</div>
 

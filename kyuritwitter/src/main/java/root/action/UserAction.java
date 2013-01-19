@@ -71,7 +71,7 @@ public class UserAction extends SuperAction{
     	tuser.postNum=0;
 
     	System.out.println(tuser.username+"kyuuri" + pass_hash);
-    	//tuserService.insert(tuser);
+    	tuserService.insert(tuser);
 
 
     	return "entrysuccess.jsp";
