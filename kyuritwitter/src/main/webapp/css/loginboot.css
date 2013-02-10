@@ -24,6 +24,9 @@ div.login_form .form_style{
 	margin:0px;
 }
 
+div.login_form{
+	margin:100px;
+}
 
 .login_buton{
 	text-align: right;

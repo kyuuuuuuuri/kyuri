@@ -5,19 +5,8 @@ border:1px #f0f8ff solid;
 border-collapse:collapse;
 border-spacing:0;
 }
-#table-main th,#table-main td{
-	border:1px #f0f8ff solid;
-}
-#table-main th{
-	padding:5px;
-	border:1px #f0f8ff solid;
-	text-align:center;
-}
-#table-main td{
-	width:500px;
-	padding:5px;
-	border-wicth:0 0 1px 1px;
-}
+
+
 <!--mainpageつぶやき枠レイアウト-->
 input.input_style{
 	width:100%;
@@ -29,35 +18,16 @@ input.input_button{
 }
 
 .maintwitline {
-	margin-left: 450px;
-	margin-right: 450px;
-	padding:10px;
+	margin-top: 100px;
+	padding:20px;
+	width:940px;
+	margin-right:auto;
+	margin-left:auto;
 	background-color:#468A6F;
 }
 
-<!--吹き出しCSS-->
-#balloon {
-	position: absolute;
-	/* width: 200px; */
-}
-#balloon-p1 {
-	border-top: solid 9px transparent;
-	border-right: solid 5px #fff;
-	margin-left: 40px;
-	float: left;
-	width: 0; height: 0;
-}
-#balloon-p2 {
-	border-top: solid 9px transparent;
-	border-left: solid 5px #fff;
-	float: left;
-	width: 0; height: 0;
-}
-#balloon-c {
-	background-color: #fff;
-	padding: 20px;
-	margin : 30px ;
-	clear: left;
+.sidebar{
+
 }
 
 <!--パスワード強度用-->

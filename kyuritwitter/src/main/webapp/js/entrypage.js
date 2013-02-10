@@ -129,13 +129,13 @@ function check_mailad(elm){
 		if(old != (v=elm.value)){
 			str = $(this).val();
 			$.ajax({
-				   type: "POST",
-				   url: "mailad_check",
-				   data: {'param': str},
-				   success: function(msg){
-					   $("#mailad_span").html(msg);
-				   }
-				 });
+				type: "POST",
+				url: "mailad_check",
+				data: {'param': str},
+				success: function(msg){
+					$("#mailad_span").html(msg);
+				}
+			});
 		}
 	}
 }

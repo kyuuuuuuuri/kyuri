@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+
+body {
+	background:#1F3D31;
+}
+
+.main_setting{
+	margin-left:100px;
+	margin-right:100px;
+	margin-top:100px;
+	padding:100px;
+	background-color:#468A6F;
+}
+
+.setspan{
+	background-color:#F4F4F4;
+	padding-bottom:20px;
+	padding-top:20px;
+	padding-left:20px;
+
+	width:500px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
+}
+
+.setspanMenu{
+	background-color:#F4F4F4;
+	width:350px;
+	padding:20px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
+}
+
+.userimg{
+	margin-bottom:20px;
+}

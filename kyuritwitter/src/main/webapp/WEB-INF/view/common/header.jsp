@@ -35,6 +35,8 @@
 							<li><s:link href="/search/"><span class="header_font">友人を検索</span></s:link></li>
 
 							<li><s:link href="logout"><span class="header_font">ログアウト</span></s:link></li>
+
+							<li><s:link href="setting"><span class="header_font">設定</span></s:link></li>
 						</ul>
 					</div>
 				</div>

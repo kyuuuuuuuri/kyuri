@@ -93,10 +93,10 @@
 			"com.mysql.jdbc.Driver"
 		</property>
 		<property name="URL">
-			"jdbc:mysql://localhost:3306/kyuritest"
+			"jdbc:mysql://localhost:3306/test"
 		</property>
 		<property name="user">"root"</property>
-		<property name="password">"team-lab"</property>
+		<property name="password">""</property>
 	</component>
 
 

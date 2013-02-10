@@ -10,7 +10,7 @@ import root.entity.MurmurNames._MurmurNames;
  * {@link Tuser}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2012/05/22 14:19:25")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/06 19:48:06")
 public class TuserNames {
 
     /**
@@ -110,6 +110,15 @@ public class TuserNames {
      */
     public static PropertyName<Timestamp> newMurD() {
         return new PropertyName<Timestamp>("newMurD");
+    }
+
+    /**
+     * profileimgのプロパティ名を返します。
+     * 
+     * @return profileimgのプロパティ名
+     */
+    public static PropertyName<byte[]> profileimg() {
+        return new PropertyName<byte[]>("profileimg");
     }
 
     /**
@@ -260,6 +269,15 @@ public class TuserNames {
          */
         public PropertyName<Timestamp> newMurD() {
             return new PropertyName<Timestamp>(this, "newMurD");
+        }
+
+        /**
+         * profileimgのプロパティ名を返します。
+         *
+         * @return profileimgのプロパティ名
+         */
+        public PropertyName<byte[]> profileimg() {
+            return new PropertyName<byte[]>(this, "profileimg");
         }
 
         /**

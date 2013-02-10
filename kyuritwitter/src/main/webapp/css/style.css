@@ -2,10 +2,8 @@
 
 body {
 	background:#1F3D31;
-	margin: 25px 25px 25px 25px;
+	margin: 25px;
 }
-
-
 
 <!-- layout jsp table -->
 table{
@@ -32,3 +30,96 @@ td.menu {
 }
 
 /***** Main Layout ****/
+p{
+	margin:0px;
+}
+
+h4{
+	margin-left:20px;
+}
+
+form{
+	margin:0px;
+}
+
+textarea{
+	resize:none;
+	width:250px;
+}
+
+#input_text_size{
+	color:#969696;
+}
+
+#twitter_form input{
+	width:250px;
+}
+
+#pict{
+	margin-right:50px;
+}
+
+table {
+	background-color:#EBEBEB;
+}
+
+
+div#timeLine{
+	background-color:#F4F4F4;
+	padding-bottom:20px;
+	padding-top:5px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
+}
+
+p.timeLine_border{
+	border-bottom: 1px solid #dddddd;
+	margin:0px;
+}
+
+div.twitmain{
+	padding-left:20px;
+	padding-right:20px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.twit_info{
+	font-size:x-small;
+	visibility:hidden;
+}
+
+.twit_info_link{
+	color:#bb9875;
+}
+.open_details_twit{
+	font-size:x-small;
+	color:#B2B2B2;
+}
+
+
+.usernick{
+
+}
+
+.username{
+
+}
+
+.date{
+	font-size:x-small;
+	color:#B2B2B2;
+}
+
+.pImg{
+	float:left;
+	margin-left:10px;
+	margin-right:10px;
+}
+.pUsernick{
+	margin-top:30px;
+}
+.floatclear {
+	clear: both;
+}

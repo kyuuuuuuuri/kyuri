@@ -1,23 +1,25 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<meta http-equiv="Content-Style-Type" content="text/css">
+		<meta http-equiv="Content-Script-Type" content="text/javascript">
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 
+				<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />
 
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 
-		<style type="text/css">
-			input.style{
-			width:50%;
-			height:6em;
-			}
-		</style>
+
 
 <!--<tiles:insert page="/WEB-INF/view/common/header.jsp"  />-->
 		<title>メインページ</title>
@@ -27,86 +29,60 @@
 		<tiles:put name="title" value="followedpage" />
 		<tiles:put name="content" type="string">
 
-
-<!-- mainページのときだけ、つぶやきformを出力する -->
+		<!-- mainページのときだけ、つぶやきformを出力する -->
 		<c:if test="${fFlag==0}">
-
-		<div class="scroll"></div>
-		<s:form>
-
-			いまなにしてる？<html:errors property="tubuyaki" /><br>
-
-			<input type="submit" name = "ins_tubuyaki" value="投稿する" class="input_button" />
-		</s:form>
-		<font size="2" color=#999999>最新のつぶやき：
-		${mydata.newMur}　${mydata.newMurD}</font><br>
 		</c:if>
-<br>
-<br>
-<br>
-<div id = "massage"></div>
 
-<!-- つぶやきが一件もなかった場合 -->
-<c:if test="${empty murmurList }">
-<table id="table-main" border align="left">
-<tr>
-<td>
-表示すべきつぶやきが一件もありません
-</td>
-</tr>
-</table>
-</c:if>
-<!-- つぶやきが一件もなかった場合END -->
+		<!-- つぶやきが一件もなかった場合 -->
+		<c:if test="${empty murmurList }">
+			<div>
+				表示すべきつぶやきが一件もありません
+			</div>
+		</c:if>
 
+		<!-- つぶやきが一件以上ある場合 -->
+		<c:if test="${!empty murmurList}">
+		<div id="timeLine">
+			<h4>ツイート</h4>
+			<p class="timeLine_border"></p>
 
-<!-- つぶやきが一件以上ある場合 -->
-<c:if test="${!empty murmurList}">
-<!-- Ajax用div -->
-<span id="message"></span>
-<table id="table-main" border align="left">
-<c:forEach var="tubuyaki" items="${murmurList}" varStatus="status">
+			<c:forEach var="tubuyaki" items="${murmurList}" varStatus="status">
 
-<tr>
-<td>
+				<div id ="${tubuyaki.murmurid}" class="twitmain" >
+				<span class="pImg">
+					<html:img src="showUserImg/${tubuyaki.tuser.userid}" width="50" height="50"  />
+				</span>
+					<span class="usernick">
+						<s:link href="#"  onclick="OpenWin('${status.index}'); return false">
+					<span id ="${status.index}" style="${tubuyaki.tuser.userid}">${tubuyaki.tuser.usernick}</span></s:link>
+					</span>
 
+					<span class="username">${tubuyaki.tuser.username}</span>
+					<p class="twitid">${f:br(tubuyaki.murmur)}</p>
+					<span class="open_details_twit twit_info_link">開く</span>
+					<span class="date twit_info">
+						<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
+					</span>
+					<span class="favorite twit_info twit_info_link">お気に入りに登録</span>
+					<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
+					<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
+						<s:link href="/main/retwit/${tubuyaki.murmurid }" styleClass="twit_info twit_info_link">リツイート</s:link>
+						<s:form>
+						<input type="button" class="twit_info twit_info_link" onclick="replyan('${status.index}');" value="返信"/>
+						</s:form>
+					</c:if>
 
-<div id="twitmain" >
-<!--<c:out value="${status.index }"></c:out>-->
-<font size="4">
-<s:link href="#"  onclick="OpenWin('${status.index}'); return false">
-<span id ="${status.index}" style="${tubuyaki.tuser.userid}">
-${tubuyaki.tuser.usernick}</span></s:link>
-</font>
+					<!-- 自分のつぶやきだった場合削除リンクをつける -->
+					<c:if test="${tubuyaki.tuser.userid==mine}">
+						<s:link href="/main/delete/${tubuyaki.murmurid}" styleClass="twit_info twit_info_link">削除</s:link>
+					</c:if>
+				</div>
+				<p class="timeLine_border"></p>
 
-<font size="2" color=#999999>${tubuyaki.tuser.username}</font><br>
+			</c:forEach>
+		</div>
 
-<p id="twitid">${f:br(tubuyaki.murmur)}</p><br>
-<font color=#808080 size="2">
-<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
-</font>
-
-<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
-<s:link href="/main/retwit/${tubuyaki.murmurid }">リツイート</s:link>
-<s:form style="margin: 0px; float: left;">
-<input type="button" onclick="replyan('${status.index}');" value="返信"/>
-</s:form>
-</c:if>
-
-<!-- 自分のつぶやきだった場合削除リンクをつける -->
-<c:if test="${tubuyaki.tuser.userid==mine}">
-<s:link href="/main/delete/${tubuyaki.murmurid}">削除</s:link>
-
-</c:if>
-</div>
-
-
-</td>
-</tr>
-</c:forEach>
-</table>
-
-</c:if>
+		</c:if>
 
 </tiles:put>
 </tiles:insert>

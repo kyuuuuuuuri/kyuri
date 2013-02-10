@@ -33,7 +33,7 @@
 	</head>
 
 	<body>
-		<div class="login_form container-fluid">
+		<div class="login_form container">
 
 			<div class="row">
 				<div class="top_comment span7">
@@ -41,7 +41,7 @@
 				</div>
 
 
-				<div class="offset1 span4">
+				<div class="span4 offset1">
 				<!-- <div class="loginformdiv">  -->
 
 					<pre id="login">
@@ -54,10 +54,7 @@
 					</pre>
 
 					<pre id="user_register">
-					<s:form>
-						<b>ユーザ登録(無料)</b>
-						<s:submit property="userentry">ユーザ登録</s:submit>
-					</s:form>
+
 					</pre>
 
 				</div>

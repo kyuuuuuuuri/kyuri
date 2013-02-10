@@ -1,11 +1,17 @@
-package org.apache.jsp.WEB_002dINF.view.error;
+package org.apache.jsp.WEB_002dINF.view;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
+
+static private org.apache.jasper.runtime.ProtectedFunctionMapper _jspx_fnmap_0;
+
+static {
+  _jspx_fnmap_0= org.apache.jasper.runtime.ProtectedFunctionMapper.getMapForFunction("f:url", org.seasar.struts.taglib.S2Functions.class, "url", new Class[] {java.lang.String.class});
+}
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
 
@@ -69,14 +75,18 @@ public final class error_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("<html>\r\n");
       out.write("<head>\r\n");
+      out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n");
+      out.write("<script src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${f:url('/js/jquery.js')}", java.lang.String.class, (PageContext)_jspx_page_context, _jspx_fnmap_0, false));
+      out.write("\"></script>\r\n");
       out.write("\r\n");
-      out.write("\r\n");
+      out.write("<title>Dolteng Auto Generated</title>\r\n");
       out.write("</head>\r\n");
       out.write("<body>\r\n");
-      out.write("\r\n");
-      out.write("エラーですよ\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
+      out.write("<h1>Hello World!</h1>\r\n");
+      out.write("<span id=\"message\"></span>\r\n");
+      out.write("<input type=\"button\" value=\"hello\"\r\n");
+      out.write("    onclick=\"$('#message').load('hello',{'greeting':'Hello'});\"/>\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {

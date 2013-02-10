@@ -54,4 +54,10 @@ public class SuperAction {
 		return "/login/";
 	}
 
+	//設定
+	@Execute(validator=false)
+	public String setting(){
+		return "/setting/";
+	}
+
 }
