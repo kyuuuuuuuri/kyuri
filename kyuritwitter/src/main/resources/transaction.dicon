@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+	<include path="j2ee.dicon" />
+	<component class="root.service.FollowService">
+		<aspect pointcut="find.*, del.*, be.*, follow.*">j2ee.requiredTx</aspect>
+	</component>
+	<component class="root.service.TuserService">
+		<aspect pointcut="update.*, tuser.*, find.*">j2ee.requiredTx</aspect>
+	</component>
+	<component class="root.service.MurmurService">
+		<aspect pointcut="find.*, main.*, list.*, Count.*, another.*, insert.*">j2ee.requiredTx</aspect>
+	</component>
+
+</components>
