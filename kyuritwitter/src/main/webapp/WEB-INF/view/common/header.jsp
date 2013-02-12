@@ -37,6 +37,19 @@
 							<li><s:link href="logout"><span class="header_font">ログアウト</span></s:link></li>
 
 							<li><s:link href="setting"><span class="header_font">設定</span></s:link></li>
+
+						</ul>
+
+						<ul class="nav secondary-nav">
+
+							<li>
+								<s:form styleClass="form-search">
+									<html:text property="searchWord" styleId="searchAllTwit" styleClass="input-medium search-query"></html:text>
+									<s:submit property="searchAll" styleId="searchAll" styleClass="btn btn-small btn-primary" >検索</s:submit>
+								</s:form>
+
+							</li>
+
 						</ul>
 					</div>
 				</div>

@@ -99,6 +99,15 @@ public class TuserService extends AbstractService<Tuser> {
 				.getResultList();
 	}
 
+	/**
+	 *
+	 * @param img
+	 * @param id
+	 */
+	public void updateTuserAfterTwit(Tuser tuser){
+		jdbcManager.update(tuser).includes("newMur", "postNum", "newMurD").execute();
+	}
+
 	/*
 	 * プロフィール画像をアップロードする
 	 */

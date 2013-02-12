@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javasource.GetTwitFromSolr;
+import javasource.SetTwitToSolr;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
@@ -14,6 +17,7 @@ import org.seasar.struts.exception.ActionMessagesException;
 import org.seasar.struts.util.ResponseUtil;
 
 import root.SuperAction;
+import root.dto.SearchDto;
 import root.entity.Follow;
 import root.entity.Murmur;
 import root.entity.Tuser;
@@ -35,10 +39,14 @@ public class MainAction extends SuperAction {
 
 	public int fFlag = 0;
 
+	public List<SearchDto> searchDto;
+
 	@Execute(validator = false)
 	public String index() {
 		return "main";
 	}
+
+	private SetTwitToSolr setTwitToSolr;
 
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
@@ -113,6 +121,7 @@ public class MainAction extends SuperAction {
 	//つぶやくメソッド
 	@Execute(validator = true, input = "main")
 	public String ins_tubuyaki() {
+		setTwitToSolr = new SetTwitToSolr();
 
 		//Formに渡されたつぶやきを格納する変数
 		String mur = mainForm.tubuyaki;
@@ -121,32 +130,29 @@ public class MainAction extends SuperAction {
 			throw new ActionMessagesException("なにか入力してください", false);
 		}
 
+		System.out.println(mur);
+
 		int userid = userDto.userID;
 
 		Murmur murmur = new Murmur();
-
-//		//つぶやきにＵＲＬがあったらhtmlタグをつけてＤＢに格納する
-//		Pattern pattern = Pattern.compile("(http://|https://){1}[\\w\\.\\-/:\\#\\?\\=\\&\\;\\%\\~\\+]+",
-//				Pattern.CASE_INSENSITIVE);
-//		Matcher matcher = pattern.matcher(mur);
-//
-//		//もしＵＲＬパターンが見つかったらタグを入れて置換する
-//		if (matcher.find()) {
-//			mur = matcher.replaceAll("<a href=\"$0\">$0</a>");
-//		}
 
 		//新しいつぶやきをデータベースに格納する
 		murmur.userid = userid;
 		murmur.murmur = mur;
 		murmur.dateTime = null;
-		murmurService.insert(murmur);
+		int newMurmurId = murmurService.insertMurmur(murmur);
 
 		//自分の最新のつぶやきを更新する
 		Tuser tuser = tuserService.findById(userid);
 		tuser.newMur = mur;
 		tuser.postNum += 1;
 		tuser.newMurD = null;
-		tuserService.update(tuser);
+		tuserService.updateTuserAfterTwit(tuser);
+
+		murmur = murmurService.findById(newMurmurId);
+		System.out.println(newMurmurId + "moro");
+		setTwitToSolr.setTwit(murmur, null);
+
 
 		return "main";
 	}
@@ -228,6 +234,18 @@ public class MainAction extends SuperAction {
 		newWindoTwit = murmurService.listPager(3, 0, mainForm.userid1);
 
 		return "window.jsp";
+	}
+
+	@Execute(validator = false)
+	public String searchAll(){
+		System.out.println("moro"+ mainForm.searchWord);
+		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+		searchDto = new ArrayList<SearchDto>();
+		searchDto = getTwitFromSolr.getAllTwit(mainForm.searchWord);
+		for(int i =0 ; i<searchDto.size();i++){
+			System.out.println(searchDto.get(i).getTwit());
+		}
+		return mainPageJsp;
 	}
 
 }

@@ -11,12 +11,12 @@
 		<td><p>${mydata.postNum }</p><s:link href="showdata/${mydata.userid}" style="text-decoration: none">投稿数</s:link></td></tr>
 		<tr><td colspan="3">
 			<s:form styleId="twitter_form">
-				<textarea id="twit_textarea" rows="1"></textarea>
-			</s:form>
+				<textarea id="twit_textarea" name="tubuyaki" rows="1"></textarea>
 			<a id="gps" class="btn">GPS</a>
 			<a id="pict" class="btn">pict</a>
 			<span id="input_text_size">140</span>
-			<a id="twit_button" class="btn btn-info">ツイート</a>
+			<s:submit styleId="twit_button" styleClass="btn btn-info" property="ins_tubuyaki">ツイート</s:submit>
+			</s:form>
 		</td></tr>
 	</table>
 </div>

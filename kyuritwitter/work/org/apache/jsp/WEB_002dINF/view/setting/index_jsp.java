@@ -229,7 +229,7 @@ static {
         if (_jspx_meth_html_005fcheckbox_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
         out.write("\r\n");
-        out.write("\t\t\t\t\t\t\t<span>鍵をつける</span>\r\n");
+        out.write("\t\t\t\t\t\t\t<span>非公開にする</span>\r\n");
         out.write("\r\n");
         out.write("\t\t\t\t\t\t\t<p>\r\n");
         out.write("\t\t\t\t\t\t\t\t");

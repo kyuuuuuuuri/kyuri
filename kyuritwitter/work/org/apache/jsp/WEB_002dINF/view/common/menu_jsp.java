@@ -19,6 +19,7 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005fimg_0026_005fwidth_005fsrc_005fheight_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fform_0026_005fstyleId;
+  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty;
 
   private javax.el.ExpressionFactory _el_expressionfactory;
   private org.apache.AnnotationProcessor _jsp_annotationprocessor;
@@ -31,6 +32,7 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     _005fjspx_005ftagPool_005fhtml_005fimg_0026_005fwidth_005fsrc_005fheight_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fform_0026_005fstyleId = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
     _jsp_annotationprocessor = (org.apache.AnnotationProcessor) getServletConfig().getServletContext().getAttribute(org.apache.AnnotationProcessor.class.getName());
   }
@@ -39,6 +41,7 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     _005fjspx_005ftagPool_005fhtml_005fimg_0026_005fwidth_005fsrc_005fheight_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005flink_0026_005fstyle_005fhref.release();
     _005fjspx_005ftagPool_005fs_005fform_0026_005fstyleId.release();
+    _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -109,10 +112,6 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_s_005fform_005f0(_jspx_page_context))
         return;
       out.write("\r\n");
-      out.write("\t\t\t<a id=\"gps\" class=\"btn\">GPS</a>\r\n");
-      out.write("\t\t\t<a id=\"pict\" class=\"btn\">pict</a>\r\n");
-      out.write("\t\t\t<span id=\"input_text_size\">140</span>\r\n");
-      out.write("\t\t\t<a id=\"twit_button\" class=\"btn btn-info\">ツイート</a>\r\n");
       out.write("\t\t</td></tr>\r\n");
       out.write("\t</table>\r\n");
       out.write("</div>");
@@ -279,7 +278,14 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     if (_jspx_eval_s_005fform_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\r\n");
-        out.write("\t\t\t\t<textarea id=\"twit_textarea\" rows=\"1\"></textarea>\r\n");
+        out.write("\t\t\t\t<textarea id=\"twit_textarea\" name=\"tubuyaki\" rows=\"1\"></textarea>\r\n");
+        out.write("\t\t\t<a id=\"gps\" class=\"btn\">GPS</a>\r\n");
+        out.write("\t\t\t<a id=\"pict\" class=\"btn\">pict</a>\r\n");
+        out.write("\t\t\t<span id=\"input_text_size\">140</span>\r\n");
+        out.write("\t\t\t");
+        if (_jspx_meth_s_005fsubmit_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
+          return true;
+        out.write("\r\n");
         out.write("\t\t\t");
         int evalDoAfterBody = _jspx_th_s_005fform_005f0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
@@ -291,6 +297,45 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       return true;
     }
     _005fjspx_005ftagPool_005fs_005fform_0026_005fstyleId.reuse(_jspx_th_s_005fform_005f0);
+    return false;
+  }
+
+  private boolean _jspx_meth_s_005fsubmit_005f0(javax.servlet.jsp.tagext.JspTag _jspx_th_s_005fform_005f0, PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  s:submit
+    org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f0 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty.get(org.seasar.struts.taglib.S2SubmitTag.class);
+    _jspx_th_s_005fsubmit_005f0.setPageContext(_jspx_page_context);
+    _jspx_th_s_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
+    // /WEB-INF/view/common/menu.jsp(18,3) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_s_005fsubmit_005f0.setStyleId("twit_button");
+    // /WEB-INF/view/common/menu.jsp(18,3) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_s_005fsubmit_005f0.setStyleClass("btn btn-info");
+    // /WEB-INF/view/common/menu.jsp(18,3) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_s_005fsubmit_005f0.setProperty("ins_tubuyaki");
+    int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
+    if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+      if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
+        out = _jspx_page_context.pushBody();
+        _jspx_th_s_005fsubmit_005f0.setBodyContent((javax.servlet.jsp.tagext.BodyContent) out);
+        _jspx_th_s_005fsubmit_005f0.doInitBody();
+      }
+      do {
+        out.write("ツイート");
+        int evalDoAfterBody = _jspx_th_s_005fsubmit_005f0.doAfterBody();
+        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+          break;
+      } while (true);
+      if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {
+        out = _jspx_page_context.popBody();
+      }
+    }
+    if (_jspx_th_s_005fsubmit_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty.reuse(_jspx_th_s_005fsubmit_005f0);
+      return true;
+    }
+    _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty.reuse(_jspx_th_s_005fsubmit_005f0);
     return false;
   }
 }

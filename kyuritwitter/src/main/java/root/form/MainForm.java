@@ -2,8 +2,8 @@ package root.form;
 
 import org.seasar.struts.annotation.IntegerType;
 import org.seasar.struts.annotation.Maxlength;
-import org.seasar.struts.annotation.Required;
 import org.seasar.struts.annotation.Msg;
+import org.seasar.struts.annotation.Required;
 
 public class MainForm {
 
@@ -27,4 +27,6 @@ public class MainForm {
 	public String userni;
 
 	public String rep_user;
+
+	public String searchWord;
 }
