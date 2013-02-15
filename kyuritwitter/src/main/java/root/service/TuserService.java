@@ -99,13 +99,17 @@ public class TuserService extends AbstractService<Tuser> {
 				.getResultList();
 	}
 
-	/**
-	 *
-	 * @param img
-	 * @param id
-	 */
+/**
+ *
+ * @param tuser
+ */
 	public void updateTuserAfterTwit(Tuser tuser){
 		jdbcManager.update(tuser).includes("newMur", "postNum", "newMurD").execute();
+	}
+
+
+	public void updateTuserAfterDel(Tuser tuser){
+		jdbcManager.update(tuser).includes("postNum").execute();
 	}
 
 	/*

@@ -41,4 +41,16 @@ public class SetTwitToSolr{
 		}
 
 	}
+	public void deleteTwit(int twitid){
+		String id = Integer.toString(twitid);
+
+		try {
+			server.deleteById(id);
+			server.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -75,6 +75,19 @@ public class MurmurService extends AbstractService<Murmur> {
 
 	/**
 	 *
+	 * @param murmurId
+	 * @return
+	 */
+	public List<Murmur> SelectListSearch(List<Integer> murmurId){
+		return select()
+				.innerJoin("tuser")
+				.where(new SimpleWhere().in("murmurid", murmurId.toArray()))
+				.orderBy(desc("murmurid"))
+				.getResultList();
+	}
+
+	/**
+	 *
 	 * @param murmur
 	 * @return
 	 */
@@ -123,5 +136,6 @@ public class MurmurService extends AbstractService<Murmur> {
 				.offset(page * LIMIT)
 				.getResultList();
 	}
+
 
 }

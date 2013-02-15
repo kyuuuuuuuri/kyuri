@@ -3,6 +3,8 @@ package root.action;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javasource.GetTwitFromSolr;
 import javasource.SetTwitToSolr;
@@ -39,6 +41,8 @@ public class MainAction extends SuperAction {
 
 	public int fFlag = 0;
 
+	public int menuFlag = 0;
+
 	public List<SearchDto> searchDto;
 
 	@Execute(validator = false)
@@ -50,6 +54,25 @@ public class MainAction extends SuperAction {
 
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
+
+	public static void main(String[] args) {
+		String str = "私はきゅうりです　#kyuri　#moro わたしはきゅうりです";
+		String hash ="[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
+		Pattern p = Pattern.compile(hash);
+		Matcher matcher = p.matcher(str);
+
+//		if(!matcher.find()){
+//			System.out.println("見つかりませんでした");
+//		}
+			while (matcher.find()) {
+
+				for (int i = 0; i <= matcher.groupCount(); i++) {
+					System.out.println(matcher.group(2));
+					;
+				}
+			}
+
+	}
 
 	//メインページ表示メソッド(自分のつぶやき＋他人のつぶやき
 	@Execute(validator = false, urlPattern = "main")
@@ -65,31 +88,7 @@ public class MainAction extends SuperAction {
 
 		//ユーザ自身のデータ
 		mydata = tuserService.findById(userid);
-		//userProfileImg
-		//byte[] profileImg = tuserService.getTuserImg(userid).profileimg;
-		//System.out.println("kyuuri" + profileImg);
 
-//		InputStream is = new ByteArrayInputStream(profileImg);
-//		File outputImageFile = new File(newPath);
-
-//		try {
-//			os = new BufferedOutputStream(new FileOutputStream(outputImageFile));
-//			int c;
-//			while ((c = is.read()) != -1) {
-//				os.write(c);
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (os != null) {
-//				try {
-//					os.flush();
-//					os.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
 
 		List<Integer> murmur_userid = new ArrayList<Integer>();
 
@@ -122,6 +121,9 @@ public class MainAction extends SuperAction {
 	@Execute(validator = true, input = "main")
 	public String ins_tubuyaki() {
 		setTwitToSolr = new SetTwitToSolr();
+		String[] hashArray;
+		List<String> hashList = new ArrayList<String>();
+		int userid = userDto.userID;
 
 		//Formに渡されたつぶやきを格納する変数
 		String mur = mainForm.tubuyaki;
@@ -130,9 +132,32 @@ public class MainAction extends SuperAction {
 			throw new ActionMessagesException("なにか入力してください", false);
 		}
 
-		System.out.println(mur);
+		String hash ="[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
+		Pattern p = Pattern.compile(hash);
+		Matcher matcher = p.matcher(mur);
 
-		int userid = userDto.userID;
+//		if(!matcher.find()){
+//			System.out.println("見つかりませんでした");
+//		}
+			while (matcher.find()) {
+
+				for (int i = 0; i <= matcher.groupCount(); i++) {
+					System.out.println(matcher.group(i));
+				}
+				hashList.add(matcher.group(2));
+			}
+
+			hashArray = new String[hashList.size()];
+
+		if (hashList.size() != 0) {
+			for (int i = 0; i < hashList.size(); i++) {
+				hashArray[i] = hashList.get(i);
+			}
+		}
+		for(int i =0; i<hashArray.length;i++){
+			System.out.println(hashArray[i]);
+		}
+
 
 		Murmur murmur = new Murmur();
 
@@ -150,8 +175,9 @@ public class MainAction extends SuperAction {
 		tuserService.updateTuserAfterTwit(tuser);
 
 		murmur = murmurService.findById(newMurmurId);
-		System.out.println(newMurmurId + "moro");
-		setTwitToSolr.setTwit(murmur, null);
+
+		//solrに登録する
+		setTwitToSolr.setTwit(murmur, hashArray);
 
 
 		return "main";
@@ -236,15 +262,56 @@ public class MainAction extends SuperAction {
 		return "window.jsp";
 	}
 
+	//
+	@Execute(validator=false)
+	public String repform(){
+		return "repform.jsp";
+	}
+
+	//solrに登録する
 	@Execute(validator = false)
 	public String searchAll(){
-		System.out.println("moro"+ mainForm.searchWord);
+		menuFlag = 1;
+		int id;
+		mine = userDto.userID;
+
+		List<Integer> idList = new ArrayList<Integer>();
+
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
 		searchDto = getTwitFromSolr.getAllTwit(mainForm.searchWord);
-		for(int i =0 ; i<searchDto.size();i++){
-			System.out.println(searchDto.get(i).getTwit());
+
+		for(int i =0 ; i<searchDto.size(); i++){
+			id = Integer.valueOf(searchDto.get(i).getId());
+			idList.add(id);
 		}
+
+		murmurList = murmurService.SelectListSearch(idList);
+
+		return mainPageJsp;
+	}
+
+	//hashタグリストを出力する
+	@Execute(validator = false, urlPattern="showHashData/{hashtag}")
+	public String showHashData(){
+		menuFlag=1;
+		int id;
+		String hash = mainForm.hashtag;
+		List<Integer> idList = new ArrayList<Integer>();
+		mine = userDto.userID;
+
+
+		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+		searchDto = new ArrayList<SearchDto>();
+		searchDto = getTwitFromSolr.getHashTwit(hash);
+
+		for(int i=0; i<searchDto.size(); i++){
+			id = Integer.valueOf(searchDto.get(i).getId());
+			idList.add(id);
+		}
+
+		murmurList = murmurService.SelectListSearch(idList);
+
 		return mainPageJsp;
 	}
 

@@ -30,6 +30,23 @@ td.menu {
 }
 
 /***** Main Layout ****/
+element.style{
+	text-decoration: none;
+}
+
+
+a {
+	text-decoration: none;
+}
+
+a:visited{
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
 p{
 	margin:0px;
 }
@@ -66,13 +83,46 @@ table {
 
 
 div#timeLine{
-	background-color:#F4F4F4;
+
 	padding-bottom:20px;
 	padding-top:5px;
 
 	border-radius: 5px;         /* CSS3 */
 	-moz-border-radius: 5px;    /* Firefox */
 	-webkit-border-radius: 5px; /* Safari,Chrome */
+}
+
+#twitTitle{
+	background-color:#F4F4F4;
+	display: inline-block;
+	_display: inline;
+
+	width:540px;
+}
+
+#lastLine{
+	background-color:#F4F4F4;
+	display: inline-block;
+	_display: inline;
+
+	width:540px;
+}
+
+.twitmain{
+	background-color:#F4F4F4;
+}
+
+.repform{
+	background-color:#F4F4F4;
+
+	padding-left:80px;
+	padding-right:20px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.rep_textarea{
+	width:380px;
 }
 
 p.timeLine_border{
@@ -97,6 +147,11 @@ div.twitmain{
 .open_details_twit{
 	font-size:x-small;
 	color:#B2B2B2;
+
+	cursor:pointer;
+}
+.open_details_twit:hover{
+	color:#5b310f;
 }
 
 

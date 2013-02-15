@@ -29,4 +29,6 @@ public class MainForm {
 	public String rep_user;
 
 	public String searchWord;
+
+	public String hashtag;
 }

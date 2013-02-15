@@ -13,8 +13,6 @@ import org.apache.solr.common.SolrDocumentList;
 
 import root.SuperAction;
 import root.dto.SearchDto;
-import root.entity.Murmur;
-import root.entity.Tuser;
 
 public class GetTwitFromSolr extends SuperAction{
 
@@ -29,16 +27,14 @@ public class GetTwitFromSolr extends SuperAction{
 	}
 
 	public List<SearchDto> getAllTwit(String searchWord){
-		System.out.println("morosolr");
 
 		List<SearchDto> twitList = new ArrayList<SearchDto>();
 		String strId = null;
-		Murmur murmur;
-		Tuser tuser;
+
 		int id = 0;
 
 		SolrQuery query = new SolrQuery();
-		query.setQuery("+twit:" + searchWord);
+		query.setQuery("twit:" + searchWord);
 		query.setSortField("id", ORDER.desc);
 		query.setStart(0);
 		query.setRows(10);
@@ -50,22 +46,49 @@ public class GetTwitFromSolr extends SuperAction{
 			e.printStackTrace();
 		}
 
-		twitList = response.getBeans(SearchDto.class);
 		SolrDocumentList list = response.getResults();
 
 		for(SolrDocument sd : list){
 			SearchDto sDto = new SearchDto();
 			strId = (String) sd.getFieldValue("id");
 			id = Integer.valueOf(strId).intValue();
-			System.out.println(id+"errormoro");
-			murmur = murmurService.findById(id);
-			tuser = tuserService.findById(murmur.userid);
 
 			sDto.setTwit((String) sd.getFieldValue("twit"));
 			sDto.setId(id);
-			sDto.setUsernick(tuser.usernick);
-			sDto.setUsername(tuser.username);
-			System.out.println((String) sd.getFieldValue("twit"));
+
+			twitList.add(sDto);
+		}
+
+		return twitList;
+	}
+
+	public List<SearchDto> getHashTwit(String hash){
+		List<SearchDto> twitList = new ArrayList<SearchDto>();
+		String strId = null;
+		int id;
+
+		SolrQuery query = new SolrQuery();
+		query.setQuery("hash:" + hash);
+		query.setSortField("id", ORDER.desc);
+		query.setStart(0);
+		query.setRows(10);
+
+		//solrへ
+		try {
+			response = server.query(query);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+
+		SolrDocumentList list = response.getResults();
+
+		for(SolrDocument sd : list){
+			SearchDto sDto = new SearchDto();
+			strId = (String) sd.getFieldValue("id");
+			id = Integer.valueOf(strId).intValue();
+
+			sDto.setTwit((String) sd.getFieldValue("twit"));
+			sDto.setId(id);
 
 			twitList.add(sDto);
 		}

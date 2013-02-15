@@ -29,10 +29,6 @@
 		<tiles:put name="title" value="followedpage" />
 		<tiles:put name="content" type="string">
 
-		<!-- mainページのときだけ、つぶやきformを出力する -->
-		<c:if test="${fFlag==0}">
-		</c:if>
-
 		<!-- つぶやきが一件もなかった場合 -->
 		<c:if test="${empty murmurList }">
 			<div>
@@ -43,43 +39,56 @@
 		<!-- つぶやきが一件以上ある場合 -->
 		<c:if test="${!empty murmurList}">
 		<div id="timeLine">
-			<h4>ツイート</h4>
+			<div id="twitTitle"><h4>ツイート</h4></div>
 			<p class="timeLine_border"></p>
 
 			<c:forEach var="tubuyaki" items="${murmurList}" varStatus="status">
 
-				<div id ="${tubuyaki.murmurid}" class="twitmain" >
-				<span class="pImg">
-					<html:img src="showUserImg/${tubuyaki.tuser.userid}" width="50" height="50"  />
-				</span>
-					<span class="usernick">
-						<s:link href="#"  onclick="OpenWin('${status.index}'); return false">
-					<span id ="${status.index}" style="${tubuyaki.tuser.userid}">${tubuyaki.tuser.usernick}</span></s:link>
-					</span>
+						<div id="${tubuyaki.murmurid}" class="twitmain">
+							<span class="pImg"> <html:img
+									src="${pageContext.request.contextPath}/main/showUserImg/${tubuyaki.tuser.userid}"
+									width="50" height="50" />
+							</span>
+							<span class="usernick">
+							<s:link href="#">
+								<span class="usernickLink">${tubuyaki.tuser.usernick}</span>
+							</s:link>
+							</span>
+							<span class="username">${tubuyaki.tuser.username}</span>
+							<p class="twitid">${f:br(tubuyaki.murmur)}</p>
+							<span class="open_details_twit twit_info_link">開く</span>
+							<span class="date twit_info">
+							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
+							</span> <span class="favorite twit_info twit_info_link">お気に入りに登録</span>
+							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
+							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
+								<s:link href="/main/retwit/${tubuyaki.murmurid }"
+									styleClass="twit_info twit_info_link">リツイート</s:link>
+								<s:link href="">返信</s:link>
 
-					<span class="username">${tubuyaki.tuser.username}</span>
-					<p class="twitid">${f:br(tubuyaki.murmur)}</p>
-					<span class="open_details_twit twit_info_link">開く</span>
-					<span class="date twit_info">
-						<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
-					</span>
-					<span class="favorite twit_info twit_info_link">お気に入りに登録</span>
-					<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-					<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
-						<s:link href="/main/retwit/${tubuyaki.murmurid }" styleClass="twit_info twit_info_link">リツイート</s:link>
-						<s:form>
-						<input type="button" class="twit_info twit_info_link" onclick="replyan('${status.index}');" value="返信"/>
-						</s:form>
-					</c:if>
+							</c:if>
 
-					<!-- 自分のつぶやきだった場合削除リンクをつける -->
-					<c:if test="${tubuyaki.tuser.userid==mine}">
-						<s:link href="/main/delete/${tubuyaki.murmurid}" styleClass="twit_info twit_info_link">削除</s:link>
-					</c:if>
-				</div>
-				<p class="timeLine_border"></p>
+							<!-- 自分のつぶやきだった場合削除リンクをつける -->
+							<c:if test="${tubuyaki.tuser.userid==mine}">
+								<s:link href="/main/delete/${tubuyaki.murmurid}"
+									styleClass="twit_info twit_info_link">削除</s:link>
+							</c:if>
+
+						</div>
+						<div id="${tubuyaki.murmurid}r" class="repform">
+
+							<s:form styleClass="rep_form">
+								<textarea class="rep_textarea" name="tubuyaki" rows="1"></textarea>
+								<br>
+								<span class="rep_text_size">140</span>
+								<s:submit styleClass="btn btn-info rep_twit_btn"
+									property="ins_tubuyaki">ツイート</s:submit>
+							</s:form>
+						</div>
+						<p class="timeLine_border"></p>
 
 			</c:forEach>
+			<div id="lastLine">　</div>
 		</div>
 
 		</c:if>
