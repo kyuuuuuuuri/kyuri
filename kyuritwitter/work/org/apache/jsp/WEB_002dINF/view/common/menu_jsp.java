@@ -355,7 +355,7 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     // /WEB-INF/view/common/menu.jsp(20,4) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleClass("btn btn-info");
     // /WEB-INF/view/common/menu.jsp(20,4) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_s_005fsubmit_005f0.setProperty("ins_tubuyaki");
+    _jspx_th_s_005fsubmit_005f0.setProperty("insertTwit");
     int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
     if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.EVAL_BODY_INCLUDE) {

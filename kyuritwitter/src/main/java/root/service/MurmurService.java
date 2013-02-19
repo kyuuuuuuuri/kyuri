@@ -3,6 +3,7 @@ package root.service;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static root.entity.MurmurNames.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -73,15 +74,79 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 	}
 
+
 	/**
-	 *
+	 * つぶやきに更新があったか
+	 * @param id
+	 * @return
+	 */
+	public boolean existNewTwit(int id, List<Integer> murmurId){
+//		for(int i=0; i<murmurId.size() ; i++){
+//			System.out.println(murmurId.get(i));
+//		}
+		List<Murmur> murmur = new ArrayList<Murmur>();
+		murmur = select()
+				.innerJoin("tuser")
+				.where(
+						and(
+								new SimpleWhere().in("userid", murmurId.toArray()),
+								new SimpleWhere().gt("murmurid", id)
+							)
+						)
+		.orderBy(desc("murmurid"))
+		.getResultList();
+		if(!murmur.isEmpty()){
+
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 新しいつぶやきを読み込む
+	 * @param id
+	 * @return
+	 */
+	public List<Murmur> selectNewTwit(int id, List<Integer> murmurId){
+		return select()
+				.innerJoin("tuser")
+				.where(
+						and(
+								new SimpleWhere().in("userid", murmurId.toArray()),
+								new SimpleWhere().gt("murmurid", id)
+						)
+				)
+				.orderBy(desc("murmurid"))
+				.getResultList();
+	}
+
+	public List<Murmur> selectOldTwit(int id , List<Integer> murmurId){
+		return select()
+				.innerJoin("tuser")
+				.where(and(
+						new SimpleWhere().in("userid", murmurId.toArray()),
+						new SimpleWhere().lt("murmurid", id)
+						)
+						)
+						.orderBy(desc("murmurid"))
+						.limit(10)
+						.getResultList();
+	}
+
+	/**
+	 * 検索でひっかかったリストを表示する
 	 * @param murmurId
 	 * @return
 	 */
 	public List<Murmur> SelectListSearch(List<Integer> murmurId){
 		return select()
 				.innerJoin("tuser")
-				.where(new SimpleWhere().in("murmurid", murmurId.toArray()))
+				.where(
+						and(
+								new SimpleWhere().in("murmurid", murmurId.toArray()),
+								new SimpleWhere().eq("tuser.skey", 0)
+								)
+						)
 				.orderBy(desc("murmurid"))
 				.getResultList();
 	}
@@ -96,7 +161,6 @@ public class MurmurService extends AbstractService<Murmur> {
 		//Murmur twit = jdbcManager.selectBySql(Murmur.class, "SELECT LAST_INSERT_ID").getSingleResult();
 		List<Murmur> twits = select().orderBy(desc("murmurid")).getResultList();
 		Murmur twit = twits.get(0);
-		//System.out.println(twit.murmurid + "moro");
 		return twit.murmurid;
 	}
 

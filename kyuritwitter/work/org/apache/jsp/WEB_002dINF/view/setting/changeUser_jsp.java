@@ -18,7 +18,7 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
 
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fform;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody;
-  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody;
+  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody;
 
@@ -32,7 +32,7 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspInit() {
     _005fjspx_005ftagPool_005fs_005fform = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
@@ -42,7 +42,7 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
   public void _jspDestroy() {
     _005fjspx_005ftagPool_005fs_005fform.release();
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.release();
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.release();
+    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.release();
     _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody.release();
   }
@@ -132,6 +132,9 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
         out.write("\r\n");
         out.write("\t\t<label>名前を変更する</label>\r\n");
         out.write("\t\t");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.usernick}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+        out.write("\r\n");
+        out.write("\t\t");
         if (_jspx_meth_html_005ftext_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
         out.write("\r\n");
@@ -185,19 +188,21 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  html:text
-    org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
+    org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
     _jspx_th_html_005ftext_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005ftext_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/setting/changeUser.jsp(18,2) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(19,2) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setProperty("username");
-    // /WEB-INF/view/setting/changeUser.jsp(18,2) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(19,2) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setStyleId("username");
+    // /WEB-INF/view/setting/changeUser.jsp(19,2) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_html_005ftext_005f0.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.username}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_html_005ftext_005f0 = _jspx_th_html_005ftext_005f0.doStartTag();
     if (_jspx_th_html_005ftext_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
+      _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
       return true;
     }
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
+    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
     return false;
   }
 
@@ -209,11 +214,11 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.html.CheckboxTag _jspx_th_html_005fcheckbox_005f0 = (org.apache.struts.taglib.html.CheckboxTag) _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.CheckboxTag.class);
     _jspx_th_html_005fcheckbox_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005fcheckbox_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/setting/changeUser.jsp(21,2) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(22,2) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fcheckbox_005f0.setStyleId("keycheck");
-    // /WEB-INF/view/setting/changeUser.jsp(21,2) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(22,2) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fcheckbox_005f0.setProperty("keycheck");
-    // /WEB-INF/view/setting/changeUser.jsp(21,2) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(22,2) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fcheckbox_005f0.setValue("1");
     int _jspx_eval_html_005fcheckbox_005f0 = _jspx_th_html_005fcheckbox_005f0.doStartTag();
     if (_jspx_th_html_005fcheckbox_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -232,13 +237,13 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f0 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody.get(org.seasar.struts.taglib.S2SubmitTag.class);
     _jspx_th_s_005fsubmit_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/setting/changeUser.jsp(25,3) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleId("changeUsernameSubmit");
-    // /WEB-INF/view/setting/changeUser.jsp(25,3) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleClass("btn btn-info");
-    // /WEB-INF/view/setting/changeUser.jsp(25,3) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setProperty("changeUsernameSubmit");
-    // /WEB-INF/view/setting/changeUser.jsp(25,3) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setValue("変更する");
     int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
     if (_jspx_th_s_005fsubmit_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {

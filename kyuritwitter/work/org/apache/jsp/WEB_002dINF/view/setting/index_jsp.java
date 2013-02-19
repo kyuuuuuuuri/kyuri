@@ -25,7 +25,7 @@ static {
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fform;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody;
-  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody;
+  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody;
 
@@ -40,7 +40,7 @@ static {
     _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fform = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _el_expressionfactory = _jspxFactory.getJspApplicationContext(getServletConfig().getServletContext()).getExpressionFactory();
@@ -51,7 +51,7 @@ static {
     _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005fform.release();
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.release();
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.release();
+    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.release();
     _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody.release();
   }
@@ -273,19 +273,21 @@ static {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  html:text
-    org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
+    org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
     _jspx_th_html_005ftext_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005ftext_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
     // /WEB-INF/view/setting/index.jsp(51,7) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setProperty("username");
     // /WEB-INF/view/setting/index.jsp(51,7) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setStyleId("username");
+    // /WEB-INF/view/setting/index.jsp(51,7) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_html_005ftext_005f0.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.username}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_html_005ftext_005f0 = _jspx_th_html_005ftext_005f0.doStartTag();
     if (_jspx_th_html_005ftext_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
+      _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
       return true;
     }
-    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
+    _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.reuse(_jspx_th_html_005ftext_005f0);
     return false;
   }
 

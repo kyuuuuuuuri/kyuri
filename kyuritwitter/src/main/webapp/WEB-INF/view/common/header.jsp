@@ -4,6 +4,7 @@
 
 <html>
 	<head>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
 
 	</head>
 	<body>

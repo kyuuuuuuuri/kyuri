@@ -1,6 +1,5 @@
 package root.action;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,6 +10,7 @@ import javasource.SetTwitToSolr;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.struts.annotation.ActionForm;
@@ -41,7 +41,6 @@ public class MainAction extends SuperAction {
 
 	public int fFlag = 0;
 
-	public int menuFlag = 0;
 
 	public List<SearchDto> searchDto;
 
@@ -55,28 +54,10 @@ public class MainAction extends SuperAction {
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
 
-	public static void main(String[] args) {
-		String str = "私はきゅうりです　#kyuri　#moro わたしはきゅうりです";
-		String hash ="[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
-		Pattern p = Pattern.compile(hash);
-		Matcher matcher = p.matcher(str);
-
-//		if(!matcher.find()){
-//			System.out.println("見つかりませんでした");
-//		}
-			while (matcher.find()) {
-
-				for (int i = 0; i <= matcher.groupCount(); i++) {
-					System.out.println(matcher.group(2));
-					;
-				}
-			}
-
-	}
 
 	//メインページ表示メソッド(自分のつぶやき＋他人のつぶやき
 	@Execute(validator = false, urlPattern = "main")
-	public String main() throws IOException {
+	public String main(){
 //		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 //		BufferedOutputStream os = new BufferedOutputStream(bos);
 
@@ -117,9 +98,43 @@ public class MainAction extends SuperAction {
 		return mainPageJsp;
 	}
 
+	@Resource
+	HttpServletRequest req;
+
+	//ajaxload
+	@Execute(validator = false)
+	public String loadOldTwit(){
+		//System.out.println("ajaxdo");
+		int userid = userDto.userID;
+		mine = userid;
+		String lastId = req.getParameter("lastId");
+		int lastIdint = Integer.parseInt(lastId);
+		//System.out.println(page+"moromoro");
+
+		List<Integer> murmur_userid = new ArrayList<Integer>();
+
+		//ユーザのフォローをリスト化
+		List<Follow> followResult = followService.findUserFollow(userid);
+
+		if (followResult != null) {
+			for (Follow f : followResult) {
+				murmur_userid.add(f.fuserid);
+			}
+		}
+		murmur_userid.add(userid);
+
+		this.total = murmurService.listCount(murmur_userid);
+
+		// 以下ページング処理
+		murmurList = murmurService.selectOldTwit(lastIdint, murmur_userid);
+
+		return "showOldTwit.jsp";
+	}
+
 	//つぶやくメソッド
-	@Execute(validator = true, input = "main")
-	public String ins_tubuyaki() {
+	@Execute(validator =false)
+	public String insertTwit() {
+
 		setTwitToSolr = new SetTwitToSolr();
 		String[] hashArray;
 		List<String> hashList = new ArrayList<String>();
@@ -183,11 +198,76 @@ public class MainAction extends SuperAction {
 		return "main";
 	}
 
+	@Execute(validator = false)
+	public String checkNewTwit(){
+
+		fFlag = 1;
+		int userid = userDto.userID;
+		mine = userid;
+
+		List<Integer> murmur_userid = new ArrayList<Integer>();
+
+		//ユーザのフォローをリスト化
+		List<Follow> followResult = followService.findUserFollow(userid);
+
+		if (followResult != null) {
+			for (Follow f : followResult) {
+				murmur_userid.add(f.fuserid);
+			}
+		}
+		murmur_userid.add(userid);
+		//System.out.println(userid);
+
+
+		String topId = req.getParameter("topId");
+		int id = Integer.parseInt(topId);
+		if(murmurService.existNewTwit(id, murmur_userid)){
+
+			ResponseUtil.write("<div id='existNewtwit' class='existNewtwit'>新しいつぶやきがあります</div>");
+			return null;
+		}
+
+		return null;
+	}
+
+	@Execute(validator = false)
+	public String NewTwitList(){
+		int userid = userDto.userID;
+		mine = userid;
+		fFlag = 1;
+
+		List<Integer> murmur_userid = new ArrayList<Integer>();
+
+		//ユーザのフォローをリスト化
+		List<Follow> followResult = followService.findUserFollow(userid);
+
+		if (followResult != null) {
+			for (Follow f : followResult) {
+				murmur_userid.add(f.fuserid);
+			}
+		}
+		murmur_userid.add(userid);
+
+		String topId = req.getParameter("topId");
+		int id = Integer.parseInt(topId);
+		System.out.println("入りました" + id + "morokyu");
+		murmurList = murmurService.selectNewTwit(id, murmur_userid);
+
+		return "showOldTwit.jsp";
+	}
+
+	@Execute(validator = false)
+	public String ins_tubuyaki_rep(){
+
+		return "";
+	}
+
 	//ユーザ個々のつぶやきを表示する
 	@Execute(validator = false, urlPattern = "showdata/{userni}")
 	public String showdata() {
 
 		fFlag = 1;
+		menuFlag = 1;
 
 		int userid = userDto.userID;
 		mine = userid;
@@ -267,8 +347,8 @@ public class MainAction extends SuperAction {
 	public String repform(){
 		return "repform.jsp";
 	}
-
-	//solrに登録する
+//
+//	//solrを検索する
 	@Execute(validator = false)
 	public String searchAll(){
 		menuFlag = 1;
@@ -276,19 +356,49 @@ public class MainAction extends SuperAction {
 		mine = userDto.userID;
 
 		List<Integer> idList = new ArrayList<Integer>();
+		userDto.searchWord = mainForm.searchWord;
+		if (mainForm.searchWord == null) {
+			throw new ActionMessagesException("なにか入力してください", false);
+		}
 
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
-		searchDto = getTwitFromSolr.getAllTwit(mainForm.searchWord);
-
-		for(int i =0 ; i<searchDto.size(); i++){
-			id = Integer.valueOf(searchDto.get(i).getId());
-			idList.add(id);
+		searchDto = getTwitFromSolr.getAllTwit(mainForm.searchWord,0);
+		if(!searchDto.isEmpty()){
+			for (int i = 0; i < searchDto.size(); i++) {
+				id = Integer.valueOf(searchDto.get(i).getId());
+				idList.add(id);
+			}
+			murmurList = murmurService.SelectListSearch(idList);
 		}
 
-		murmurList = murmurService.SelectListSearch(idList);
+		return "searchTwit.jsp";
+	}
 
-		return mainPageJsp;
+	@Execute(validator = false)
+	public String searchAjax(){
+
+		fFlag = 1;
+		//System.out.println("morokyumain");
+		int id;
+		String pagePram = req.getParameter("page");
+		int page = Integer.valueOf(pagePram);
+
+		List<Integer> idList = new ArrayList<Integer>();
+
+		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+		searchDto = new ArrayList<SearchDto>();
+		searchDto = getTwitFromSolr.getAllTwit(userDto.searchWord, page*10);
+
+		if(!searchDto.isEmpty()){
+			for (int i = 0; i < searchDto.size(); i++) {
+				id = Integer.valueOf(searchDto.get(i).getId());
+				idList.add(id);
+			}
+			murmurList = murmurService.SelectListSearch(idList);
+		}
+
+		return "showOldTwit.jsp";
 	}
 
 	//hashタグリストを出力する

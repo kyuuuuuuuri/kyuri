@@ -85,6 +85,9 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("<html>\r\n");
       out.write("\t<head>\r\n");
+      out.write("\t<script type=\"text/javascript\" src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/js/common.js\"></script>\r\n");
       out.write("\r\n");
       out.write("\t</head>\r\n");
       out.write("\t<body>\r\n");
@@ -124,7 +127,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_005fif_005f0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _005fjspx_005ftagPool_005fc_005fif_0026_005ftest.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_005fif_005f0.setPageContext(_jspx_page_context);
     _jspx_th_c_005fif_005f0.setParent(null);
-    // /WEB-INF/view/common/header.jsp(12,2) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(13,2) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fif_005f0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${ mine == 0 }", java.lang.Boolean.class, (PageContext)_jspx_page_context, null, false)).booleanValue());
     int _jspx_eval_c_005fif_005f0 = _jspx_th_c_005fif_005f0.doStartTag();
     if (_jspx_eval_c_005fif_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -174,7 +177,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f0 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f0);
-    // /WEB-INF/view/common/header.jsp(17,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(18,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f0.setHref("/main/");
     int _jspx_eval_s_005flink_005f0 = _jspx_th_s_005flink_005f0.doStartTag();
     if (_jspx_eval_s_005flink_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -209,7 +212,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f1 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f1.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f0);
-    // /WEB-INF/view/common/header.jsp(19,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(20,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f1.setHref("/user/");
     int _jspx_eval_s_005flink_005f1 = _jspx_th_s_005flink_005f1.doStartTag();
     if (_jspx_eval_s_005flink_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -244,7 +247,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f2 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f2.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f0);
-    // /WEB-INF/view/common/header.jsp(21,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(22,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f2.setHref("/login/");
     int _jspx_eval_s_005flink_005f2 = _jspx_th_s_005flink_005f2.doStartTag();
     if (_jspx_eval_s_005flink_005f2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -279,7 +282,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_005fif_005f1 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _005fjspx_005ftagPool_005fc_005fif_0026_005ftest.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_005fif_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005fif_005f1.setParent(null);
-    // /WEB-INF/view/common/header.jsp(28,2) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(29,2) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005fif_005f1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${ mine != 0 }", java.lang.Boolean.class, (PageContext)_jspx_page_context, null, false)).booleanValue());
     int _jspx_eval_c_005fif_005f1 = _jspx_th_c_005fif_005f1.doStartTag();
     if (_jspx_eval_c_005fif_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -347,7 +350,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f3 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f3.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f1);
-    // /WEB-INF/view/common/header.jsp(33,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(34,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f3.setHref("/main/");
     int _jspx_eval_s_005flink_005f3 = _jspx_th_s_005flink_005f3.doStartTag();
     if (_jspx_eval_s_005flink_005f3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -382,7 +385,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f4 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f4.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f1);
-    // /WEB-INF/view/common/header.jsp(35,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(36,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f4.setHref("/search/");
     int _jspx_eval_s_005flink_005f4 = _jspx_th_s_005flink_005f4.doStartTag();
     if (_jspx_eval_s_005flink_005f4 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -417,7 +420,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f5 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f5.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f5.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f1);
-    // /WEB-INF/view/common/header.jsp(37,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(38,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f5.setHref("logout");
     int _jspx_eval_s_005flink_005f5 = _jspx_th_s_005flink_005f5.doStartTag();
     if (_jspx_eval_s_005flink_005f5 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -452,7 +455,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f6 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f6.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f6.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f1);
-    // /WEB-INF/view/common/header.jsp(39,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(40,11) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f6.setHref("setting");
     int _jspx_eval_s_005flink_005f6 = _jspx_th_s_005flink_005f6.doStartTag();
     if (_jspx_eval_s_005flink_005f6 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -487,7 +490,7 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2FormTag _jspx_th_s_005fform_005f0 = (org.seasar.struts.taglib.S2FormTag) _005fjspx_005ftagPool_005fs_005fform_0026_005fstyleClass.get(org.seasar.struts.taglib.S2FormTag.class);
     _jspx_th_s_005fform_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fform_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f1);
-    // /WEB-INF/view/common/header.jsp(46,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(47,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fform_005f0.setStyleClass("form-search");
     int _jspx_eval_s_005fform_005f0 = _jspx_th_s_005fform_005f0.doStartTag();
     if (_jspx_eval_s_005fform_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -523,11 +526,11 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fstyleId_005fstyleClass_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
     _jspx_th_html_005ftext_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005ftext_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/common/header.jsp(47,9) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(48,9) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setProperty("searchWord");
-    // /WEB-INF/view/common/header.jsp(47,9) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(48,9) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setStyleId("searchAllTwit");
-    // /WEB-INF/view/common/header.jsp(47,9) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(48,9) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setStyleClass("input-medium search-query");
     int _jspx_eval_html_005ftext_005f0 = _jspx_th_html_005ftext_005f0.doStartTag();
     if (_jspx_th_html_005ftext_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -546,11 +549,11 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f0 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleId_005fstyleClass_005fproperty.get(org.seasar.struts.taglib.S2SubmitTag.class);
     _jspx_th_s_005fsubmit_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/common/header.jsp(48,9) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(49,9) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setProperty("searchAll");
-    // /WEB-INF/view/common/header.jsp(48,9) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(49,9) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleId("searchAll");
-    // /WEB-INF/view/common/header.jsp(48,9) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/common/header.jsp(49,9) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleClass("btn btn-small btn-primary");
     int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
     if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {

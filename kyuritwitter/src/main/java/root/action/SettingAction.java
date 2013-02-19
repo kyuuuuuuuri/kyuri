@@ -37,10 +37,14 @@ public class SettingAction extends SuperAction{
 
 	private final int RESIZE_INT = 200;
 
+	public Tuser mydata = new Tuser();
+
 	@Execute(validator = false)
 	public String index(){
 		int userid = userDto.userID;
 		mine=userid;
+
+		mydata = tuserService.findById(userid);
 
 		return "index.jsp";
 	}
@@ -88,6 +92,10 @@ public class SettingAction extends SuperAction{
 		int width = sourceImage.getWidth();
 		double resizeHeight = 0;
 		double resizeWidth = 0;
+		BufferedImage resizeImage;
+		BufferedImage subImage = null;
+
+		AffineTransformOp ato = null;
 		//String newPath = application.getRealPath("/img/profileImg/" + userDto.userID+".jpg");
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		BufferedOutputStream os = new BufferedOutputStream(bos);
@@ -100,18 +108,26 @@ public class SettingAction extends SuperAction{
 				resizeHeight = RESIZE_INT;
 				resizeWidth = (int)((double)RESIZE_INT / height * (double)width);
 			}
+
+			//リサイズ処理
+			resizeImage = new BufferedImage(width, height, sourceImage.getType());
+			ato = new AffineTransformOp(
+					AffineTransform.getScaleInstance((double)resizeWidth / width,
+							(double) resizeHeight / height),
+							AffineTransformOp.TYPE_BILINEAR);
+			ato.filter(sourceImage, resizeImage);
+			//画像の切り取り
+			subImage =  resizeImage.getSubimage(0, 0, RESIZE_INT, RESIZE_INT);
+
+		}else if(height > RESIZE_INT && width < RESIZE_INT){
+			subImage =  sourceImage.getSubimage(0, 0, width, RESIZE_INT);
+
+		}else if(height < RESIZE_INT && width > RESIZE_INT){
+			subImage =  sourceImage.getSubimage(0, 0, RESIZE_INT, height);
+		}else{
+			subImage = sourceImage;
 		}
 
-		//リサイズ処理
-		BufferedImage resizeImage = new BufferedImage(width, height, sourceImage.getType());
-		AffineTransformOp ato = null;
-		ato = new AffineTransformOp(
-				AffineTransform.getScaleInstance((double)resizeWidth / width,
-						(double) resizeHeight / height),
-						AffineTransformOp.TYPE_BILINEAR);
-		ato.filter(sourceImage, resizeImage);
-		//画像の切り取り
-		BufferedImage subImage =  resizeImage.getSubimage(0, 0, RESIZE_INT, RESIZE_INT);
 
 		//jpgに変換
 		subImage.flush();
@@ -148,6 +164,7 @@ public class SettingAction extends SuperAction{
 	//changenamejsp
 	@Execute(validator=false)
 	public String changeUsername(){
+		mydata = tuserService.findById(userDto.userID);
 
 		return "changeUser.jsp";
 	}
@@ -155,11 +172,18 @@ public class SettingAction extends SuperAction{
 	@Execute(validator=false)
 	public String changeUsernameSubmit(){
 		String newUserName = settingForm.username;
-		System.out.println(newUserName);
+		int skey=0;
+
+		System.out.println(settingForm.keycheck+"moro");
 		if(newUserName == null){
 			throw new ActionMessagesException("新しい名前を入力してください", false);
 		}else{
-			tuserService.tuserNameUpdate(userDto.userID, newUserName);
+			if(!(settingForm.keycheck==null)){
+				skey = Integer.parseInt(settingForm.keycheck);
+			}
+
+			tuserService.tuserNameUpdate(userDto.userID, newUserName, skey);
+
 		}
 		return "";
 	}

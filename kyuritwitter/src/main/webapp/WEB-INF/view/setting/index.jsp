@@ -48,7 +48,7 @@
 							<html:errors />
 
 							<label>名前を変更する</label>
-							<html:text property="username" styleId="username" />
+							<html:text property="username" styleId="username"value = "${mydata.username}" />
 
 							<label>公開レベルを設定する</label>
 							<html:checkbox styleId="keycheck" property="keycheck" value="1" />

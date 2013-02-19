@@ -135,10 +135,11 @@ public class TuserService extends AbstractService<Tuser> {
 	}
 
 	//usernickを更新する
-	public void tuserNameUpdate(int id, String username){
+	public void tuserNameUpdate(int id, String username, int skey){
 		Tuser tuser = new Tuser();
 		tuser.userid = id;
 		tuser.username = username;
-		jdbcManager.update(tuser).includes("username").execute();
+		tuser.skey = skey;
+		jdbcManager.update(tuser).includes("username","skey").execute();
 	}
 }

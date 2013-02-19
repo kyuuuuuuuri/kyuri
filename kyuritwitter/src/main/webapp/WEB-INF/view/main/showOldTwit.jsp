@@ -1,50 +1,9 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
-
-				<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />
-
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
-
-
-<!--<tiles:insert page="/WEB-INF/view/common/header.jsp"  />-->
-		<title>メインページ</title>
-	</head>
-	<body>
-		<tiles:insert template="/WEB-INF/view/common/layout.jsp" flush="true">
-		<tiles:put name="title" value="followedpage" />
-		<tiles:put name="content" type="string">
-
-		<!-- つぶやきが一件もなかった場合 -->
-		<c:if test="${empty murmurList }">
-			<div>
-				表示すべきつぶやきが一件もありません
-			</div>
-		</c:if>
-
-		<!-- つぶやきが一件以上ある場合 -->
-		<c:if test="${!empty murmurList}">
-		<div id="timeLine">
-			<div id="twitTitle"><h4>ツイート</h4></div>
-
-
-			<p class="timeLine_border"></p>
 
 			<c:forEach var="tubuyaki" items="${murmurList}">
 
 						<div id="${tubuyaki.murmurid}" class="twitmain">
-							<span class="pImg">
-							<html:img src="${pageContext.request.contextPath}/main/showUserImg/${tubuyaki.tuser.userid}"
+							<span class="pImg"> <html:img
+									src="${pageContext.request.contextPath}/main/showUserImg/${tubuyaki.tuser.userid}"
 									width="50" height="50" />
 							</span>
 							<span class="usernick">
@@ -83,18 +42,9 @@
 								<br>
 								<span class="rep_text_size">140</span>
 								<s:submit styleClass="btn btn-info rep_twit_btn"
-									property="ins_tubuyaki_rep">ツイート</s:submit>
+									property="ins_tubuyaki">ツイート</s:submit>
 							</s:form>
 						</div>
 						<p class="timeLine_border"></p>
 
 			</c:forEach>
-			<div id="lastLine" class="0">　</div>
-		</div>
-
-		</c:if>
-
-</tiles:put>
-</tiles:insert>
-</body>
-</html>

@@ -42,33 +42,25 @@ $(function(){
 			$("#input_text_size").show();
 		}
 	});
-	$(".twitmain").hover(
-		function(){
-			var id= $(this).attr("id");
-			$("#" + id).css("background-color","#EBEBEB");
-			$("#" + id + " .twit_info").css("visibility","visible");
-		},
-		function(){
-			var id= $(this).attr("id");
-			$("#" + id).css("background-color","#F4F4F4");
-			$("#" + id + " .twit_info").css("visibility","hidden");
 
-		}
-	);
-
-	//repform
-	changeRepform();
-
+	mouseHoverEvent();
+	scrollEvent();
 
 
 });
 
+window.onload = function(){
+	setInterval("checkNewTwit()",30*1000);
+};
+
 function init(){
+
 	//ボタンを隠す
 	$("#gps").hide();
 	$("#pict").hide();
 	$("#twit_button").hide();
 	$("#input_text_size").hide();
+	$("#existNewtwit").hide();
 
 	$('#twit_textarea').val("ツイートする")
 	.css("color", "#969696");
@@ -77,20 +69,105 @@ function init(){
 
 	//＠のついた文字列をリンク付けする
 	//hashタグにリンク付けする
-	$('p').each(function(){
-		var text=$(this).text();
-		txt = $(this).text().replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="showdata/$2">$1$2</a>');
-		txt = txt.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
-		txt = txt.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
-		$(this).html(txt);
+	$('.twitid').each(function(){
+		var text = $(this).text();
+		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="showdata/$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
+		$(this).html(text);
 	});
-
-	//hashタグにリンク付けする
-
 
 	$("#twit_button").attr("disabled","true");
 }
 
+function checkNewTwit(){
+	topId = $(".twitmain:first").attr("id");
+
+
+	$.ajax({
+		type:"POST",
+		url: "checkNewTwit",
+		data:{
+			'topId':topId
+		},
+		dataType:"text",
+		success: function(data, dataType){
+			if($("#existNewtwit").get(0)){
+
+			}else{
+				if(data!=null){
+					$("#twitTitle").after(data);
+					getNewTwit();
+				}
+			}
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
+	});
+}
+
+function getNewTwit(){
+
+	topId = $(".twitmain:first").attr("id");
+	$("#existNewtwit").click(function(){
+		$.ajax({
+			type:"POST",
+			url: "NewTwitList",
+			data:{
+				'topId':topId
+			},
+			dataType:"html",
+			success: function(data, dataType){
+				//alert("yess");
+
+					$("#existNewtwit").replaceWith(data);
+					initWhenAjaxDo();
+					mouseHoverEvent();
+
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+	});
+}
+
+function initWhenAjaxDo(){
+
+	$("div.repform").hide();
+
+	//＠のついた文字列をリンク付けする
+	//hashタグにリンク付けする
+	$('p').each(function(){
+		//var text=$(this).text();
+		var text = $(this).text();
+		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="showdata/$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
+		$(this).html(text);
+		});
+
+}
+
+function mouseHoverEvent(){
+
+	$(".twitmain").hover(
+			function(){
+				var id= $(this).attr("id");
+				$("#" + id).css("background-color","#EBEBEB");
+				$("#" + id + " .twit_info").css("visibility","visible");
+			},
+			function(){
+				var id= $(this).attr("id");
+				$("#" + id).css("background-color","#F4F4F4");
+				$("#" + id + " .twit_info").css("visibility","hidden");
+
+			}
+		);
+}
 
 function OpenWin(index){
 	var selecter;
@@ -100,6 +177,48 @@ function OpenWin(index){
 	win=window.open(userid,"new","width=400,height=400, menubar=no, toolbar=no, location=no");
 	win.moveTo(50,50);
 }
+
+function scrollEvent(){
+
+	var currentLocation;
+	var scrollHeight;
+	//var clientHeight = document.body.clientHeight;
+	var clientHeight;
+
+	$(window).scroll(function(){
+		clientHeight = window.innerHeight
+		scrollHeight = document.body.scrollHeight || document.docomentElement.scrollHeight;
+		currentLocation = $(window).scrollTop();
+		var remain = scrollHeight - clientHeight - currentLocation;
+		if(remain <= 20){
+			var page =$("#lastLine").attr("class");
+			getOldTwit();
+		}
+	});
+}
+
+function getOldTwit(){
+	var lastid = $(".twitmain:last").attr("id");
+	alert(lastid);
+	$.ajax({
+		type:"POST",
+		url: "loadOldTwit",
+		data:{
+			'lastId':lastid
+		},
+		dataType:"html",
+		success: function(data, dataType){
+
+			$("#lastLine").before(data);
+			initWhenAjaxDo();
+			mouseHoverEvent();
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
+	});
+}
+
 
 //replyanメソッド
 function replyan(usernick){
@@ -111,29 +230,31 @@ function replyan(usernick){
 }
 
 //replyformメソッド
-function changeRepform(){
-	$('.open_details_twit').toggle(function(){
-		var id = $(".twitmain").attr("id");
-		var repUser = $(".usernickLink","#"+id).text();
+function changeRepform(id){
+	var repUser = $(".usernickLink","#"+id).text();
+
+	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
+		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
 
 		$("#" + id).css({
 			"margin-top" : "10px"
 		});
 		$("#" + id + "r").show();
 		$("#" + id + "r").css("margin-bottom","10px");
-		$(".rep_textarea").val("@"+ repUser + " ");
-		$(this).text("閉じる");
+		$(".rep_textarea", "#" + id + "r").val("@"+ repUser + " ");
 		replyForm(id);
-	},
-	function(){
-		var id = $(".twitmain").attr("id");
+	}else if($('.open_details_twit', "#"+id).attr("id") == id+"close"){
+		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
+
 		$("#" + id).css({
 			"margin-top" : "0px"
 		});
 		$("#" + id + "r").css("margin-bottom","0px");
 		$("#"+ id +"r").hide().css("margin-bottom","0px");
-		$(this).text("開く");
-	});
+	}else{
+		alert("問題が起こりました");
+	}
+
 }
 
 function replyForm(id){

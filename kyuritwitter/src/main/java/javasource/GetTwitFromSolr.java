@@ -26,7 +26,7 @@ public class GetTwitFromSolr extends SuperAction{
 		server = solr.getServer();
 	}
 
-	public List<SearchDto> getAllTwit(String searchWord){
+	public List<SearchDto> getAllTwit(String searchWord, int start){
 
 		List<SearchDto> twitList = new ArrayList<SearchDto>();
 		String strId = null;
@@ -36,7 +36,7 @@ public class GetTwitFromSolr extends SuperAction{
 		SolrQuery query = new SolrQuery();
 		query.setQuery("twit:" + searchWord);
 		query.setSortField("id", ORDER.desc);
-		query.setStart(0);
+		query.setStart(start);
 		query.setRows(10);
 
 		//Solrへクエリーを投げる

@@ -11,5 +11,7 @@ public class UserDto implements Serializable{
 
 	public Integer userID=null;
 
+	public String searchWord = null;
+
 }
 

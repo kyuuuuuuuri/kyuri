@@ -1,15 +1,10 @@
 package root.form;
 
 import org.seasar.struts.annotation.IntegerType;
-import org.seasar.struts.annotation.Maxlength;
-import org.seasar.struts.annotation.Msg;
-import org.seasar.struts.annotation.Required;
 
-public class MainForm {
+public class MainForm extends CommonForm {
 
-	@Required(msg=@Msg(key="0字以上で入力してください",resource=false))
-	@Maxlength(maxlength = 140
-			, msg =@Msg(key="140字で入力してください",resource=false))
+
 	public String tubuyaki;
 
 	@IntegerType
@@ -28,7 +23,6 @@ public class MainForm {
 
 	public String rep_user;
 
-	public String searchWord;
-
 	public String hashtag;
+
 }

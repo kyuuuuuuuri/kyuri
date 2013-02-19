@@ -29,28 +29,32 @@ public class SuperAction {
     @Resource
     protected MurmurService murmurService;
 
-
     //loginUser number
     public int mine=0;
 
     //mydata
 	public Tuser mydata = new Tuser();
 
+	//表示するメニュー
+	public int menuFlag = 0;
+
 
     //Pager
     //前のページがあるかどうか
-  	public boolean hasNext = false;
-  	//次のページがあるかどうか
-  	public boolean hasPrev = false;
-  	//総件数
-  	public long total;
-  	//1ページに表示する件数
+	public boolean hasNext = false;
+	//次のページがあるかどうか
+	public boolean hasPrev = false;
+	//総件数
+	public long total;
+	//1ページに表示する件数
 	protected static final int LIMIT = 10;
+
 
 	//ログアウトmethode
 	@Execute(validator=false)
 	@RemoveSession(name="userDto")
 	public String logout(){
+		System.out.println("moro");
 		return "/login/";
 	}
 

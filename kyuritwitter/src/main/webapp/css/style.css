@@ -5,6 +5,22 @@ body {
 	margin: 25px;
 }
 
+div.existNewtwit{
+	background-color:#dddddd;
+	cursor:pointer;
+
+	width:540px;
+	display: inline-block;
+	_display: inline;
+
+	height:40px;
+
+	padding-right:auto;
+	padding-left:auto;
+	padding-top:5px;
+}
+
+
 <!-- layout jsp table -->
 table{
 	width: 80%;

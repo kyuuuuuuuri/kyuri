@@ -17,7 +17,7 @@
 				<a id="gps" class="btn">GPS</a>
 				<a id="pict" class="btn">pict</a>
 				<span id="input_text_size">140</span>
-				<s:submit styleId="twit_button" styleClass="btn btn-info" property="ins_tubuyaki">ツイート</s:submit>
+				<s:submit styleId="twit_button" styleClass="btn btn-info" property="insertTwit">ツイート</s:submit>
 				</s:form>
 			</td></tr>
 		</table>

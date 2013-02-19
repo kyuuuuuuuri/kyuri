@@ -4,20 +4,19 @@
 
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
-<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
 <link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
 <link rel="Stylesheet" href="${pageContext.request.contextPath}/css/error.css" />
-
-
-<tiles:insert page="/WEB-INF/view/common/header.jsp"  />
+	<tiles:insert page="/WEB-INF/view/common/header.jsp"  />
 
 </head>
 <body>
-<div id = "error" class="error">
-エラーが発生しました。
+
+<div id="error" class="error">
+指定されたページは見つかりません。
 </div>
 
 </body>

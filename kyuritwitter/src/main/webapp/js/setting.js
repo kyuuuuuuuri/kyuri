@@ -27,8 +27,8 @@ $(function(){
 
 	$("#username").focus(function(){
 
-		$(this).val("");
-		$("#changeUsernameSubmit").attr("disabled","true");
+		//$(this).val("");
+		//$("#changeUsernameSubmit").attr("disabled","true");
 
 			$("#username").each(function() {
 			$(this).keyup(function(event) {
@@ -45,6 +45,5 @@ $(function(){
 });
 
 function init(){
-	$("#changeUsernameSubmit").attr("disabled","true");
 
 }
