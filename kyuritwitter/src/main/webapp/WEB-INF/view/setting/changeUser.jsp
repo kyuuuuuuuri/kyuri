@@ -1,31 +1,72 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<!DOCTYPE>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
+
+	<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
+	<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
+	<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />
+
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/setting.js"></script>
 
-<title>change user information</title>
+	<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/setting.css" />
+
+
+	<title>setting page</title>
+	<tiles:insert page="/WEB-INF/view/common/header.jsp"  />
+
 </head>
 <body>
 
-	<s:form>
+	<div class="main_setting">
+		<div class="container">
+			<div class="row">
+				<div class="span4">
+					<div class="setspanMenu">
+						<ul class="nav nav-list">
+							<li class="nav-header">Menu</li>
+							<li id="change1" class="active">
+							<a href="index" >プロフィールを変える</a></li>
+							<li id="change2" class="">
+							<a href="changeUserImg" >画像を変える</a></li>
+							<li id="change3" class="">
+							<a href="changePassword">パスワードを変える</a></li>
+						</ul>
+					</div>
+				</div>
 
-		<html:errors />
+				<div class="span7 offset1">
+				<div id="settingMain" class="setspan">
+						<s:form>
 
-		<label>名前を変更する</label>
-		<html:text property="username" styleId="username" value = "${mydata.username}" />
+							<html:errors />
 
-		<label>公開レベルを設定する</label>
-		<html:checkbox styleId="keycheck" property="keycheck" value="1" />
-		<span>非公開にする</span>
+							<label>名前を変更する</label>
+							<html:text property="username" styleId="username"value = "${mydata.username}" />
 
-		<p>
-			<s:submit styleId="changeUsernameSubmit" styleClass="btn btn-info"
-				property="changeUsernameSubmit" value="変更する" />
-		</p>
-	</s:form>
+							<label>公開レベルを設定する</label>
+							<html:checkbox styleId="keycheck" property="keycheck" value="1" />
+							<span>非公開にする</span>
+
+							<p>
+								<s:submit styleId="changeUsernameSubmit"
+									styleClass="btn btn-info" property="changeUsernameSubmit"
+									value="変更する" />
+							</p>
+						</s:form>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

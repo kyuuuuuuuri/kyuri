@@ -44,7 +44,7 @@ public class MainAction extends SuperAction {
 
 	public List<SearchDto> searchDto;
 
-	@Execute(validator = false)
+	@Execute(validator = false, urlPattern = "main")
 	public String index() {
 		return "main";
 	}
@@ -260,6 +260,94 @@ public class MainAction extends SuperAction {
 	public String ins_tubuyaki_rep(){
 
 		return "";
+	}
+
+	@Execute(validator = false)
+	public String ajaxSubmit(){
+
+		setTwitToSolr = new SetTwitToSolr();
+		String[] hashArray;
+		List<String> hashList = new ArrayList<String>();
+		int userid = userDto.userID;
+		mine = userid;
+
+
+		//Formに渡されたつぶやきを格納する変数
+		String mur = req.getParameter("tubuyaki");
+		//GPS情報
+		String Location = req.getParameter("Location");
+		String topId=req.getParameter("topId");
+		int id = Integer.parseInt(topId);
+
+		System.out.println(Location);
+
+		//登録済みかユーザチェック
+		if (mur == null) {
+			throw new ActionMessagesException("なにか入力してください", false);
+		}
+
+		String hash ="[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
+		Pattern p = Pattern.compile(hash);
+		Matcher matcher = p.matcher(mur);
+
+			while (matcher.find()) {
+
+				for (int i = 0; i <= matcher.groupCount(); i++) {
+					System.out.println(matcher.group(i));
+				}
+				hashList.add(matcher.group(2));
+			}
+
+			hashArray = new String[hashList.size()];
+
+		if (hashList.size() != 0) {
+			for (int i = 0; i < hashList.size(); i++) {
+				hashArray[i] = hashList.get(i);
+			}
+		}
+		for(int i =0; i<hashArray.length;i++){
+			System.out.println(hashArray[i]);
+		}
+
+
+		Murmur murmur = new Murmur();
+
+		//新しいつぶやきをデータベースに格納する
+		murmur.userid = userid;
+		murmur.murmur = mur;
+		murmur.dateTime = null;
+		int newMurmurId = murmurService.insertMurmur(murmur);
+
+		//自分の最新のつぶやきを更新する
+		Tuser tuser = tuserService.findById(userid);
+		tuser.newMur = mur;
+		tuser.postNum += 1;
+		tuser.newMurD = null;
+		tuserService.updateTuserAfterTwit(tuser);
+
+		murmur = murmurService.findById(newMurmurId);
+
+		//solrに登録する
+		setTwitToSolr.setTwit(murmur, hashArray);
+
+
+		//リストの更新
+		List<Integer> murmur_userid = new ArrayList<Integer>();
+
+		//ユーザのフォローをリスト化
+		List<Follow> followResult = followService.findUserFollow(userid);
+
+		if (followResult != null) {
+			for (Follow f : followResult) {
+				murmur_userid.add(f.fuserid);
+			}
+		}
+		murmur_userid.add(userid);
+
+		System.out.println("入りました" + id + "morokyu");
+		murmurList = murmurService.selectNewTwit(id, murmur_userid);
+
+		return "showOldTwit.jsp";
 	}
 
 	//ユーザ個々のつぶやきを表示する

@@ -2,7 +2,6 @@ package root.interceptor;
 
 
 import java.util.Map;
-//import java.lang.reflect.Method;
 
 import javax.annotation.Resource;
 
@@ -10,10 +9,11 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.framework.container.SingletonS2Container;
 import org.seasar.struts.annotation.Execute;
-//import org.seasar.struts.annotation.Execute;
 
-//import root.annotation.Auth;
 import root.dto.UserDto;
+//import java.lang.reflect.Method;
+//import org.seasar.struts.annotation.Execute;
+//import root.annotation.Auth;
 
 public class LoginConfirmInterceptor extends AbstractInterceptor {
 
@@ -27,6 +27,7 @@ public class LoginConfirmInterceptor extends AbstractInterceptor {
 	                ? invocation.proceed() : "/login?redirect=true";
 	    }
 
+	    //invocation.proceed()
 //	    private boolean isTargetMethod(MethodInvocation invocation) {
 //
 //	        Method method = invocation.getMethod();

@@ -5,7 +5,7 @@ import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Minlength;
 import org.seasar.struts.annotation.Required;
 
-public class LoginForm {
+public class LoginForm extends CommonForm{
 
 	@Required
 	@Minlength(minlength = 4)

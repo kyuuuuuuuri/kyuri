@@ -20,6 +20,25 @@ div.existNewtwit{
 	padding-top:5px;
 }
 
+#address{
+	cursor:pointer;
+	padding-left:5px;
+	padding-right:20px;
+}
+
+#address:hover{
+	background-color:"#0088cc";
+}
+
+#noGPS{
+	cursor:pointer;
+	padding-left:5px;
+	padding-right:20px;
+}
+
+#noGPS{
+	background-color:"#0088cc";
+}
 
 <!-- layout jsp table -->
 table{
@@ -116,6 +135,7 @@ div#timeLine{
 	width:540px;
 }
 
+
 #lastLine{
 	background-color:#F4F4F4;
 	display: inline-block;
@@ -178,6 +198,12 @@ div.twitmain{
 .username{
 
 }
+
+.gpsmenu{
+	display: inline-block;
+	_display: inline;
+}
+
 
 .date{
 	font-size:x-small;

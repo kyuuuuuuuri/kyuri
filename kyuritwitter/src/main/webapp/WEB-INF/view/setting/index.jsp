@@ -32,11 +32,11 @@
 						<ul class="nav nav-list">
 							<li class="nav-header">Menu</li>
 							<li id="change1" class="active">
-							<a href="#" onclick="$('#settingMain').load('${f:url('changeUsername')}');">プロフィールを変える</a></li>
+							<a href="index" >プロフィールを変える</a></li>
 							<li id="change2" class="">
-							<a href="#" onclick="$('#settingMain').load('${f:url('changeUserImg')}');">画像を変える</a></li>
+							<a href="changeUserImg" >画像を変える</a></li>
 							<li id="change3" class="">
-							<a href="#" onclick="$('#settingMain').load('${f:url('changePassword')}');">パスワードを変える</a></li>
+							<a href="changePassword">パスワードを変える</a></li>
 						</ul>
 					</div>
 				</div>

@@ -10,23 +10,6 @@
 	<body>
 
 
-		<c:if test="${ mine == 0 }">
-			<div class="navbar navbar-inverse navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<ul class="nav">
-							<li><s:link href="/main/"><span class="header_font">ホーム</span></s:link></li>
-							<li class="divider-vertical"></li>
-							<li><s:link href="/user/"><span class="header_font">ユーザ登録</span></s:link></li>
-							<li class="divider-vertical"></li>
-							<li><s:link href="/login/"><span class="header_font">ログイン</span></s:link></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</c:if>
-
-		<c:if test="${ mine != 0 }">
 			<div class="navbar navbar-inverse navbar-fixed-top">
 				<div class="navbar-inner">
 					<div class="container">
@@ -37,7 +20,7 @@
 
 							<li><s:link href="logout"><span class="header_font">ログアウト</span></s:link></li>
 
-							<li><s:link href="setting"><span class="header_font">設定</span></s:link></li>
+							<li><s:link href="/setting/"><span class="header_font">設定</span></s:link></li>
 
 						</ul>
 
@@ -55,7 +38,6 @@
 					</div>
 				</div>
 			</div>
-		</c:if>
 
 	</body>
 </html>

@@ -5,16 +5,18 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 
-				<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
 
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
-		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />
+
 
 
 <!--<tiles:insert page="/WEB-INF/view/common/header.jsp"  />-->

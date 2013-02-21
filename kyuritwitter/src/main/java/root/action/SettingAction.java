@@ -13,9 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javasource.passwordhash;
+
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
@@ -39,20 +42,22 @@ public class SettingAction extends SuperAction{
 
 	public Tuser mydata = new Tuser();
 
-	@Execute(validator = false)
+	@Execute(validator = false, urlPattern="setting")
 	public String index(){
 		int userid = userDto.userID;
 		mine=userid;
 
 		mydata = tuserService.findById(userid);
 
-		return "index.jsp";
+		return "changeUser.jsp";
 	}
 
 
 	//upload file
 	@Execute(validator = false)
 	public String upload() throws FileNotFoundException, IOException{
+		int userid = userDto.userID;
+		mine=userid;
 
 		String filename = this.settingForm.file.getFileName();
 		InputStream fileData = this.settingForm.file.getInputStream();
@@ -73,18 +78,8 @@ public class SettingAction extends SuperAction{
 
 		resize(path);
 
-		return "index.jsp";
+		return "changeImg.jsp";
 	}
-
-//	public static void main(String[] args) {
-//
-//		SettingAction action = new SettingAction();
-//		try {
-//			action.resize("C:\\Users\\myao\\git\\kyuritwitter_git\\kyuritwitter\\src\\main\\webapp\\img\\profileImg/tumblr_m4r85jjZBv1qbyxr0o1_500.jpg");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 	public void resize(String filePath) throws IOException{
 		BufferedImage sourceImage = ImageIO.read(new File(filePath));
@@ -151,8 +146,9 @@ public class SettingAction extends SuperAction{
 	//ユーザプロフィール画像
 	@Execute(validator=false)
 	public String showUserImgSetting(){
-		int id = userDto.userID;
-		Tuser userImg = tuserService.getTuserImg(id);
+		int userid = userDto.userID;
+		mine=userid;
+		Tuser userImg = tuserService.getTuserImg(userid);
 		String filename = userImg.userid+".jpg";
 		if(userImg != null){
 			ResponseUtil.download(filename, userImg.profileimg);
@@ -161,46 +157,114 @@ public class SettingAction extends SuperAction{
 		return null;
 	}
 
-	//changenamejsp
-	@Execute(validator=false)
-	public String changeUsername(){
-		mydata = tuserService.findById(userDto.userID);
+//	//changenamejsp
+//	@Execute(validator=false)
+//	public String changeUsername(){
+//		mydata = tuserService.findById(userDto.userID);
+//
+//		return "changeUser.jsp";
+//	}
 
-		return "changeUser.jsp";
-	}
-
-	@Execute(validator=false)
+	@Execute(validator=true, input = "changeUser.jsp")
 	public String changeUsernameSubmit(){
 		String newUserName = settingForm.username;
 		int skey=0;
+		int userid = userDto.userID;
+		mine = userid;
+		//System.out.println("morokyumorokyu" + newUserName);
 
-		System.out.println(settingForm.keycheck+"moro");
-		if(newUserName == null){
-			throw new ActionMessagesException("新しい名前を入力してください", false);
+		if(newUserName.isEmpty()){
+			System.out.println("null");
+			throw new ActionMessagesException("新しい名前を入力してください");
 		}else{
-			if(!(settingForm.keycheck==null)){
+			if(!(settingForm.keycheck == null)){
 				skey = Integer.parseInt(settingForm.keycheck);
 			}
 
 			tuserService.tuserNameUpdate(userDto.userID, newUserName, skey);
 
 		}
-		return "";
+		return "changeUser.jsp";
+	}
+
+	public String successMsg;
+	@Execute(validator=true, input = "changePass.jsp")
+	public String changePasswordSubmit(){
+		System.out.println("パスワードチェックに入ったよ");
+		String oldpass = settingForm.oldpass;
+		String newpass = settingForm.newpass;
+
+		int userid = userDto.userID;
+		mine = userid;
+
+		Tuser tuser = tuserService.findById(userid);
+		passwordhash e = new passwordhash();
+
+		String pass_hash = e.getpassword(oldpass);
+		System.out.println(pass_hash + " " + tuser.passWord);
+
+		if(pass_hash.equals(tuser.passWord)){
+			newpass = e.getpassword(newpass);
+			tuser.passWord = newpass;
+			System.out.println("OKだよ" + newpass);
+			successMsg = "パスワードを変更しました";
+			tuserService.updatePassWord(tuser);
+
+		}else{
+			System.out.println("だめだよ");
+			throw new ActionMessagesException("パスワードが正しくありません", false);
+		}
+
+
+		return "changePass.jsp";
+	}
+
+	@Resource
+	HttpServletRequest req;
+
+	@Execute(validator=false)
+	public String checkOldPass(){
+		int userid = userDto.userID;
+		String checkPass = req.getParameter("oldpass");
+		Tuser tuser =tuserService.findById(userid);
+		String pass = tuser.passWord;
+		mine=userid;
+
+		//パスワード暗号化
+		passwordhash e = new passwordhash();
+		String pass_hash = e.getpassword(checkPass);
+		System.out.println(pass+ "morokyu" + pass_hash);
+
+		if(pass == pass_hash){
+			ResponseUtil.write("OK");
+			System.out.println("passOKOK");
+		}else{
+
+		}
+
+
+		return null;
 	}
 
 	@Execute(validator=false)
-	public String changePasswordSubmit(){
-
-		return "";
+	public String changeUsername(){
+		int userid = userDto.userID;
+		mine=userid;
+		return "changeUser.jsp";
 	}
 
 	@Execute(validator=false)
 	public String changeUserImg(){
+		int userid = userDto.userID;
+		mine=userid;
 		return "changeImg.jsp";
 	}
 
 	@Execute(validator=false)
 	public String changePassword(){
+		int userid = userDto.userID;
+		mine=userid;
+
 		return "changePass.jsp";
 	}
 

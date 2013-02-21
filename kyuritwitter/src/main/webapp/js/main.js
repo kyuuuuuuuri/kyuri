@@ -6,7 +6,11 @@ $(function(){
 		$(this).attr("rows", "5");
 		if(this.value=="ツイートする"){
 			$(this).val("").css("color", "#000");
-			$("#gps").show();
+			if($("#address").text() ==""){
+				$("#gps").show();
+			}else{
+				$(".gpsmenu").show();
+			}
 			$("#pict").show();
 			$("#twit_button").show();
 			$("#input_text_size").show();
@@ -24,10 +28,29 @@ $(function(){
 			});
 		}
 	});
+
+	$("#gps").click(function(){
+
+			$(this).hide();
+			$(".gpsmenu").show();
+
+			getGps();
+	});
+
+	$("#noGPS").click(function(){
+		$(".gpsmenu").hide();
+		$("#address").text("");
+		$("#gps").show();
+	});
+
+
+
 	$("#twit_textarea").blur(function(){
 		$(this).css("background-color", "#fff");
+
 		if(this.value==""){
 			$("#gps").hide();
+			$(".gpsmenu").hide();
 			$("#pict").hide();
 			$("#twit_button").hide();
 			$("#input_text_size").hide();
@@ -36,7 +59,11 @@ $(function(){
 		}
 		if(this.value!="ツイートする"){
 			$(this).css("color","#000");
-			$("#gps").show();
+			if($("#address").text() ==""){
+				$("#gps").show();
+			}else{
+				$(".gpsmenu").show();
+			}
 			$("#pict").show();
 			$("#twit_button").show();
 			$("#input_text_size").show();
@@ -46,6 +73,38 @@ $(function(){
 	mouseHoverEvent();
 	scrollEvent();
 
+	$("#twitter_form").submit(function(){
+		//alert("submit cansel");
+		var topId = $(".twitmain:first").attr("id");
+		var tubuyaki = $("#twit_textarea").val();
+		var location = $("#address").text();
+		$.ajax({
+			type:"POST",
+			url: "ajaxSubmit",
+			data:{
+				"tubuyaki":tubuyaki,
+				"Location":location,
+				"topId":topId
+			},
+			dataType:"text",
+			success: function(data, dataType){
+				alert("成功しました");
+				if($("#existNewtwit").get(0)){
+					$("#existNewtwit").replaceWith(data);
+					initWhenAjaxDo();
+					mouseHoverEvent();
+				}else{
+					$("#twitTitle").after(data);
+					initWhenAjaxDo();
+					mouseHoverEvent();
+				}
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+		return false;
+	});
 
 });
 
@@ -61,6 +120,7 @@ function init(){
 	$("#twit_button").hide();
 	$("#input_text_size").hide();
 	$("#existNewtwit").hide();
+	$(".gpsmenu").hide();
 
 	$('#twit_textarea').val("ツイートする")
 	.css("color", "#969696");
@@ -98,7 +158,8 @@ function checkNewTwit(){
 			}else{
 				if(data!=null){
 					$("#twitTitle").after(data);
-					getNewTwit();
+					initWhenAjaxDo();
+					mouseHoverEvent();
 				}
 			}
 		},
@@ -106,6 +167,28 @@ function checkNewTwit(){
 			alert("問題が発生しました");
 		}
 	});
+}
+
+function getGps(){
+
+	navigator.geolocation.getCurrentPosition(
+			function(position){
+				var latlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+				var geocoder = new google.maps.Geocoder();
+				if(geocoder){
+					geocoder.geocode({
+						'latLng' : latlng
+					},
+					function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							$("#address").text(results[5].formatted_address);
+						} else {
+							alert("Geocode faild due to : "+ status);
+						}
+					});
+				}
+			});
+
 }
 
 function getNewTwit(){
@@ -167,6 +250,17 @@ function mouseHoverEvent(){
 
 			}
 		);
+	$("#address").hover(
+		function(){
+			$(this).css(
+				"background-color","#0088cc"
+			);
+		},
+		function(){
+			$(this).css(
+				"background-color","#ffffff"
+			);
+		});
 }
 
 function OpenWin(index){
@@ -199,7 +293,7 @@ function scrollEvent(){
 
 function getOldTwit(){
 	var lastid = $(".twitmain:last").attr("id");
-	alert(lastid);
+	//alert(lastid);
 	$.ajax({
 		type:"POST",
 		url: "loadOldTwit",

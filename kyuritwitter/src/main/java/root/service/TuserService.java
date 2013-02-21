@@ -85,6 +85,14 @@ public class TuserService extends AbstractService<Tuser> {
 				.getResultList();
 	}
 
+	/**
+	 * passを新しく更新する
+	 * @param tuser
+	 */
+	public void updatePassWord(Tuser tuser){
+		jdbcManager.update(tuser).includes("passWord").execute();
+	}
+
 	public List<Tuser> tuserSerch(int LIMIT, int page, String searchUser) {
 		return jdbcManager
 				.from(Tuser.class)

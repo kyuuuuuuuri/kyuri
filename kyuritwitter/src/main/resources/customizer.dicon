@@ -22,6 +22,7 @@
             <arg>"root.action"</arg>
             <arg>"UserAction"</arg>
           </initMethod>
+
         </component>
       </arg>
     </initMethod>

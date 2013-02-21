@@ -7,6 +7,12 @@ import javax.servlet.jsp.*;
 public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
+static private org.apache.jasper.runtime.ProtectedFunctionMapper _jspx_fnmap_0;
+
+static {
+  _jspx_fnmap_0= org.apache.jasper.runtime.ProtectedFunctionMapper.getMapForFunction("f:url", org.seasar.struts.taglib.S2Functions.class, "url", new Class[] {java.lang.String.class});
+}
+
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
 
   private static java.util.List _jspx_dependants;
@@ -16,6 +22,7 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_dependants.add("/WEB-INF/view/common/common.jsp");
   }
 
+  private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fs_005fform;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody;
   private org.apache.jasper.runtime.TagHandlerPool _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody;
@@ -30,6 +37,7 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
   }
 
   public void _jspInit() {
+    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fs_005fform = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
@@ -40,6 +48,7 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
   }
 
   public void _jspDestroy() {
+    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.release();
     _005fjspx_005ftagPool_005fs_005fform.release();
     _005fjspx_005ftagPool_005fhtml_005ferrors_005fnobody.release();
     _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.release();
@@ -80,22 +89,76 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
-      out.write("<!DOCTYPE>\r\n");
+      out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("\r\n");
       out.write("<html>\r\n");
       out.write("<head>\r\n");
       out.write("\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\r\n");
+      out.write("\t<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\">\r\n");
+      out.write("\t<script type=\"text/javascript\" src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${f:url('/js/jquery.js')}", java.lang.String.class, (PageContext)_jspx_page_context, _jspx_fnmap_0, false));
+      out.write("\"></script>\r\n");
+      out.write("\r\n");
+      out.write("\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/css/bootstrap-responsive.css\" />\r\n");
+      out.write("\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/css/bootstrap.css\" />\r\n");
+      out.write("\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/bootstrap/js/bootstrap.js\" />\r\n");
+      out.write("\r\n");
       out.write("\t<script type=\"text/javascript\" src=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
       out.write("/js/setting.js\"></script>\r\n");
       out.write("\r\n");
-      out.write("<title>change user information</title>\r\n");
+      out.write("\t<link rel=\"Stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+      out.write("/css/setting.css\" />\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\t<title>setting page</title>\r\n");
+      out.write("\t");
+      if (_jspx_meth_tiles_005finsert_005f0(_jspx_page_context))
+        return;
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("</head>\r\n");
       out.write("<body>\r\n");
       out.write("\r\n");
-      out.write("\t");
+      out.write("\t<div class=\"main_setting\">\r\n");
+      out.write("\t\t<div class=\"container\">\r\n");
+      out.write("\t\t\t<div class=\"row\">\r\n");
+      out.write("\t\t\t\t<div class=\"span4\">\r\n");
+      out.write("\t\t\t\t\t<div class=\"setspanMenu\">\r\n");
+      out.write("\t\t\t\t\t\t<ul class=\"nav nav-list\">\r\n");
+      out.write("\t\t\t\t\t\t\t<li class=\"nav-header\">Menu</li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li id=\"change1\" class=\"active\">\r\n");
+      out.write("\t\t\t\t\t\t\t<a href=\"index\" >プロフィールを変える</a></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li id=\"change2\" class=\"\">\r\n");
+      out.write("\t\t\t\t\t\t\t<a href=\"changeUserImg\" >画像を変える</a></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li id=\"change3\" class=\"\">\r\n");
+      out.write("\t\t\t\t\t\t\t<a href=\"changePassword\">パスワードを変える</a></li>\r\n");
+      out.write("\t\t\t\t\t\t</ul>\r\n");
+      out.write("\t\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\r\n");
+      out.write("\t\t\t\t<div class=\"span7 offset1\">\r\n");
+      out.write("\t\t\t\t<div id=\"settingMain\" class=\"setspan\">\r\n");
+      out.write("\t\t\t\t\t\t");
       if (_jspx_meth_s_005fform_005f0(_jspx_page_context))
         return;
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\t\t\t\t\t</div>\r\n");
+      out.write("\t\t\t\t</div>\r\n");
+      out.write("\t\t\t</div>\r\n");
+      out.write("\t\t</div>\r\n");
+      out.write("\t</div>\r\n");
       out.write("\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
@@ -112,6 +175,25 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     }
   }
 
+  private boolean _jspx_meth_tiles_005finsert_005f0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  tiles:insert
+    org.apache.struts.taglib.tiles.InsertTag _jspx_th_tiles_005finsert_005f0 = (org.apache.struts.taglib.tiles.InsertTag) _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.get(org.apache.struts.taglib.tiles.InsertTag.class);
+    _jspx_th_tiles_005finsert_005f0.setPageContext(_jspx_page_context);
+    _jspx_th_tiles_005finsert_005f0.setParent(null);
+    // /WEB-INF/view/setting/changeUser.jsp(22,1) name = page type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_tiles_005finsert_005f0.setPage("/WEB-INF/view/common/header.jsp");
+    int _jspx_eval_tiles_005finsert_005f0 = _jspx_th_tiles_005finsert_005f0.doStartTag();
+    if (_jspx_th_tiles_005finsert_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.reuse(_jspx_th_tiles_005finsert_005f0);
+      return true;
+    }
+    _005fjspx_005ftagPool_005ftiles_005finsert_0026_005fpage_005fnobody.reuse(_jspx_th_tiles_005finsert_005f0);
+    return false;
+  }
+
   private boolean _jspx_meth_s_005fform_005f0(PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
@@ -125,34 +207,31 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
       do {
         out.write("\r\n");
         out.write("\r\n");
-        out.write("\t\t");
+        out.write("\t\t\t\t\t\t\t");
         if (_jspx_meth_html_005ferrors_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
         out.write("\r\n");
         out.write("\r\n");
-        out.write("\t\t<label>名前を変更する</label>\r\n");
-        out.write("\t\t");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.usernick}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-        out.write("\r\n");
-        out.write("\t\t");
+        out.write("\t\t\t\t\t\t\t<label>名前を変更する</label>\r\n");
+        out.write("\t\t\t\t\t\t\t");
         if (_jspx_meth_html_005ftext_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
         out.write("\r\n");
         out.write("\r\n");
-        out.write("\t\t<label>公開レベルを設定する</label>\r\n");
-        out.write("\t\t");
+        out.write("\t\t\t\t\t\t\t<label>公開レベルを設定する</label>\r\n");
+        out.write("\t\t\t\t\t\t\t");
         if (_jspx_meth_html_005fcheckbox_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
         out.write("\r\n");
-        out.write("\t\t<span>非公開にする</span>\r\n");
+        out.write("\t\t\t\t\t\t\t<span>非公開にする</span>\r\n");
         out.write("\r\n");
-        out.write("\t\t<p>\r\n");
-        out.write("\t\t\t");
+        out.write("\t\t\t\t\t\t\t<p>\r\n");
+        out.write("\t\t\t\t\t\t\t\t");
         if (_jspx_meth_s_005fsubmit_005f0(_jspx_th_s_005fform_005f0, _jspx_page_context))
           return true;
         out.write("\r\n");
-        out.write("\t\t</p>\r\n");
-        out.write("\t");
+        out.write("\t\t\t\t\t\t\t</p>\r\n");
+        out.write("\t\t\t\t\t\t");
         int evalDoAfterBody = _jspx_th_s_005fform_005f0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -191,11 +270,11 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.html.TextTag _jspx_th_html_005ftext_005f0 = (org.apache.struts.taglib.html.TextTag) _005fjspx_005ftagPool_005fhtml_005ftext_0026_005fvalue_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.TextTag.class);
     _jspx_th_html_005ftext_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005ftext_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/setting/changeUser.jsp(19,2) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(51,7) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setProperty("username");
-    // /WEB-INF/view/setting/changeUser.jsp(19,2) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(51,7) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setStyleId("username");
-    // /WEB-INF/view/setting/changeUser.jsp(19,2) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(51,7) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005ftext_005f0.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.username}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_html_005ftext_005f0 = _jspx_th_html_005ftext_005f0.doStartTag();
     if (_jspx_th_html_005ftext_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -214,11 +293,11 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.struts.taglib.html.CheckboxTag _jspx_th_html_005fcheckbox_005f0 = (org.apache.struts.taglib.html.CheckboxTag) _005fjspx_005ftagPool_005fhtml_005fcheckbox_0026_005fvalue_005fstyleId_005fproperty_005fnobody.get(org.apache.struts.taglib.html.CheckboxTag.class);
     _jspx_th_html_005fcheckbox_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005fcheckbox_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/setting/changeUser.jsp(22,2) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(54,7) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fcheckbox_005f0.setStyleId("keycheck");
-    // /WEB-INF/view/setting/changeUser.jsp(22,2) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(54,7) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fcheckbox_005f0.setProperty("keycheck");
-    // /WEB-INF/view/setting/changeUser.jsp(22,2) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(54,7) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fcheckbox_005f0.setValue("1");
     int _jspx_eval_html_005fcheckbox_005f0 = _jspx_th_html_005fcheckbox_005f0.doStartTag();
     if (_jspx_th_html_005fcheckbox_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -237,13 +316,13 @@ public final class changeUser_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f0 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fvalue_005fstyleId_005fstyleClass_005fproperty_005fnobody.get(org.seasar.struts.taglib.S2SubmitTag.class);
     _jspx_th_s_005fsubmit_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(58,8) name = styleId type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleId("changeUsernameSubmit");
-    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(58,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleClass("btn btn-info");
-    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(58,8) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setProperty("changeUsernameSubmit");
-    // /WEB-INF/view/setting/changeUser.jsp(26,3) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/setting/changeUser.jsp(58,8) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setValue("変更する");
     int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
     if (_jspx_th_s_005fsubmit_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
