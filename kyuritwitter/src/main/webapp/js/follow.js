@@ -4,7 +4,6 @@ $(function(){
 
 });
 
-
 function searchUser(){
 
 	var searchWord;
@@ -60,26 +59,22 @@ function follow(id){
 }
 
 function unfollow(id){
-
-	if(confirm("本当にフォローから外しますか？")){
-		$.ajax({
-			type : "POST",
-			url : "toUnFollow",
-			data : {
-				"unFollowUserId" : id
-			},
-			dataType : "text",
-			success : function(data, dataType) {
-				$("#" + id + "unfollowSub").attr("id", id + "followSub").attr(
-						"class", "btn btn-primary").attr("onclick",
-						"follow(" + id + ")").attr("value", "フォロー");
-			},
-			error : function() {
-				alert("問題が発生しました");
-			}
-		});
-	}else{
-		return false;
-	}
-
+	$.ajax({
+		type:"POST",
+		url:"toUnFollow",
+		data:{
+			"unFollowUserId":id
+		},
+		dataType:"text",
+		success: function(data,dataType){
+			$("#" + id + "unfollowSub")
+			.attr("id", id + "followSub")
+			.attr("class","btn btn-primary")
+			.attr("onclick", "follow(" + id + ")")
+			.attr("value","フォロー");
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
+	});
 }

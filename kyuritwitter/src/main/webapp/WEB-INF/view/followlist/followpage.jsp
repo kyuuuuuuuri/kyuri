@@ -7,6 +7,7 @@
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
+		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/follow.css" />
 
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
@@ -28,26 +29,37 @@
 	<tiles:put name="title" value="followpage" />
 	<tiles:put name="content" type="string">
 
-	<p>${mydata.username }は${mydata.follow }人をフォローしています</p>
-
 	<c:if test="${empty followList}">
-		<div>
+		<div id="noFollow">
 			まだだれもフォローしていません
 		</div>
 	</c:if>
 
 	<c:if test="${!empty followList}">
 	<div id ="tuserMain">
+		<p>${mydata.username }は${mydata.follow }人をフォローしています</p>
 	<c:forEach var="followList" items="${followList}">
+		<div class="twitmain">
+		<span class="pImg">
+					<html:img src="${pageContext.request.contextPath}/main/showUserImg/${followList.ftuser.userid}"
+							width="50" height="50" />
+					</span>
+			<s:link href="userpage/${followList.ftuser.usernick}"> ${followList.ftuser.usernick} </s:link>
+			<p>${followList.ftuser.newMur}</p>
+			<p class="newTwitTime"><fmt:formatDate value="${followList.ftuser.newMurD}" pattern="yyyy年MM月dd日 HH時mm分ss秒" /></p>
 
-		<s:link href="/main/showdata/${followList.usernick}" style="text-decoration: none"> ${followList.usernick} </s:link>
-		<p>${followList.newMur}</p>
-		<p><fmt:formatDate value="${followList.newMurD}" pattern="yyyy年MM月dd日 HH時mm分ss秒" /></p>
-
-		<c:if test="${mydata.userid==mine}">
-		<s:link onclick="return confirm('delete OK?');" href="unfollow/${followList.userid}">followを解除</s:link>
-		</c:if>
-
+			<div class="followButton">
+				<c:if test="${followList.ftuser.userid != mine }">
+					<c:if test="${followList.ftuser.ffollowList[0].userid != 1}">
+						<input id ="${followList.ftuser.userid}followSub" type="button" class="btn btn-primary" onclick="follow(${followList.ftuser.userid})" value="フォロー" />
+					</c:if>
+					<c:if test="${followList.ftuser.ffollowList[0].userid == 1}">
+						<input id="${followList.ftuser.userid}unfollowSub" type="button" class="btn btn-danger" onclick="unfollow(${followList.ftuser.userid})" value="フォロー解除" />
+					</c:if>
+				</c:if>
+			</div>
+		</div>
+		<p class="timeLine_border"></p>
 
 	</c:forEach>
 

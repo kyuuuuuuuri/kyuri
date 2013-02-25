@@ -73,6 +73,7 @@ div.existNewtwit{
 <!-- layout jsp table -->
 table{
 	width: 80%;
+	background-color: #EBEBEB;
 }
 td.contents {
 	background-color: #ffffff;

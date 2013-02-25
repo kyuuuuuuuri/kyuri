@@ -1,10 +1,8 @@
 package root.form;
 
-import java.io.Serializable;
-
 import org.seasar.struts.annotation.IntegerType;
 
-public class SearchForm implements Serializable{
+public class SearchForm extends CommonForm{
 
 	public String search;
 

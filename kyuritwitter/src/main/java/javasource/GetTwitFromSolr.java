@@ -30,6 +30,7 @@ public class GetTwitFromSolr extends SuperAction{
 
 		List<SearchDto> twitList = new ArrayList<SearchDto>();
 		String strId = null;
+		System.out.println(searchWord + "solr");
 
 		int id = 0;
 

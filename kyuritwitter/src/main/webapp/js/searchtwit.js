@@ -3,22 +3,56 @@ $(function(){
 	inits();
 	mouseHoverEvents();
 	scrollEvents();
+	searchUser();
 
 });
 
 function inits(){
 
 	$("div.repform").hide();
+	$("#dropDownMenu").hide();
 
 	//＠のついた文字列をリンク付けする
 	//hashタグにリンク付けする
 	$('p').each(function(){
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage?userni=$2">$1$2</a>');
+		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage/$2">$1$2</a>');
 		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
+	});
+
+}
+
+function searchUser(){
+
+	var searchWord;
+
+	$("#searchAllTwit").keyup(function(event) {
+		searchWord = $("#searchAllTwit").val();
+		//alert(searchWord);
+
+		if(searchWord == ""){
+			$("#dropDownMenu").hide();
+		}else {
+			$.ajax({
+				type : "POST",
+				url : "searchUsershort",
+				data : {
+					'searchword' : searchWord
+				},
+				dataType : "html",
+				success : function(data, dataType) {
+					$("#dropDownMenu").html(data);
+					$("#searchMore").attr("href", "search/"+searchWord);
+					$("#dropDownMenu").show();
+				},
+				error : function() {
+					alert("問題が発生しました");
+				}
+			});
+		}
 	});
 
 }

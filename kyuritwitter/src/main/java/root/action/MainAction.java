@@ -581,35 +581,17 @@ public class MainAction extends SuperAction {
 		return null;
 	}
 
-//	//ユーザ情報を新しいウィンドウで開く
-//	public Tuser user_window;
-//	public List<Murmur> newWindoTwit = new ArrayList<Murmur>();
-//
-//	//newWindows method
-//	@Execute(validator = false, urlPattern = "newwindow/{userid1}")
-//	public String newwindow() {
-//
-//		//newWindow user_data
-//		user_window = tuserService.findById(mainForm.userid1);
-//
-//		//newWindo user_data twit(3)
-//		newWindoTwit = murmurService.listPager(3, 0, mainForm.userid1);
-//
-//		return "window.jsp";
-//	}
-
 	//検索ユーザを代入するとこだよ
 	public List<Tuser> tuserList = new ArrayList<Tuser>();
 
 	@Execute(validator = false)
 	public String searchUsershort(){
 		String searchUser = req.getParameter("searchword");
-		System.out.println(searchUser+ "もきゅ");
+
 		int userid = userDto.userID;
 
 		tuserList = tuserService.tuserSearch(searchUser, userid, 3, 0);
 		if(tuserList.isEmpty()){
-			System.out.println("検索結果なかったよ…");
 		}
 
 		return "searchUser.jsp";
@@ -623,19 +605,24 @@ public class MainAction extends SuperAction {
 	}
 
 	//フォローユーザへ
-	@Execute(validator = false, urlPattern="followlist/{userid}")
+	@Execute(validator = false, urlPattern="followlist/{userid}/{followOrUnfollow}")
 	public String toFollowPage(){
 		int id = mainForm.userid;
+		String followFlag = mainForm.followOrUnfollow;
+		System.out.println("moromoro" + followFlag);
 
-		return "/followlist?id=" + id + "?redirect=true";
+		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag +"?redirect=true";
 	}
 
 	//フォロワーユーザへ
-	@Execute(validator  = false, urlPattern="followedlist/{userid}")
+	@Execute(validator  = false, urlPattern="followedlist/{userid}/{followOrUnfollow}")
 	public String toBefollowedPage(){
 		int id = mainForm.userid;
+		String followFlag = mainForm.followOrUnfollow;
+		System.out.println("moromoro" + followFlag);
 
-		return "/followlist/followedlist?id=" + id + "?redirect=true";
+
+		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag + "?redirect=true";
 	}
 
 
@@ -648,28 +635,12 @@ public class MainAction extends SuperAction {
 //	//solrを検索する
 	@Execute(validator = false)
 	public String searchAll(){
-		menuFlag = 1;
-		int id;
-		mine = userDto.userID;
 
-		List<Integer> idList = new ArrayList<Integer>();
-		userDto.searchWord = mainForm.searchWord;
-		if (mainForm.searchWord == null) {
-			throw new ActionMessagesException("なにか入力してください", false);
-		}
+		String searchWord = mainForm.searchWord;
+		System.out.println(searchWord + "mokyu");
+		userDto.searchWord = searchWord;
 
-		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
-		searchDto = new ArrayList<SearchDto>();
-		searchDto = getTwitFromSolr.getAllTwit(mainForm.searchWord,0);
-		if(!searchDto.isEmpty()){
-			for (int i = 0; i < searchDto.size(); i++) {
-				id = Integer.valueOf(searchDto.get(i).getId());
-				idList.add(id);
-			}
-			murmurList = murmurService.SelectListSearch(idList);
-		}
-
-		return "searchTwit.jsp";
+		return "/searchtwit?searchWord=" + searchWord + "?redirect=true";
 	}
 
 	@Execute(validator = false)

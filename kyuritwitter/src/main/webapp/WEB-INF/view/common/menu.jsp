@@ -16,14 +16,11 @@
 			</thead>
 			<tr>
 				<td><p>${mydata.follow }</p>
-					<s:link href="/followlist/followpage/${mydata.userid}"
-						style="text-decoration: none">フォロー</s:link></td>
+					<s:link href="followlist/${mydata.userid}/follow" >フォロー</s:link></td>
 				<td><p>${mydata.followed }</p>
-					<s:link href="/followlist/followedlist/${mydata.userid}"
-						style="text-decoration: none">フォロワー</s:link></td>
+					<s:link href="followedlist/${mydata.userid}/followed" >フォロワー</s:link></td>
 				<td><p>${mydata.postNum }</p>
-					<s:link href="userpage/${mydata.usernick}"
-						style="text-decoration: none">投稿数</s:link></td>
+					<s:link href="userpage/${mydata.usernick}" >投稿数</s:link></td>
 			</tr>
 			<tr id="twitFormtrId">
 				<td colspan="3">
@@ -59,7 +56,43 @@
 	</c:if>
 
 	<c:if test="${menuFlag==2 }">
-		menu3
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="3"><span class="pImg">
+					<html:img src="${pageContext.request.contextPath}/main/showUserImg/${mydata.userid}" width="50" height="50" /></span> <span class="pUsernick">${mydata.usernick}</span></th>
+				</tr>
+			</thead>
+			<tr>
+				<td><p>${mydata.follow }</p>
+					<s:link href="followlist/${mydata.userid}/follow" >フォロー</s:link></td>
+				<td><p>${mydata.followed }</p>
+					<s:link href="followedlist/${mydata.userid}/followed" >フォロワー</s:link></td>
+				<td><p>${mydata.postNum }</p>
+					<s:link href="userpage/${mydata.usernick}" >投稿数</s:link></td>
+			</tr>
+
+		</table>
 	</c:if>
 
+	<c:if test="${menuFlag==3 }">
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="3"><span class="pImg">
+					<html:img src="${pageContext.request.contextPath}/main/showUserImg/${mydata.userid}" width="50" height="50" /></span> <span class="pUsernick">${mydata.usernick}</span></th>
+				</tr>
+			</thead>
+			<tr>
+				<td><p>${mydata.follow }</p>
+					<s:link href="followlist/${mydata.userid}/follow" >フォロー</s:link></td>
+				<td><p>${mydata.followed }</p>
+					<s:link href="followedlist/${mydata.userid}/followed" >フォロワー</s:link></td>
+				<td><p>${mydata.postNum }</p>
+					<s:link href="userpage/${mydata.usernick}" >投稿数</s:link></td>
+			</tr>
+
+		</table>
+	</c:if>
 </div>

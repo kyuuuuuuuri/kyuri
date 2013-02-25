@@ -53,12 +53,44 @@ public class TuserService extends AbstractService<Tuser> {
 				.getSingleResult();
 	}
 
+	/**
+	 * followしているユーザの検索
+	 * @param userni
+	 * @return
+	 */
+	public List<Tuser> findForFollow(int id , int userid){
+		return jdbcManager
+				.from(Tuser.class)
+				.innerJoin("followList")
+				.leftOuterJoin("ffollowList" , new SimpleWhere().eq("ffollowList.userid", userid))
+				.where("userid = ?", id)
+				.getResultList();
+	}
+
+	/**
+	 * followしているユーザの数
+	 * @return
+	 */
+	public long findForFollowCount(int id){
+		return jdbcManager
+				.from(Tuser.class)
+				.where("userid", id)
+				.getCount();
+	}
+
+	/**
+	 *
+	 * @param userni
+	 * @return
+	 */
 	public Tuser findByNameForCheck(String userni) {
 		return jdbcManager
 				.from(Tuser.class)
 				.where("usernick =?",userni)
 				.getSingleResult();
 	}
+
+
 
 	/**
 	 * idにマッチしたTwitterユーザをすべて取得する

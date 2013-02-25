@@ -47,8 +47,8 @@ function follow(id){
 		},
 		dataType:"text",
 		success: function(data,dataType){
-			$("#" + id + "followSub")
-			.attr("id", id + "unfollowSub")
+			$("#followSub")
+			.attr("id", "unfollowSub")
 			.attr("class","btn btn-danger")
 			.attr("onclick", "unfollow(" + id + ")")
 			.attr("value","フォロー解除");
@@ -70,9 +70,8 @@ function unfollow(id){
 			},
 			dataType : "text",
 			success : function(data, dataType) {
-				$("#" + id + "unfollowSub").attr("id", id + "followSub").attr(
-						"class", "btn btn-primary").attr("onclick",
-						"follow(" + id + ")").attr("value", "フォロー");
+				$("#unfollowSub").attr("id", "followSub").attr(
+						"class", "btn btn-primary").attr("onclick","follow(" + id + ")").attr("value", "フォロー");
 			},
 			error : function() {
 				alert("問題が発生しました");

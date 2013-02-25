@@ -4,6 +4,16 @@ body {
 	background:#1F3D31;
 	margin: 25px;
 }
+
+table{
+	width: 80%;
+	background-color: #EBEBEB;
+}
+td.contents {
+	background-color: #ffffff;
+	padding: 25px 25px 25px 25px;
+
+}
 .dropDownMenu{
 	position: absolute;
 	background-color: #FFFFFF;
@@ -20,12 +30,11 @@ body {
 	-moz-border-radius: 5px;    /* Firefox */
 	-webkit-border-radius: 5px; /* Safari,Chrome */
 }
-
-.tuserListClass{
-	background-color:#F4F4F4;
-	padding:10px;
-	padding-bottom:5px;
+td.menu {
+	background-color: #ffffff;
+	width: 25%;
 }
+
 
 .tuserMain{
 	padding-bottom:20px;
@@ -36,11 +45,6 @@ body {
 	-webkit-border-radius: 5px; /* Safari,Chrome */
 }
 
-p.timeLine_border{
-	border-bottom: 1px solid #dddddd;
-	margin:0px;
-}
-
 .followButton{
 	display: inline-block;
 	_display: inline;
@@ -49,6 +53,24 @@ p.timeLine_border{
 	margin-top: -40px;
 	margin-left:400px;
 
+}
+.followButton{
+	display: inline-block;
+	_display: inline;
+
+	position: absolute;
+	margin-top: -40px;
+	margin-left:400px;
+
+}
+
+.twitmain{
+
+	background-color:#F4F4F4;
+	padding:10px;
+	padding-bottom:5px;
+	margin-bottom:0px;
+	margin-top:0px;
 }
 
 .pImg{
@@ -63,10 +85,7 @@ p.timeLine_border{
 	color:#bb9875;
 }
 
-#lastLine{
-	background-color:#F4F4F4;
-	display: inline-block;
-	_display: inline;
-
-	width:540px;
+p.timeLine_border{
+	border-bottom: 1px solid #dddddd;
+	margin:0px;
 }

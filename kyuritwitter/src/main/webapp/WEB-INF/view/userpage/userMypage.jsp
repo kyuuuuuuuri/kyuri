@@ -12,6 +12,7 @@
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/userpage.js"></script>
 
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
 
@@ -33,14 +34,10 @@
 			<p id = "usernickSuper">${mydata.usernick }</p>
 			<div id="followButton">
 				<c:if test = "${mydata.userid != mine && mydata.ffollowList[0].userid != mine}">
-				<s:form>
-					<html:button property="" styleId="followButton" styleClass="btn btn-primary">follwoする</html:button>
-				</s:form>
+					<input id ="followSub" type="button" class="btn btn-primary" onclick="follow(${mydata.userid})" value="フォロー" />
 				</c:if>
 				<c:if test = "${mydata.userid != mine && mydata.ffollowList[0].userid == mine}">
-				<s:form>
-					<html:button property="" styleId="followButton" styleClass="btn btn-danger">unfollwoする</html:button>
-				</s:form>
+					<input id="unfollowSub" type="button" class="btn btn-danger" onclick="unfollow(${mydata.userid})" value="フォロー解除" />
 			</c:if>
 			</div>
 

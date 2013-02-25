@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
-import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -14,186 +14,219 @@ import root.entity.Follow;
 import root.entity.Tuser;
 import root.form.FollowlistForm;
 
-
-public class FollowlistAction extends SuperAction{
+public class FollowlistAction extends SuperAction {
 	private final String followPageJsp = "followpage.jsp";
 
 	@ActionForm
 	@Resource
 	protected FollowlistForm followlistForm;
 
+	public List<Follow> followList = new ArrayList<Follow>();
+	public List<Tuser> followedList = new ArrayList<Tuser>();
+	public int followCheck;
+	public List<Integer> fc_userid = new ArrayList<Integer>();
+	public long followcheckcount = 0;
 
-    public List<Tuser> followList= new ArrayList<Tuser>();
-    public List<Tuser> followedList = new ArrayList<Tuser>();
-    public int followCheck;
-    public List<Integer> fc_userid=new ArrayList<Integer>();
-    public long followcheckcount=0;
+
+	public List<Tuser> tuserList = new ArrayList<Tuser>();
 
 
-    @Execute(validator=false, urlPattern="followpage/{id}")
-    public String followpage() {
+	@Execute(validator = false)
+	public String index(){
 
-    	//ログインしているユーザのユーザID
-    	Integer userid=userDto.userID;
-    	mine=userid;
+		//ログインしているユーザのユーザID
+		int userid = userDto.userID;
+		mine = userid;
 
-    	//ユーザ自身のデータ
-    	mydata =tuserService.findById(followlistForm.id);
+		menuFlag = 3;
+		String followFlag = followlistForm.followOrUnfollow;
 
-    	List<Follow> followResult = new ArrayList<Follow>();
-    	followResult =null;
+		int useridToShow;
+		useridToShow = followlistForm.id;
 
-    	followResult =followService.findUserFollow(followlistForm.id);
+		System.out.println(followFlag);
 
-    	long followResultcount =followService.followCount(followlistForm.id);
-		List<Integer> f_userid = new ArrayList<Integer>();
+		if(followFlag.equals("follow")){
 
-		if(followResultcount!=0){
-    	for(Follow f : followResult){
-			f_userid.add(f.fuserid);
+			return "followpage?id=" + useridToShow;
+
+		}else if(followFlag.equals("followed")){
+
+			return "followedlist?id=" + useridToShow;
 		}
 
-    	followList=null;
+		return "";
 
-   		long followListcount=tuserService.tuserListcount(f_userid);
+	}
 
-   		//以下、ページング処理
-   		//ページ番号を取得
-   		int page = IntegerConversionUtil.toPrimitiveInt(this.followlistForm.page);
+	@Execute(validator = false)
+	public String followpage() {
+		//ログインしているユーザのユーザID
+		int userid = userDto.userID;
+		mine = userid;
 
-   		//総件数を取得
-   		this.total = followListcount;
-   		//followList取得
-   		followList =tuserService.tuserPager(LIMIT, page, f_userid);
+		menuFlag = 3;
 
-   		//前ページがあるかどうかを判定
-   		hasPrev = murmurService.hasPrev(page);
-   		//次のページがあるかどうかを判定
-   		hasNext=murmurService.hasNext(LIMIT, this.total, page);
+		int useridToShow;
+		useridToShow = followlistForm.id;
 
-    	return followPageJsp;
-		}else{
-    	return followPageJsp;}
-    }
+		//今探そうとしているユーザのデータ
+		mydata = tuserService.findById(useridToShow);
 
-    //フォローされているユーザを表示する
-    @Execute(validator=false, urlPattern="followedlist/{id}")
-    public String followedlist(){
+		followList = followService.findFollowUser(useridToShow, userid);
 
-    	//ログインしているユーザのユーザID
-    	int userid=userDto.userID;
-    	mine = userid;
-    	//ユーザ自身のデータ
-    	mydata =tuserService.findById(followlistForm.id);
+		return followPageJsp;
 
-    	//ページ番号を取得
-    	int page = IntegerConversionUtil.toPrimitiveInt(this.followlistForm.page);
+	}
 
-    	List<Follow> followedResult =new ArrayList<Follow>();
-    	followedResult=null;
+	//フォローされているユーザを表示する
+	@Execute(validator = false)
+	public String followedlist() {
 
-    	long followedResultcount =followService.beFollowedCount(followlistForm.id);
+		//ログインしているユーザのユーザID
+		int userid = userDto.userID;
+		mine = userid;
 
-    	List<Integer> fed_userid = new ArrayList<Integer>();
+		menuFlag = 3;
 
-    	if(followedResultcount!=0){
-    		//フォローされているユーザIDをリスト化
-        	//ユーザのフォローされてるリスト
-        	followedResult =followService.beFollowedList(followlistForm.id);
+		int useridToShow;
+		useridToShow = followlistForm.id;
 
-    		for(Follow f : followedResult){fed_userid.add(f.userid);}
+		//今探そうとしているユーザのデータ
+		mydata = tuserService.findById(useridToShow);
 
-    		if(userid==followlistForm.id){//もし自分自身だったら
+		followList = followService.findFollowedUser(useridToShow, userid);
 
-    				List<Follow> followcheck =followService.findUserFollow(userid);
+		return "followedpage.jsp";
+	}
 
-    				//自分がフォローしているユーザを抜き出す
-    				followcheckcount =followService.followCount(userid);
+	@Resource
+	HttpServletRequest req;
 
-    				if(followcheckcount!=0){
-    			    	for(Follow c : followcheck){
-    						fc_userid.add(c.fuserid);
-    					}
-    				}
-    			}
+	//フォローする
+	@Execute(validator = false)
+	public String toFollow() {
+		int userid = userDto.userID;
+		String useridStr = req.getParameter("followUserId");
+		System.out.println(useridStr + "きゅうり");
+		int toFollowUserId = Integer.parseInt(useridStr);
 
-    	followedList=null;
+		//すでにフォローしていたら何もしない
+		Follow fol = followService.delFollow(toFollowUserId, userid);
 
-    	//フォローされた人数
-    	long followedListcount =tuserService.tuserListcount(fed_userid);
+		if (fol != null) {
+			System.out.println("おかしいよ");
+			return null;
+		} else {
+			//フォローしていなかったらフォロワ―をinsertする。
+			Follow foluser = new Follow();
+			foluser.userid = userid;
+			foluser.fuserid = toFollowUserId;
+
+			followService.insert(foluser);
+
+			//フォロー数を更新
+			Tuser tuser = tuserService.findById(userid);
+			tuser.follow += 1;
+			tuserService.updateTuserAfterFollow(tuser);
+
+			//フォロワ―数を更新
+			Tuser tuser2 = tuserService.findById(toFollowUserId);
+			tuser2.followed += 1;
+			tuserService.updateTuserAfterBeFollowed(tuser2);
+		}
+
+		return null;
+	}
+
+	@Execute(validator = false)
+	public String toUnFollow() {
+		int userid = userDto.userID;
+		String useridStr = req.getParameter("unFollowUserId");
+		System.out.println(useridStr + "きゅうり");
+		int toFollowUserId = Integer.parseInt(useridStr);
+
+		//すでにフォローしていたら何もしない
+		Follow fol = followService.delFollow(toFollowUserId, userid);
+
+		if (fol == null) {
+			System.out.println("おかしいよ");
+			return null;
+		} else {
+			//フォローしていなかったらフォロワ―をinsertする。
+
+			followService.delete(fol);
+
+			//フォロー数を更新
+			Tuser tuser = tuserService.findById(userid);
+			tuser.follow -= 1;
+			tuserService.updateTuserAfterFollow(tuser);
+
+			//フォロワ―数を更新
+			Tuser tuser2 = tuserService.findById(toFollowUserId);
+			tuser2.followed -= 1;
+			tuserService.updateTuserAfterBeFollowed(tuser2);
+		}
+		return null;
+	}
+	//フォローユーザへ
+	@Execute(validator = false, urlPattern="followlist/{userid}/{followOrUnfollow}")
+	public String toFollowPage(){
+		int id = followlistForm.userid;
+		String followFlag = followlistForm.followOrUnfollow;
+		System.out.println("moromoro" + followFlag);
+
+		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag +"?redirect=true";
+	}
+
+	//フォロワーユーザへ
+	@Execute(validator  = false, urlPattern="followedlist/{userid}/{followOrUnfollow}")
+	public String toBefollowedPage(){
+		int id = followlistForm.userid;
+		String followFlag = followlistForm.followOrUnfollow;
+		System.out.println("moromoro" + followFlag);
 
 
-    	// ページング処理
-    	//総件数を取得
-    	this.total = followedListcount;
+		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag + "?redirect=true";
+	}
+	//ユーザ個々のつぶやきを表示する
+	@Execute(validator = false, urlPattern = "userpage/{userni}")
+	public String showdata() {
 
-    	followedList = tuserService.tuserPager(LIMIT, page, fed_userid);
+		String nick = followlistForm.userni;
 
-    	//前ページがあるかどうかを判定
-    	hasPrev = murmurService.hasPrev(page);
-    	//次のページがあるかどうかを判定
-    	hasNext=murmurService.hasNext(LIMIT, this.total, page);
+		return "/userpage?userni="+ nick +"?redirect=true";
 
-    	}else{
-    		followedList=null;
-    		}
-    	return "followedpage.jsp";
-    }
+	}
 
-    //フォローを削除
-    @Execute(validator=false, urlPattern="unfollow/{fuserid}")
-    public String unfollow(){
+	public String searchAll(){
 
-    	int userid=userDto.userID;
-    	int delete_userID = followlistForm.fuserid;
-    	mine = userid;
+		String searchWord = followlistForm.searchWord;
 
-    	Follow delResult =followService.delFollow(delete_userID, userid);
+		return "/searchtwit?searchWord=" + searchWord + "?redirect=true";
+	}
 
-    	followService.delete(delResult);
+	@Execute(validator = false)
+	public String searchUsershort(){
+		String searchUser = req.getParameter("searchword");
 
-    	//ユーザのデータを変える
-    	//フォロー数を削除
-    	Tuser tuser = tuserService.findById(userid);
-    	tuser.follow -=1;
-    	tuserService.update(tuser);
+		int userid = userDto.userID;
 
-    	//フォロワ―数を削除
-    	Tuser tuser2 = tuserService.findById(delete_userID);
-    	tuser2.followed-=1;
-    	tuserService.update(tuser2);
+		tuserList = tuserService.tuserSearch(searchUser, userid, 3, 0);
+		if(tuserList.isEmpty()){
+		}
 
-    	String list="followpage/"+userid;
-    	return list;
-	    }
+		return "/main/searchUser.jsp";
+	}
+
+	@Execute(validator = false , urlPattern="search/{searchUser}")
+	public String searchUserAll(){
+		String searchUsernick = followlistForm.searchUser;
+
+		return "/search?search="+ searchUsernick +"?redirect=true";
+	}
 
 
-    //フォローを追加する
-    @Execute(validator=false, urlPattern="follownow/{fuserid}")
-    public String follownow(){
-    	int userid= userDto.userID;
 
-    	int insert_userID = followlistForm.fuserid;
-
-    	//フォローしていなかったフォロワ―をinsert
-    	Follow foluser = new Follow();
-    	foluser.userid=userid;
-    	foluser.fuserid=followlistForm.fuserid;
-    	followService.insert(foluser);
-
-    	//フォロー数を更新
-    	Tuser tuser = tuserService.findById(userid);
-    	tuser.follow +=1;
-    	tuserService.update(tuser);
-
-    	//フォロワ―数を更新
-    	Tuser tuser2 = tuserService.findById(insert_userID);
-    	tuser2.followed+=1;
-    	tuserService.update(tuser2);
-
-    	String list = "followedlist/" + userid;
-
-    	return list;
-    }
 
 }

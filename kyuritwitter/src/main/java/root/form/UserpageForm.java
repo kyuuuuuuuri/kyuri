@@ -1,9 +1,7 @@
 package root.form;
 
-public class UserpageForm {
+public class UserpageForm extends CommonForm{
 
 	public int userid;
-
-	public String userni;
 
 }

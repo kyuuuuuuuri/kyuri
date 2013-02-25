@@ -7,8 +7,8 @@ public class Solr {
 
 	private SolrServer server;
 
-//	private static final String URL = "http://localhost:8080/solr";
-	private static final String URL = "http://54.248.81.45/solr";
+	private static final String URL = "http://localhost:8080/solr";
+//	private static final String URL = "http://54.248.81.45/solr";
 
 
 	public void init(){

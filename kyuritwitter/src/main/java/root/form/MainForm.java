@@ -23,8 +23,6 @@ public class MainForm extends CommonForm {
 
 	public int retwit_tubuyaki;
 
-	public String userni;
-
 	public String rep_user;
 
 	public String hashtag;

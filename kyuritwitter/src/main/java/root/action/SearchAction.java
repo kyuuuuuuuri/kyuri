@@ -6,23 +6,25 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import root.SuperAction;
+import root.dto.SearchDto;
 import root.entity.Follow;
+import root.entity.Murmur;
 import root.entity.Tuser;
 import root.form.SearchForm;
 
 public class SearchAction extends SuperAction {
 
-	private final String SearchPageJsp = "searchpage.jsp";
 	private final String SearchResultJsp = "searchResult.jsp";
 
 	@ActionForm
 	@Resource
 	protected SearchForm searchForm;
+
+	public List<SearchDto> searchDto;
 
 	public int followCheck;
 
@@ -46,51 +48,7 @@ public class SearchAction extends SuperAction {
 
 	public List<Tuser> searchUser = new ArrayList<Tuser>();
 
-	//検索処理
-	@Execute(validator = false)
-	public String searchSubmit() {
-		int userid = userDto.userID;
-		mine = userid;
-
-		mydata = tuserService.findById(mine);
-
-		//ページ番号を取得
-		int page = IntegerConversionUtil.toPrimitiveInt(this.searchForm.page);
-		search = searchForm.search;
-		searchUser = tuserService.tuserSerch(search);
-
-		List<Integer> fed_userid = new ArrayList<Integer>();
-
-		if (searchUser != null) {
-
-			for (Tuser f : searchUser) {
-				fed_userid.add(f.userid);
-			}
-
-			//ログインユーザは、そのユーザをフォローしているか検証
-			List<Follow> followcheck = followService.findUserFollow(userid);
-
-			followcheckcount = followService.followCount(userid);
-
-			if (followcheckcount != 0) {
-				for (Follow c : followcheck) {
-					fc_userid.add(c.fuserid);
-				}
-			}
-
-			//以下、ページング処理
-			//総件数を取得
-			this.total = searchUser.size();
-
-			searchUser = tuserService.tuserSerch(LIMIT, page, search);
-
-			//前ページがあるかどうかを判定
-			hasPrev = murmurService.hasPrev(page);
-			//次のページがあるかどうかを判定
-			hasNext = murmurService.hasNext(LIMIT, this.total, page);
-		}
-		return SearchResultJsp;
-	}
+	public List<Murmur> murmurList = new ArrayList<Murmur>();
 
 	@Resource
 	HttpServletRequest req;
@@ -162,78 +120,29 @@ public class SearchAction extends SuperAction {
 		return null;
 	}
 
-	//フォロー解除する
-
-	//検索したユーザをフォローする
-	@Execute(validator = false, urlPattern = "infollow/{userid}")
-	public String infollow() {
+	@Execute(validator = false)
+	public String searchUsershort(){
+		String searchUser = req.getParameter("searchword");
 
 		int userid = userDto.userID;
 
-		mydata = tuserService.findById(userid);
-
-		//すでにフォローしていたら何もしない
-		Follow fol = followService.delFollow(searchForm.userid, userid);
-
-		if (fol != null) {
-			return "searchSubmit";
-		} else {
-
-			//フォローしていなかったらフォロワ―をinsertする…。
-
-			Follow foluser = new Follow();
-			foluser.userid = userid;
-			foluser.fuserid = searchForm.userid;
-
-			followService.insert(foluser);
-
-			//フォロー数を更新
-			Tuser tuser = tuserService.findById(userid);
-			tuser.follow += 1;
-			tuserService.update(tuser);
-
-			//フォロワ―数を更新
-			Tuser tuser2 = tuserService.findById(searchForm.userid);
-			tuser2.followed += 1;
-			tuserService.update(tuser2);
-
-			//ページ番号を取得
-			int page = IntegerConversionUtil.toPrimitiveInt(this.searchForm.page);
-
-			searchUser = tuserService.tuserSerch(searchForm.search);
-
-			List<Integer> fed_userid = new ArrayList<Integer>();
-
-			if (searchUser != null) {
-				for (Tuser f : searchUser) {
-					fed_userid.add(f.userid);
-				}
-
-				//ログインユーザは、そのユーザをフォローしているか検証
-				List<Follow> followcheck = followService.findUserFollow(userid);
-
-				followcheckcount = followService.followCount(userid);
-
-				if (followcheckcount != 0) {
-					for (Follow c : followcheck) {
-						fc_userid.add(c.fuserid);
-					}
-				}
-
-				//ページング処理
-				//総件数を取得
-				this.total = searchUser.size();
-
-				searchUser = tuserService.tuserSerch(LIMIT, page, searchForm.search);
-
-				//前ページがあるかどうかを判定
-				hasPrev = murmurService.hasPrev(page);
-				//次のページがあるかどうかを判定
-				hasNext = murmurService.hasNext(LIMIT, this.total, page);
-			}
-
-			return "searchResult.jsp";
+		tuserList = tuserService.tuserSearch(searchUser, userid, 3, 0);
+		if(tuserList.isEmpty()){
 		}
+
+		return "/main/searchUser.jsp";
+	}
+
+	@Execute(validator = false , urlPattern="search/{searchUser}")
+	public String searchUserAll(){
+		String searchUsernick = searchForm.searchUser;
+
+		return "/search?search="+ searchUsernick +"?redirect=true";
 	}
 
 }
+
+
+
+	//フォロー解除する
+
