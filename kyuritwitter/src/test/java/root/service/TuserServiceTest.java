@@ -1,8 +1,5 @@
 package root.service;
 
-import static org.junit.Assert.assertNotNull;
-import static org.seasar.framework.unit.S2Assert.*;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,15 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.seasar.extension.dataset.DataSet;
-import org.seasar.extension.dataset.impl.SqlReader;
-import org.seasar.framework.unit.DataAccessor;
+import org.seasar.extension.unit.S2TestCase;
 import org.seasar.framework.unit.Seasar2;
-import org.seasar.framework.unit.TestContext;
-
 
 import root.entity.Tuser;
 
@@ -28,7 +20,7 @@ import root.entity.Tuser;
  *
  */
 @RunWith(Seasar2.class)
-public class TuserServiceTest{
+public class TuserServiceTest extends S2TestCase{
     private TuserService tuserService;
     protected Connection con;
 
@@ -46,7 +38,7 @@ public class TuserServiceTest{
     private void setDb() throws Exception{
       Class.forName("com.mysql.jdbc.Driver");
       String url = "jdbc:mysql://localhost:3306/test";
-      con = DriverManager.getConnection(url,"root","GinHizi0510");
+      con = DriverManager.getConnection(url,"root","");
     }
 
     /**
@@ -108,7 +100,7 @@ public class TuserServiceTest{
      */
     public void testFindbyName(){
        	Tuser tempTuser = getTuserFromDb(1);
-    	Tuser result = tuserService.findByName("kyuuuuuuri");
+    	Tuser result = tuserService.findByNameForCheck("kyuuuuuuri");
     	assertNotNull("ニックネーム検索がNullになる", result);
     	assertEquals("ニックネーム検索が正確ではない", tempTuser.username, result.username);
     }
@@ -173,5 +165,18 @@ public class TuserServiceTest{
     	int tusernumber = tuserSerch.get(0).userid;
     	assertEquals("検査クラスに寄って検索された結果が間違っている",tusernumber,1);
     }
+
+    public void tuserdearchTest(){
+    	List<Tuser> tuserSearch = new ArrayList<Tuser>();
+    	tuserSearch = tuserService.tuserSearch("nyu", 1, 1, 0);
+    	if(tuserSearch.isEmpty()){
+    		System.out.println("見つからない…みつからないよ");
+    	}else{
+    		for(Tuser t: tuserSearch){
+    			System.out.println(t.username + t.usernick + t.ffollowList.get(0).userid);
+    		}
+    	}
+    }
+
 
 }

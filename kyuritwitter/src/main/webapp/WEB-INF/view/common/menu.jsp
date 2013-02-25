@@ -22,7 +22,7 @@
 					<s:link href="/followlist/followedlist/${mydata.userid}"
 						style="text-decoration: none">フォロワー</s:link></td>
 				<td><p>${mydata.postNum }</p>
-					<s:link href="showdata/${mydata.userid}"
+					<s:link href="userpage/${mydata.usernick}"
 						style="text-decoration: none">投稿数</s:link></td>
 			</tr>
 			<tr id="twitFormtrId">
@@ -41,8 +41,10 @@
 									<li><a id="noGPS">GPSを無効にする</a></li>
 								</ul>
 							</div>
+							<html:hidden styleId = "latitude" property="latitude" value=""></html:hidden>
+							<html:hidden styleId = "longitude" property="longitude" value=""></html:hidden>
 
-							<span id="pict" class="btn">pict</span>
+						<span id="pict" class="btn">pict</span>
 							<span id="input_text_size">140</span>
 							<s:submit styleId="twit_button" styleClass="btn btn-info"
 								property="insertTwit">ツイート</s:submit>
@@ -54,6 +56,10 @@
 	</c:if>
 	<c:if test="${menuFlag==1 }">
 		menu2
+	</c:if>
+
+	<c:if test="${menuFlag==2 }">
+		menu3
 	</c:if>
 
 </div>

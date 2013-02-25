@@ -116,7 +116,7 @@ public class UserAction extends SuperAction {
 	public String usernick_check() {
 		String userparam = req.getParameter("param");
 		System.out.println("kyuuri" + userparam);
-		Tuser result = tuserService.findByName(userparam);
+		Tuser result = tuserService.findByNameForCheck(userparam);
 		String usernickPattern = "^[-a-zA-Z0-9_]+$";
 
 		if (userparam.length() < 4 && userparam.length() > 0) {

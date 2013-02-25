@@ -2,6 +2,8 @@ package root.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
+
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,13 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Murmurエンティティクラス
- * 
+ *
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/06 19:47:43")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/21 19:54:37")
 public class Murmur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +42,64 @@ public class Murmur implements Serializable {
     @Column(nullable = false, unique = false)
     public Timestamp dateTime;
 
+    /** gpslatitudeプロパティ */
+    @Column(precision = 7, scale = 4, nullable = true, unique = false)
+    public Double gpslatitude;
+
+    /** gpslongitudeプロパティ */
+    @Column(precision = 7, scale = 4, nullable = true, unique = false)
+    public Double gpslongitude;
+
+    /** gpslocationプロパティ */
+    @Column(length = 100, nullable = true, unique = false)
+    public String gpslocation;
+
+    /** beforeidプロパティ */
+    @Column(precision = 10, nullable = true, unique = false)
+    public Integer beforeid;
+
+    /** afteridflagプロパティ */
+    @Column(precision = 10, nullable = true, unique = false)
+    public Integer afteridflag;
+
+    /** imageurlプロパティ */
+    @Column(length = 60, nullable = true, unique = false)
+    public String imageurl;
+
+    /** favoritenumプロパティ */
+    @Column(precision = 10, nullable = true, unique = false)
+    public Integer favoritenum;
+
+    /** retwitflagプロパティ */
+    @Column(precision = 10, nullable = true, unique = false)
+    public Integer retwitflag;
+
+    /** beRetwitednumプロパティ */
+    @Column(precision = 10, nullable = true, unique = false)
+    public Integer beRetwitednum;
+
     /** tuser関連プロパティ */
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     public Tuser tuser;
+
+    /** favolite関連プロパティ */
+    @OneToMany(mappedBy = "murmur")
+    public List<Favolite> favolite;
+
+    /** reptwitList関連プロパティ */
+    @OneToMany(mappedBy = "murmur")
+    public List<Reptwitid> reptwitid;
+
+    /* --------------   自己結合   --------------  */
+
+    /** 自己結合beforeプロパティ*/
+    @ManyToOne
+    @JoinColumn(name = "beforeid", referencedColumnName = "murmurid")
+    public Murmur beforeParent;
+
+    @OneToMany(mappedBy="beforeParent")
+    public List<Murmur> murmurList;
+
+
 }

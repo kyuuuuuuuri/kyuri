@@ -152,12 +152,12 @@ version="2.4">
         <location>/WEB-INF/view/error/error.jsp</location>
     </error-page>
 
-
+<!--
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/view/error/error/notfounderror.jsp</location>
     </error-page>
-
+-->
 
     <jsp-config>
     	<jsp-property-group>

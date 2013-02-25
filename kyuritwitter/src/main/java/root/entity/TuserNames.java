@@ -10,7 +10,7 @@ import root.entity.MurmurNames._MurmurNames;
  * {@link Tuser}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/06 19:48:06")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/21 19:55:01")
 public class TuserNames {
 
     /**

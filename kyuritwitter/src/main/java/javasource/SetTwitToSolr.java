@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
+import org.seasar.struts.annotation.Execute;
 
 import root.entity.Murmur;
 
@@ -21,6 +22,7 @@ public class SetTwitToSolr{
 		document = new SolrInputDocument();
 	}
 
+	@Execute(validator = false)
 	public void setTwit(Murmur twitInfo, String[] hash){
 		String id = Integer.toString(twitInfo.murmurid);
 		document.addField("id", id);

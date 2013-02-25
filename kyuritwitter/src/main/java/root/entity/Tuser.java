@@ -5,10 +5,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Generated;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +18,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/06 19:47:43")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/21 19:54:37")
 public class Tuser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,14 +72,19 @@ public class Tuser implements Serializable {
     /** profileimgプロパティ */
     @Lob
     @Column(length = 16777215, nullable = true, unique = false)
-    @Basic(fetch = FetchType.LAZY)
     public byte[] profileimg;
 
     /** followList関連プロパティ */
     @OneToMany(mappedBy = "tuser")
     public List<Follow> followList;
 
+    /** followList関連プロパティ */
+    @OneToMany(mappedBy = "ftuser")
+    public List<Follow> ffollowList;
+
     /** murmurList関連プロパティ */
     @OneToMany(mappedBy = "tuser")
     public List<Murmur> murmurList;
+
+
 }

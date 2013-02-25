@@ -10,13 +10,11 @@
 	<body>
 
 
-			<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar navbar-inverse navbar-fixed-top position">
 				<div class="navbar-inner">
 					<div class="container">
 						<ul class="nav">
 							<li><s:link href="/main/"><span class="header_font">ホーム</span></s:link></li>
-
-							<li><s:link href="/search/"><span class="header_font">友人を検索</span></s:link></li>
 
 							<li><s:link href="logout"><span class="header_font">ログアウト</span></s:link></li>
 
@@ -31,12 +29,12 @@
 									<html:text property="searchWord" styleId="searchAllTwit" styleClass="input-medium search-query"></html:text>
 									<s:submit property="searchAll" styleId="searchAll" styleClass="btn btn-small btn-primary" >検索</s:submit>
 								</s:form>
-
 							</li>
-
 						</ul>
 					</div>
 				</div>
+				<div id="dropDownMenu" class="dropDownMenu" ></div>
+
 			</div>
 
 	</body>

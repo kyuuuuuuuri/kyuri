@@ -93,10 +93,10 @@
 			"com.mysql.jdbc.Driver"
 		</property>
 		<property name="URL">
-			"jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8"
+			"jdbc:mysql://localhost:3306/kyuritest?characterEncoding=UTF-8"
 		</property>
 		<property name="user">"root"</property>
-		<property name="password">""</property>
+		<property name="password">"team-lab"</property>
 	</component>
 
 

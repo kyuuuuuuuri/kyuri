@@ -1,90 +1,58 @@
 $(function(){
 
 	init();
+	mouseHoverEvent();
+	searchUser();
 
-	$("#twit_textarea").focus(function(){
-		$(this).attr("rows", "5");
-		if(this.value=="ツイートする"){
-			$(this).val("").css("color", "#000");
-			if($("#address").text() ==""){
-				$("#gps").show();
-			}else{
-				$(".gpsmenu").show();
-			}
-			$("#pict").show();
-			$("#twit_button").show();
-			$("#input_text_size").show();
+});
 
-			$("#twit_textarea").each(function(){
-				var size;
-				$(this).keyup(function(event){
-					size = 140-$(this).val().length;
-					$("#input_text_size").text(size);
-					$("#twit_button").removeAttr("disabled");
-					if(size == 140 || size < 0){
-						$("#twit_button").attr("disabled","true");
-					}
-				});
+// 検索エンジンに文字を入れたとき、ユーザを一緒に検索する
+function searchUser(){
+
+	var searchWord;
+
+	$("#searchAllTwit").keyup(function(event) {
+		searchWord = $("#searchAllTwit").val();
+		//alert(searchWord);
+
+		if(searchWord == ""){
+			$("#dropDownMenu").hide();
+		}else {
+			$.ajax({
+				type : "POST",
+				url : "searchUsershort",
+				data : {
+					'searchword' : searchWord
+				},
+				dataType : "html",
+				success : function(data, dataType) {
+					$("#dropDownMenu").html(data);
+					$("#searchMore").attr("href", "search/"+searchWord);
+					$("#dropDownMenu").show();
+				},
+				error : function() {
+					alert("問題が発生しました");
+				}
 			});
 		}
 	});
 
-	$("#gps").click(function(){
+}
 
-			$(this).hide();
-			$(".gpsmenu").show();
+// リぷをしたときのつぶやき格納
+function repSubmit(id){
+	$(".topId").val( $(".twitmain:first").attr("id"));
+	var thisId = id;
+	var tubuyaki = $(".rep_textarea", "#" + id + "r").val();
+	// alert(tubuyaki + topId + thisId);
 
-			getGps();
-	});
-
-	$("#noGPS").click(function(){
-		$(".gpsmenu").hide();
-		$("#address").text("");
-		$("#gps").show();
-	});
-
-
-
-	$("#twit_textarea").blur(function(){
-		$(this).css("background-color", "#fff");
-
-		if(this.value==""){
-			$("#gps").hide();
-			$(".gpsmenu").hide();
-			$("#pict").hide();
-			$("#twit_button").hide();
-			$("#input_text_size").hide();
-			$(this).val("ツイートする").attr("rows", "1")
-			.css("color","#969696");
-		}
-		if(this.value!="ツイートする"){
-			$(this).css("color","#000");
-			if($("#address").text() ==""){
-				$("#gps").show();
-			}else{
-				$(".gpsmenu").show();
-			}
-			$("#pict").show();
-			$("#twit_button").show();
-			$("#input_text_size").show();
-		}
-	});
-
-	mouseHoverEvent();
-	scrollEvent();
-
-	$("#twitter_form").submit(function(){
-		//alert("submit cansel");
-		var topId = $(".twitmain:first").attr("id");
-		var tubuyaki = $("#twit_textarea").val();
-		var location = $("#address").text();
 		$.ajax({
 			type:"POST",
-			url: "ajaxSubmit",
+			url: "ins_tubuyaki_rep",
 			data:{
-				"tubuyaki":tubuyaki,
-				"Location":location,
-				"topId":topId
+				'topIdrep':topIdrep,
+				'thisId':thisId,
+				'tubuyaki':tubuyaki
 			},
 			dataType:"text",
 			success: function(data, dataType){
@@ -103,36 +71,22 @@ $(function(){
 				alert("問題が発生しました");
 			}
 		});
+
 		return false;
-	});
 
-});
-
-window.onload = function(){
-	setInterval("checkNewTwit()",30*1000);
-};
+}
 
 function init(){
 
-	//ボタンを隠す
-	$("#gps").hide();
-	$("#pict").hide();
-	$("#twit_button").hide();
-	$("#input_text_size").hide();
-	$("#existNewtwit").hide();
-	$(".gpsmenu").hide();
-
-	$('#twit_textarea').val("ツイートする")
-	.css("color", "#969696");
-
 	$("div.repform").hide();
+	$("#dropDownMenu").hide();
 
-	//＠のついた文字列をリンク付けする
-	//hashタグにリンク付けする
+	// ＠のついた文字列をリンク付けする
+	// hashタグにリンク付けする
 	$('.twitid').each(function(){
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="showdata/$2">$1$2</a>');
+		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage?userni=$2">$1$2</a>');
 		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
@@ -141,40 +95,93 @@ function init(){
 	$("#twit_button").attr("disabled","true");
 }
 
-function checkNewTwit(){
-	topId = $(".twitmain:first").attr("id");
-
-
-	$.ajax({
-		type:"POST",
-		url: "checkNewTwit",
-		data:{
-			'topId':topId
-		},
-		dataType:"text",
-		success: function(data, dataType){
-			if($("#existNewtwit").get(0)){
-
-			}else{
-				if(data!=null){
-					$("#twitTitle").after(data);
-					initWhenAjaxDo();
-					mouseHoverEvent();
-				}
+// お気に入りに登録
+function favoriteclick(id){
+	// alert("お気に入り！"+id);
+	if($(".favorite", "#"+id).text()=="お気に入りに登録"){
+		$.ajax({
+			type:"POST",
+			url:"doFavorite",
+			data:{
+				"murmurid":id
+			},
+			dataType:"text",
+			success: function(data,dataType){
+				$(".favorite", "#"+id).text("★お気に入りを取り消す");
+			},
+			error: function(){
+				alert("問題が発生しました");
 			}
-		},
-		error: function(){
-			alert("問題が発生しました");
-		}
-	});
+		});
+	}
+
+	if($(".favorite", "#"+id).text()=="★お気に入りを取り消す"){
+		$.ajax({
+			type:"POST",
+			url:"canselFavorite",
+			data:{
+				"murmurid":id
+			},
+			dataType:"text",
+			success: function(data,dataType){
+				$(".favorite", "#"+id).text("お気に入りに登録");
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+	}
 }
 
+// お気に入りに登録
+function favoriteclickInrep(id){
+	// alert("お気に入り！"+id);
+	if($(".favorite", "#"+id +"r").text()=="お気に入りに登録"){
+		$.ajax({
+			type:"POST",
+			url:"doFavorite",
+			data:{
+				"murmurid":id
+			},
+			dataType:"text",
+			success: function(data,dataType){
+				$(".favorite", "#"+id).text("★お気に入りを取り消す");
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+	}
+
+	if($(".favorite", "#"+id + "r").text()=="★お気に入りを取り消す"){
+		$.ajax({
+			type:"POST",
+			url:"canselFavorite",
+			data:{
+				"murmurid":id
+			},
+			dataType:"text",
+			success: function(data,dataType){
+				$(".favorite", "#"+id).text("お気に入りに登録");
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+	}
+}
+
+
+// gps情報を取得する
 function getGps(){
 
 	navigator.geolocation.getCurrentPosition(
 			function(position){
 				var latlng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 				var geocoder = new google.maps.Geocoder();
+				$("#latitude").val(position.coords.latitude);
+				$("#longitude").val(position.coords.longitude);
+
 				if(geocoder){
 					geocoder.geocode({
 						'latLng' : latlng
@@ -188,46 +195,20 @@ function getGps(){
 					});
 				}
 			});
-
 }
 
-function getNewTwit(){
-
-	topId = $(".twitmain:first").attr("id");
-	$("#existNewtwit").click(function(){
-		$.ajax({
-			type:"POST",
-			url: "NewTwitList",
-			data:{
-				'topId':topId
-			},
-			dataType:"html",
-			success: function(data, dataType){
-				//alert("yess");
-
-					$("#existNewtwit").replaceWith(data);
-					initWhenAjaxDo();
-					mouseHoverEvent();
-
-			},
-			error: function(){
-				alert("問題が発生しました");
-			}
-		});
-	});
-}
 
 function initWhenAjaxDo(){
 
 	$("div.repform").hide();
 
-	//＠のついた文字列をリンク付けする
-	//hashタグにリンク付けする
+	// ＠のついた文字列をリンク付けする
+	// hashタグにリンク付けする
 	$('p').each(function(){
-		//var text=$(this).text();
+		// var text=$(this).text();
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="showdata/$2">$1$2</a>');
+		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage?userni=$2">$1$2</a>');
 		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
@@ -263,58 +244,9 @@ function mouseHoverEvent(){
 		});
 }
 
-function OpenWin(index){
-	var selecter;
-	selecter="#"+ index;
-	var userid=$(selecter).attr("style");
-	userid="newwindow/"+userid;
-	win=window.open(userid,"new","width=400,height=400, menubar=no, toolbar=no, location=no");
-	win.moveTo(50,50);
-}
-
-function scrollEvent(){
-
-	var currentLocation;
-	var scrollHeight;
-	//var clientHeight = document.body.clientHeight;
-	var clientHeight;
-
-	$(window).scroll(function(){
-		clientHeight = window.innerHeight
-		scrollHeight = document.body.scrollHeight || document.docomentElement.scrollHeight;
-		currentLocation = $(window).scrollTop();
-		var remain = scrollHeight - clientHeight - currentLocation;
-		if(remain <= 20){
-			var page =$("#lastLine").attr("class");
-			getOldTwit();
-		}
-	});
-}
-
-function getOldTwit(){
-	var lastid = $(".twitmain:last").attr("id");
-	//alert(lastid);
-	$.ajax({
-		type:"POST",
-		url: "loadOldTwit",
-		data:{
-			'lastId':lastid
-		},
-		dataType:"html",
-		success: function(data, dataType){
-
-			$("#lastLine").before(data);
-			initWhenAjaxDo();
-			mouseHoverEvent();
-		},
-		error: function(){
-			alert("問題が発生しました");
-		}
-	});
-}
 
 
-//replyanメソッド
+// replyanメソッド
 function replyan(usernick){
 	var selecter;
 	selecter="#"+ usernick;
@@ -323,32 +255,80 @@ function replyan(usernick){
 	$("input[name='tubuyaki']").focus();
 }
 
-//replyformメソッド
+// replyformメソッド
 function changeRepform(id){
-	var repUser = $(".usernickLink","#"+id).text();
 
 	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
 		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
+		$(".twitplus").remove();
 
-		$("#" + id).css({
-			"margin-top" : "10px"
+		$.ajax({
+			type:"POST",
+			url:"repListAfter",
+			data:{
+				"tubuyakiId":id
+			},
+			dataType:"html",
+			success: function(data,dataType){
+				// alert("OK" + id);
+				$("#"+id).append(data);
+				initWhenAjaxDo();
+
+				beforeQuery(id);
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
 		});
-		$("#" + id + "r").show();
-		$("#" + id + "r").css("margin-bottom","10px");
-		$(".rep_textarea", "#" + id + "r").val("@"+ repUser + " ");
-		replyForm(id);
+
+
 	}else if($('.open_details_twit', "#"+id).attr("id") == id+"close"){
 		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
+
+		$(".twitplus").remove();
 
 		$("#" + id).css({
 			"margin-top" : "0px"
 		});
 		$("#" + id + "r").css("margin-bottom","0px");
 		$("#"+ id +"r").hide().css("margin-bottom","0px");
+
+
 	}else{
 		alert("問題が起こりました");
 	}
 
+}
+
+function beforeQuery(id){
+	// alert("before");
+	var repUser = $(".usernickLink","#"+id).text();
+
+	$.ajax({
+		type:"POST",
+		url:"repListBefore",
+		data:{
+			"tubuyakiId":id
+		},
+		dataType:"html",
+		success: function(data,dataType){
+			// alert("OK");
+
+			$("#"+id).prepend(data);
+			initWhenAjaxDo();
+
+			$("#" + id).css({
+				"margin-top" : "10px"
+			});
+			$("#" + id + "r").show();
+			$("#" + id + "r").css("margin-bottom","10px");
+			$(".rep_textarea", "#" + id + "r").val("@"+ repUser + " ");
+			replyForm(id);
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
+	});
 }
 
 function replyForm(id){
@@ -375,7 +355,7 @@ function replyForm(id){
 
 	$(".rep_textarea", "#" + id + "r").blur(function(){
 		var repUser = $(".usernickLink","#"+id).text();
-		//$(this).css("background-color", "#fff");
+		// $(this).css("background-color", "#fff");
 		if(this.value == "@"+repUser+" "){
 
 			$(this).attr("rows", "1");

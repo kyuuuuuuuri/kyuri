@@ -26,6 +26,11 @@ div.existNewtwit{
 	padding-right:20px;
 }
 
+.twitplus{
+	display: inline-block;
+	_display: inline;
+}
+
 #address:hover{
 	background-color:"#0088cc";
 }
@@ -38,6 +43,31 @@ div.existNewtwit{
 
 #noGPS{
 	background-color:"#0088cc";
+}
+
+#userdata {
+	margin-bottom:25px;
+	padding:30px;
+	background-color:#F4F4F4;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
+
+}
+
+#userImg{
+	margin-left:100px;
+	margin-right:100px;
+}
+
+#usernickSuper{
+	font-size:30px;
+	margin-left:80px;
+	margin-right:80px;
+	margin-top:10px;
+	display: inline-block;
+	_display: inline;
 }
 
 <!-- layout jsp table -->
@@ -148,6 +178,13 @@ div#timeLine{
 	background-color:#F4F4F4;
 }
 
+.twitmainplus{
+	background-color:#e6e6e6;
+	width:500px;
+	height:60px;
+	padding-top:10px;
+}
+
 .repform{
 	background-color:#F4F4F4;
 
@@ -157,8 +194,32 @@ div#timeLine{
 	padding-bottom:10px;
 }
 
+.favorite{
+	cursor:pointer;
+}
+
 .rep_textarea{
 	width:380px;
+}
+
+.position{
+}
+
+.dropDownMenu{
+	position: absolute;
+	background-color: #FFFFFF;
+	width:150px;
+	height:100px;
+	margin-top: 0px;
+	margin-left:400px;
+	padding:10px;
+	border-style:solid;
+	border-color:#b0e0e6;
+	border-width:1px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
 }
 
 p.timeLine_border{
@@ -221,3 +282,5 @@ div.twitmain{
 .floatclear {
 	clear: both;
 }
+
+

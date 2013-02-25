@@ -4,9 +4,7 @@ import static org.seasar.extension.jdbc.operation.Operations.*;
 import static root.entity.Names.*;
 import static root.entity.TuserNames.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -46,10 +44,20 @@ public class TuserService extends AbstractService<Tuser> {
 	 * @param userni
 	 * @return
 	 */
-	public Tuser findByName(String userni) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("usernick", userni);
-		return select().where(map).getSingleResult();
+	public Tuser findByName(String userni, int userid) {
+		return jdbcManager
+				.from(Tuser.class)
+				.leftOuterJoin("ffollowList" , new SimpleWhere().eq("ffollowList.userid", userid))
+				.leftOuterJoin("ffollowList.tuser")
+				.where("usernick = ?",userni)
+				.getSingleResult();
+	}
+
+	public Tuser findByNameForCheck(String userni) {
+		return jdbcManager
+				.from(Tuser.class)
+				.where("usernick =?",userni)
+				.getSingleResult();
 	}
 
 	/**
@@ -86,6 +94,26 @@ public class TuserService extends AbstractService<Tuser> {
 	}
 
 	/**
+	 * User検索メソッド
+	 * @param String
+	 * @return Tuser List
+	 */
+	public List<Tuser> tuserSearch(String searchUser, int userid, int LIMIT, int page) {
+		return jdbcManager
+				.from(Tuser.class)
+				.leftOuterJoin("ffollowList", new SimpleWhere().eq("ffollowList.userid", userid))
+				.where(
+						or(
+								new SimpleWhere().starts("usernick", searchUser),
+								new SimpleWhere().starts("username", searchUser)
+						)
+				)
+				.limit(LIMIT)
+				.offset(page)
+				.getResultList();
+	}
+
+	/**
 	 * passを新しく更新する
 	 * @param tuser
 	 */
@@ -105,6 +133,22 @@ public class TuserService extends AbstractService<Tuser> {
 				.limit(LIMIT)
 				.offset(page * LIMIT)
 				.getResultList();
+	}
+
+	/**
+	 * followしたあとに呼ばれる
+	 * @param tuser
+	 */
+	public void updateTuserAfterFollow(Tuser tuser){
+		jdbcManager.update(tuser).includes("follow").execute();
+	}
+
+	/**
+	 * followされたら呼ばれる
+	 * @param tuser
+	 */
+	public void updateTuserAfterBeFollowed(Tuser tuser){
+		jdbcManager.update(tuser).includes("followed").execute();
 	}
 
 /**

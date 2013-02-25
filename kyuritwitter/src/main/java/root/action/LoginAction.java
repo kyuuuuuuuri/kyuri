@@ -47,7 +47,7 @@ public class LoginAction extends SuperAction {
 		String pass = e.getpassword(loginForm.Pass);
 
 		//ユーザが存在するか検証
-		Tuser result = tuserService.findByName(userName);
+		Tuser result = tuserService.findByNameForCheck(userName);
 
 		if (result == null || (!pass.equals(result.passWord))) {//ユーザ名が登録されていなかったら…
 			throw new ActionMessagesException("パスワードとユーザ名が一致しません", false);

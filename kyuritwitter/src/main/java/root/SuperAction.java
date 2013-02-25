@@ -8,8 +8,10 @@ import org.seasar.struts.annotation.Execute;
 import root.dto.MurmurDto;
 import root.dto.UserDto;
 import root.entity.Tuser;
+import root.service.FavoliteService;
 import root.service.FollowService;
 import root.service.MurmurService;
+import root.service.ReptwitidService;
 import root.service.TuserService;
 
 public class SuperAction {
@@ -28,6 +30,10 @@ public class SuperAction {
     protected TuserService tuserService;
     @Resource
     protected MurmurService murmurService;
+    @Resource
+    protected FavoliteService favoliteService;
+    @Resource
+    protected ReptwitidService reptwitidService;
 
     //loginUser number
     public int mine=0;

@@ -1,6 +1,7 @@
 package root.entity;
 
 import java.io.Serializable;
+
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +13,10 @@ import javax.persistence.ManyToOne;
 
 /**
  * Followエンティティクラス
- * 
+ *
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/06 19:47:42")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/21 19:54:37")
 public class Follow implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,4 +39,9 @@ public class Follow implements Serializable {
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     public Tuser tuser;
+
+    /** tuser関連プロパティ */
+    @ManyToOne
+    @JoinColumn(name = "fuserid", referencedColumnName = "userID")
+    public Tuser ftuser;
 }

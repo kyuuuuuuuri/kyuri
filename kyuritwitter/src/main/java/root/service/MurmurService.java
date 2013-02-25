@@ -48,6 +48,129 @@ public class MurmurService extends AbstractService<Murmur> {
 	}
 
 	/**
+	 * 返信(前)のツイートを取ってくる
+	 * @param id
+	 * @return
+	 */
+	public List<Murmur> zibunJoinBeforeList(int id, int userid){
+//		List<Murmur> list=
+		List<Murmur> murmur = new ArrayList<Murmur>();
+		Murmur mur=
+				jdbcManager.from(Murmur.class)
+				.innerJoin("tuser")
+				.leftOuterJoin("beforeParent")
+				.leftOuterJoin("beforeParent.tuser")
+				.leftOuterJoin("beforeParent.favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.leftOuterJoin("beforeParent.beforeParent")
+				.leftOuterJoin("beforeParent.beforeParent.tuser")
+				.leftOuterJoin("beforeParent.beforeParent.favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.leftOuterJoin("beforeParent.beforeParent.beforeParent")
+				.leftOuterJoin("beforeParent.beforeParent.beforeParent.tuser")
+				.leftOuterJoin("beforeParent.beforeParent.beforeParent.favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.where("murmurid = ?",id)
+				.orderBy(asc("murmurid"))
+				.getSingleResult();
+
+		if(mur == null){
+			System.out.println("見つからないよ見つからない…");
+		}
+		murmur = MakezibunJoinBeforeList(mur,id);
+		return murmur;
+	}
+
+	/**
+	 * beforeをすべてツリー構造にする
+	 * @param mur
+	 * @param id
+	 * @return
+	 */
+	public List<Murmur> MakezibunJoinBeforeList(Murmur mur, int id){
+
+		System.out.println(mur.murmur);
+		if (mur.murmurid != id) {
+			murmurafter.add(mur);
+			System.out.println(mur.murmur + mur.murmurid + "before");
+		}
+		if (mur.beforeParent != null) {
+			MakezibunJoinBeforeList(mur.beforeParent , id);
+		}
+
+		return murmurafter;
+	}
+
+	/**
+	 * twitのあとの返信リストを返す
+	 * @param id
+	 * @return
+	 */
+	public List<Murmur> zibunJoinAfterList(int id ,int userid){
+		List<Murmur> murmur = new ArrayList<Murmur>();
+
+		List<Murmur> list=
+				jdbcManager.from(Murmur.class)
+				.where("murmurid=?", id)
+				//.innerJoin("tuser")
+				.innerJoin("murmurList")
+				.leftOuterJoin("murmurList.tuser")
+				.leftOuterJoin("murmurList.favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.leftOuterJoin("murmurList.murmurList")
+				.leftOuterJoin("murmurList.murmurList.tuser")
+				.leftOuterJoin("murmurList.murmurList.favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.leftOuterJoin("murmurList.murmurList.murmurList")
+				.leftOuterJoin("murmurList.murmurList.murmurList.tuser")
+				.leftOuterJoin("murmurList.murmurList.murmurList.favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.orderBy(desc("murmurid"))
+				.getResultList();
+
+		if(list.isEmpty()){
+			System.out.println("空だよ");
+			return null;
+		}
+
+		murmur = MakezibunJoinAfterList(list, id);
+
+		return murmur;
+
+	}
+
+	List<Murmur> murmurafter = new ArrayList<Murmur>();
+	/**
+	 * afterをすべてツリー構造にする
+	 * @param mur
+	 */
+	public List<Murmur> MakezibunJoinAfterList(List<Murmur> mur, int id) {
+
+		for (Murmur m : mur) {
+			System.out.println(m.murmur);
+
+			if(m.murmurid != id){
+				murmurafter.add(m);
+				System.out.println(m.murmur + m.murmurid + "after");
+			}
+			if(m.murmurList != null){
+				if (!(m.murmurList.isEmpty())) {
+					System.out.println();
+					MakezibunJoinAfterList(m.murmurList, id);
+				}
+			}
+		}
+		return murmurafter;
+	}
+
+
+	/**
 	 *
 	 * @param LIMIT
 	 * @param page
@@ -55,19 +178,25 @@ public class MurmurService extends AbstractService<Murmur> {
 	 * @return
 	 */
 
-	public List<Murmur> mainListPager(int LIMIT, int page, List<Integer> murmur_userid) {
+	public List<Murmur> mainListPager(int LIMIT, int page, List<Integer> murmur_userid, int userid) {
 		return jdbcManager.from(Murmur.class).innerJoin("tuser")
 				.where(new SimpleWhere().in("userid", murmur_userid.toArray()))
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
 				.orderBy(desc("murmurid"))
 				.limit(LIMIT)
 				.offset(page * LIMIT)
 				.getResultList();
 	}
 
-	public List<Murmur> listPager(int LIMIT, int page, int id) {
+	public List<Murmur> listPager(int LIMIT, int page, String userni , int userid) {
 		return select()
 				.innerJoin("tuser")
-				.where("userid", id)
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.where("usernick = ?", userni)
 				.orderBy(desc("murmurid"))
 				.limit(LIMIT)
 				.offset(page * LIMIT)
@@ -107,9 +236,12 @@ public class MurmurService extends AbstractService<Murmur> {
 	 * @param id
 	 * @return
 	 */
-	public List<Murmur> selectNewTwit(int id, List<Integer> murmurId){
+	public List<Murmur> selectNewTwit(int id, List<Integer> murmurId, int userid){
 		return select()
 				.innerJoin("tuser")
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
 				.where(
 						and(
 								new SimpleWhere().in("userid", murmurId.toArray()),
@@ -120,9 +252,12 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 	}
 
-	public List<Murmur> selectOldTwit(int id , List<Integer> murmurId){
+	public List<Murmur> selectOldTwit(int id , List<Integer> murmurId, int userid){
 		return select()
 				.innerJoin("tuser")
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
 				.where(and(
 						new SimpleWhere().in("userid", murmurId.toArray()),
 						new SimpleWhere().lt("murmurid", id)
@@ -152,7 +287,14 @@ public class MurmurService extends AbstractService<Murmur> {
 	}
 
 	/**
-	 *
+	 * お気に入りフラグを変更する
+	 */
+	public void updateFavoriteFlagTrue(Murmur murmur){
+		jdbcManager.update(murmur).includes("favoritenum").execute();
+	}
+
+	/**
+	 * つぶやきを格納しつつソーラに登録するためのidを返す
 	 * @param murmur
 	 * @return
 	 */

@@ -12,6 +12,8 @@
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/newTwitCheck.js"></script>
+
 
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
 
@@ -50,7 +52,7 @@
 									width="50" height="50" />
 							</span>
 							<span class="usernick">
-							<s:link href="#">
+							<s:link href="userpage/${tubuyaki.tuser.usernick}">
 								<span class="usernickLink">${tubuyaki.tuser.usernick}</span>
 							</s:link>
 							</span>
@@ -62,7 +64,18 @@
 							<span class="date twit_info">
 							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
 							</span>
-							<span class="favorite twit_info twit_info_link">お気に入りに登録</span>
+							<c:if test="${not empty tubuyaki.gpslocation}">
+							<span class="twit_info">${tubuyaki.gpslocation }</span>
+							</c:if>
+							<c:if test="${empty tubuyaki.favolite}">
+								<c:set var = "favoriteMsg" value="お気に入りに登録" />
+							</c:if>
+							<c:if test="${not empty tubuyaki.favolite}">
+								<c:set var = "favoriteMsg" value="★お気に入りを取り消す" />
+							</c:if>
+
+							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
+
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
 							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
 								<s:link href="/main/retwit/${tubuyaki.murmurid }"
@@ -80,9 +93,11 @@
 						</div>
 						<div id="${tubuyaki.murmurid}r" class="repform">
 
-							<s:form styleClass="rep_form">
+							<s:form styleClass="rep_form" onsubmit="repSubmit(${tubuyaki.murmurid}); return false;">
 								<textarea class="rep_textarea" name="tubuyaki" rows="1"></textarea>
 								<br>
+								<html:hidden styleClass = "topId" property="topIdrep" value=""/>
+								<html:hidden property="thisId" value="${tubuyaki.murmurid}"/>
 								<span class="rep_text_size">140</span>
 								<s:submit styleClass="btn btn-info rep_twit_btn"
 									property="ins_tubuyaki_rep">ツイート</s:submit>

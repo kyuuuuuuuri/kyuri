@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+body {
+	background:#1F3D31;
+	margin: 25px;
+}
+
+.tuserListClass{
+	background-color:#F4F4F4;
+	padding:10px;
+	padding-bottom:5px;
+}
+
+.tuserMain{
+	padding-bottom:20px;
+	padding-top:5px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
+}
+
+p.timeLine_border{
+	border-bottom: 1px solid #dddddd;
+	margin:0px;
+}
+
+.followButton{
+	display: inline-block;
+	_display: inline;
+
+	position: absolute;
+	margin-top: -40px;
+	margin-left:400px;
+
+}
+
+.pImg{
+	float:left;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.newTwitTime{
+	margin-left:70px;
+	font-size:x-small;
+	color:#bb9875;
+}
+
+#lastLine{
+	background-color:#F4F4F4;
+	display: inline-block;
+	_display: inline;
+
+	width:540px;
+}

@@ -11,15 +11,14 @@ import org.seasar.framework.container.SingletonS2Container;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import root.SuperAction;
 import root.dto.UserDto;
 import root.entity.Murmur;
 import root.entity.Tuser;
 import root.form.MainForm;
-import root.service.MurmurService;
-import root.service.TuserService;
 
 
-public class DeleteAction {
+public class DeleteAction extends SuperAction{
 
 	@Resource
 	protected UserDto userDto;
@@ -27,12 +26,6 @@ public class DeleteAction {
 	@ActionForm
 	@Resource
 	protected MainForm mainForm;
-
-	@Resource
-    protected MurmurService murmurService;
-
-	@Resource
-	protected TuserService tuserService;
 
 	// JdbcManagerのインスタンスを取得
 	JdbcManager jdbcManager=SingletonS2Container.getComponent("jdbcManager");
@@ -44,8 +37,9 @@ public class DeleteAction {
 
 			int userid = userDto.userID;
 
+			//お気に入りリストから削除
 			int delete_murID = mainForm.tubuyakiid;
-
+			favoliteService.deleteFavoliteList(delete_murID);
 
 			Murmur delResult=new Murmur();
 			delResult.murmurid=delete_murID;

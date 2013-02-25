@@ -7,6 +7,10 @@ public class MainForm extends CommonForm {
 
 	public String tubuyaki;
 
+	public String topIdrep;
+
+	public String thisId;
+
 	@IntegerType
 	public String page;
 
@@ -24,5 +28,10 @@ public class MainForm extends CommonForm {
 	public String rep_user;
 
 	public String hashtag;
+
+
+	//座標の位置をあれする
+	public double longitude;
+	public double latitude;
 
 }

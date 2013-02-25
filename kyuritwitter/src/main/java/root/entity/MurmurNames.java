@@ -6,136 +6,339 @@ import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.name.PropertyName;
 
+import root.entity.FavoliteNames._FavoliteNames;
+import root.entity.ReptwitidNames._ReptwitidNames;
 import root.entity.TuserNames._TuserNames;
 
 /**
  * {@link Murmur}のプロパティ名の集合です。
  *
  */
-@Generated(value = { "S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl" }, date = "2013/02/06 19:48:06")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/21 19:55:01")
 public class MurmurNames {
 
-	/**
-	 * useridのプロパティ名を返します。
-	 *
-	 * @return useridのプロパティ名
-	 */
-	public static PropertyName<Integer> userid() {
-		return new PropertyName<Integer>("userid");
-	}
+    /**
+     * useridのプロパティ名を返します。
+     *
+     * @return useridのプロパティ名
+     */
+    public static PropertyName<Integer> userid() {
+        return new PropertyName<Integer>("userid");
+    }
 
-	/**
-	 * murmuridのプロパティ名を返します。
-	 *
-	 * @return murmuridのプロパティ名
-	 */
-	public static PropertyName<Integer> murmurid() {
-		return new PropertyName<Integer>("murmurid");
-	}
+    /**
+     * murmuridのプロパティ名を返します。
+     *
+     * @return murmuridのプロパティ名
+     */
+    public static PropertyName<Integer> murmurid() {
+        return new PropertyName<Integer>("murmurid");
+    }
 
-	/**
-	 * murmurのプロパティ名を返します。
-	 *
-	 * @return murmurのプロパティ名
-	 */
-	public static PropertyName<String> murmur() {
-		return new PropertyName<String>("murmur");
-	}
+    /**
+     * murmurのプロパティ名を返します。
+     *
+     * @return murmurのプロパティ名
+     */
+    public static PropertyName<String> murmur() {
+        return new PropertyName<String>("murmur");
+    }
 
-	/**
-	 * dateTimeのプロパティ名を返します。
-	 *
-	 * @return dateTimeのプロパティ名
-	 */
-	public static PropertyName<Timestamp> dateTime() {
-		return new PropertyName<Timestamp>("dateTime");
-	}
+    /**
+     * dateTimeのプロパティ名を返します。
+     *
+     * @return dateTimeのプロパティ名
+     */
+    public static PropertyName<Timestamp> dateTime() {
+        return new PropertyName<Timestamp>("dateTime");
+    }
 
-	/**
-	 * tuserのプロパティ名を返します。
-	 *
-	 * @return tuserのプロパティ名
-	 */
-	public static _TuserNames tuser() {
-		return new _TuserNames("tuser");
-	}
+    /**
+     * gpslatitudeのプロパティ名を返します。
+     *
+     * @return gpslatitudeのプロパティ名
+     */
+    public static PropertyName<Double> gpslatitude() {
+        return new PropertyName<Double>("gpslatitude");
+    }
 
-	/**
-	 * @author S2JDBC-Gen
-	 */
-	public static class _MurmurNames extends PropertyName<Murmur> {
+    /**
+     * gpslongitudeのプロパティ名を返します。
+     *
+     * @return gpslongitudeのプロパティ名
+     */
+    public static PropertyName<Double> gpslongitude() {
+        return new PropertyName<Double>("gpslongitude");
+    }
 
-		/**
-		 * インスタンスを構築します。
-		 */
-		public _MurmurNames() {
-		}
+    /**
+     * gpslocationのプロパティ名を返します。
+     *
+     * @return gpslocationのプロパティ名
+     */
+    public static PropertyName<String> gpslocation() {
+        return new PropertyName<String>("gpslocation");
+    }
 
-		/**
-		 * インスタンスを構築します。
-		 *
-		 * @param name
-		 *            名前
-		 */
-		public _MurmurNames(final String name) {
-			super(name);
-		}
+    /**
+     * beforeidのプロパティ名を返します。
+     *
+     * @return beforeidのプロパティ名
+     */
+    public static PropertyName<Integer> beforeid() {
+        return new PropertyName<Integer>("beforeid");
+    }
 
-		/**
-		 * インスタンスを構築します。
-		 *
-		 * @param parent
-		 *            親
-		 * @param name
-		 *            名前
-		 */
-		public _MurmurNames(final PropertyName<?> parent, final String name) {
-			super(parent, name);
-		}
+    /**
+     * afteridflagのプロパティ名を返します。
+     *
+     * @return afteridflagのプロパティ名
+     */
+    public static PropertyName<Integer> afteridflag() {
+        return new PropertyName<Integer>("afteridflag");
+    }
 
-		/**
-		 * useridのプロパティ名を返します。
-		 *
-		 * @return useridのプロパティ名
-		 */
-		public PropertyName<Integer> userid() {
-			return new PropertyName<Integer>(this, "userid");
-		}
+    /**
+     * imageurlのプロパティ名を返します。
+     *
+     * @return imageurlのプロパティ名
+     */
+    public static PropertyName<String> imageurl() {
+        return new PropertyName<String>("imageurl");
+    }
 
-		/**
-		 * murmuridのプロパティ名を返します。
-		 *
-		 * @return murmuridのプロパティ名
-		 */
-		public PropertyName<Integer> murmurid() {
-			return new PropertyName<Integer>(this, "murmurid");
-		}
+    /**
+     * favoritenumのプロパティ名を返します。
+     *
+     * @return favoritenumのプロパティ名
+     */
+    public static PropertyName<Integer> favoritenum() {
+        return new PropertyName<Integer>("favoritenum");
+    }
 
-		/**
-		 * murmurのプロパティ名を返します。
-		 *
-		 * @return murmurのプロパティ名
-		 */
-		public PropertyName<String> murmur() {
-			return new PropertyName<String>(this, "murmur");
-		}
+    /**
+     * retwitflagのプロパティ名を返します。
+     *
+     * @return retwitflagのプロパティ名
+     */
+    public static PropertyName<Integer> retwitflag() {
+        return new PropertyName<Integer>("retwitflag");
+    }
 
-		/**
-		 * dateTimeのプロパティ名を返します。
-		 *
-		 * @return dateTimeのプロパティ名
-		 */
-		public PropertyName<Timestamp> dateTime() {
-			return new PropertyName<Timestamp>(this, "dateTime");
-		}
+    /**
+     * beRetwitednumのプロパティ名を返します。
+     *
+     * @return beRetwitednumのプロパティ名
+     */
+    public static PropertyName<Integer> beRetwitednum() {
+        return new PropertyName<Integer>("beRetwitednum");
+    }
 
-		/**
-		 * tuserのプロパティ名を返します。
-		 *
-		 * @return tuserのプロパティ名
-		 */
-		public _TuserNames tuser() {
-			return new _TuserNames(this, "tuser");
-		}
-	}
+    /**
+     * tuserのプロパティ名を返します。
+     *
+     * @return tuserのプロパティ名
+     */
+    public static _TuserNames tuser() {
+        return new _TuserNames("tuser");
+    }
+
+
+    /**
+     * favoliteListのプロパティ名を返します。
+     *
+     * @return favoliteListのプロパティ名
+     */
+    public static _FavoliteNames favoliteList() {
+        return new _FavoliteNames("favoliteList");
+    }
+
+    /**
+     * reptwitidListのプロパティ名を返します。
+     *
+     * @return reptwitidListのプロパティ名
+     */
+    public static _ReptwitidNames reptwitidList() {
+        return new _ReptwitidNames("reptwitidList");
+    }
+
+
+    /**
+     * @author S2JDBC-Gen
+     */
+    public static class _MurmurNames extends PropertyName<Murmur> {
+
+        /**
+         * インスタンスを構築します。
+         */
+        public _MurmurNames() {
+        }
+
+        /**
+         * インスタンスを構築します。
+         *
+         * @param name
+         *            名前
+         */
+        public _MurmurNames(final String name) {
+            super(name);
+        }
+
+        /**
+         * インスタンスを構築します。
+         *
+         * @param parent
+         *            親
+         * @param name
+         *            名前
+         */
+        public _MurmurNames(final PropertyName<?> parent, final String name) {
+            super(parent, name);
+        }
+
+        /**
+         * useridのプロパティ名を返します。
+         *
+         * @return useridのプロパティ名
+         */
+        public PropertyName<Integer> userid() {
+            return new PropertyName<Integer>(this, "userid");
+        }
+
+        /**
+         * murmuridのプロパティ名を返します。
+         *
+         * @return murmuridのプロパティ名
+         */
+        public PropertyName<Integer> murmurid() {
+            return new PropertyName<Integer>(this, "murmurid");
+        }
+
+        /**
+         * murmurのプロパティ名を返します。
+         *
+         * @return murmurのプロパティ名
+         */
+        public PropertyName<String> murmur() {
+            return new PropertyName<String>(this, "murmur");
+        }
+
+        /**
+         * dateTimeのプロパティ名を返します。
+         *
+         * @return dateTimeのプロパティ名
+         */
+        public PropertyName<Timestamp> dateTime() {
+            return new PropertyName<Timestamp>(this, "dateTime");
+        }
+
+        /**
+         * gpslatitudeのプロパティ名を返します。
+         *
+         * @return gpslatitudeのプロパティ名
+         */
+        public PropertyName<Double> gpslatitude() {
+            return new PropertyName<Double>(this, "gpslatitude");
+        }
+
+        /**
+         * gpslongitudeのプロパティ名を返します。
+         *
+         * @return gpslongitudeのプロパティ名
+         */
+        public PropertyName<Double> gpslongitude() {
+            return new PropertyName<Double>(this, "gpslongitude");
+        }
+
+        /**
+         * gpslocationのプロパティ名を返します。
+         *
+         * @return gpslocationのプロパティ名
+         */
+        public PropertyName<String> gpslocation() {
+            return new PropertyName<String>(this, "gpslocation");
+        }
+
+        /**
+         * beforeidのプロパティ名を返します。
+         *
+         * @return beforeidのプロパティ名
+         */
+        public PropertyName<Integer> beforeid() {
+            return new PropertyName<Integer>(this, "beforeid");
+        }
+
+        /**
+         * afteridflagのプロパティ名を返します。
+         *
+         * @return afteridflagのプロパティ名
+         */
+        public PropertyName<Integer> afteridflag() {
+            return new PropertyName<Integer>(this, "afteridflag");
+        }
+
+        /**
+         * imageurlのプロパティ名を返します。
+         *
+         * @return imageurlのプロパティ名
+         */
+        public PropertyName<String> imageurl() {
+            return new PropertyName<String>(this, "imageurl");
+        }
+
+        /**
+         * favoritenumのプロパティ名を返します。
+         *
+         * @return favoritenumのプロパティ名
+         */
+        public PropertyName<Integer> favoritenum() {
+            return new PropertyName<Integer>(this, "favoritenum");
+        }
+
+        /**
+         * retwitflagのプロパティ名を返します。
+         *
+         * @return retwitflagのプロパティ名
+         */
+        public PropertyName<Integer> retwitflag() {
+            return new PropertyName<Integer>(this, "retwitflag");
+        }
+
+        /**
+         * beRetwitednumのプロパティ名を返します。
+         *
+         * @return beRetwitednumのプロパティ名
+         */
+        public PropertyName<Integer> beRetwitednum() {
+            return new PropertyName<Integer>(this, "beRetwitednum");
+        }
+
+        /**
+         * tuserのプロパティ名を返します。
+         *
+         * @return tuserのプロパティ名
+         */
+        public _TuserNames tuser() {
+            return new _TuserNames(this, "tuser");
+        }
+
+
+        /**
+         * favoliteListのプロパティ名を返します。
+         *
+         * @return favoliteListのプロパティ名
+         */
+        public _FavoliteNames favoliteList() {
+            return new _FavoliteNames(this, "favoliteList");
+        }
+
+        /**
+         * reptwitidListのプロパティ名を返します。
+         *
+         * @return reptwitidListのプロパティ名
+         */
+        public _ReptwitidNames reptwitidList() {
+            return new _ReptwitidNames(this, "reptwitidList");
+        }
+    }
 }
