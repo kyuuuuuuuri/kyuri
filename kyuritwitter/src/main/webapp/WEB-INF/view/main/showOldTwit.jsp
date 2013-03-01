@@ -15,7 +15,10 @@
 							<p class="twitid">
 							${f:h(tubuyaki.murmur)}
 							</p>
-							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">開く</span>
+							<c:if test="${not empty tubuyaki.imageurl}" >
+								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+							</c:if>
+							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="openRep(${tubuyaki.murmurid})">開く</span>
 							<span class="date twit_info">
 							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
 							</span>
@@ -34,7 +37,7 @@
 							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
 
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
+							<c:if test="${tubuyaki.tuser.userid!=mine}">
 								<s:link href="/main/retwit/${tubuyaki.murmurid }"
 									styleClass="twit_info twit_info_link">リツイート</s:link>
 								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>

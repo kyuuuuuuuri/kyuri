@@ -1,5 +1,8 @@
 package root.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javasource.passwordhash;
 
 import javax.annotation.Resource;
@@ -22,6 +25,8 @@ public class LoginAction extends SuperAction {
 
 	public int mine = 0;
 
+	public String username;
+
 	@Execute(validator = false)
 	public String index() {
 
@@ -36,11 +41,6 @@ public class LoginAction extends SuperAction {
 	@Execute(validator = true, input = "/login/index.jsp", urlPattern = "main")
 	public String loginSubmit() {
 
-		//Sessionチェック
-		if (userDto.userID != null) {
-			mine = userDto.userID;
-			return "/main/";
-		}
 		String userName = loginForm.UserName;
 		//String pass=loginForm.Pass;
 		passwordhash e = new passwordhash();
@@ -63,6 +63,74 @@ public class LoginAction extends SuperAction {
 	@Execute(validator = false)
 	public String userentry() {
 		return "/user/";
+	}
+
+	//パスワードを新しく設定するページに移動する
+	@Execute(validator = false)
+	public String toSetPass() {
+		return "forForgetPass.jsp";
+	}
+
+	@Execute(validator = true, input="forForgetPass.jsp")
+	public String toMakeNewpass(){
+
+		int questionId = loginForm.question;
+		String question;
+		String usernick = loginForm.UserName;
+		String answer   = loginForm.answer;
+
+		Map<Integer, String> map = new HashMap<Integer, String>();
+		map.put(1, "出身はどこですか？");
+		map.put(2, "好きな映画はなんですか？");
+		map.put(3, "飼っている犬の名前はなんですか？");
+
+		question = map.get(questionId);
+
+		System.out.println(question + "もろきゅうパス");
+
+		Tuser tuser = tuserService.findByNameForCheck(usernick);
+
+		if(tuser != null){
+			if (!tuser.secretquestion.equals(question) || !tuser.secretanswer.equals(answer)) {
+				throw new ActionMessagesException("秘密の質問と答えが違います", false);
+			}
+		}else{
+			throw new ActionMessagesException("秘密の質問と答えが違います", false);
+		}
+
+		username = usernick;
+		userDto.usernick = usernick;
+
+		return "makePass.jsp";
+	}
+
+	@Execute(validator = false)
+	public String valiTomakeNewPass(){
+		username = userDto.usernick;
+
+		return "makePass.jsp";
+	}
+
+	@Execute(validator = true, input="valiTomakeNewPass")
+	public String setPass(){
+
+		String pass      = loginForm.Pass;
+		String usernick  = loginForm.UserName;
+
+		username = usernick;
+
+		passwordhash passwordHash = new passwordhash();
+		pass = passwordHash.getpassword(pass);
+
+		System.out.println(pass + " " + usernick + "morokyu");
+
+		Tuser tuser = tuserService.findByNameForCheck(usernick);
+		tuser.passWord = pass;
+		tuserService.updatePassWord(tuser);
+
+		userDto.usernick=null;
+
+		return "/user/entrysuccess.jsp";
 	}
 
 	//mainpageへ移動する

@@ -1,21 +1,18 @@
 package root.entity;
 
 import javax.annotation.Generated;
-
 import org.seasar.extension.jdbc.name.PropertyName;
-
-import root.entity.MurmurNames._MurmurNames;
 
 /**
  * {@link Favolite}のプロパティ名の集合です。
- *
+ * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/21 19:55:01")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/28 3:52:23")
 public class FavoliteNames {
 
     /**
      * idのプロパティ名を返します。
-     *
+     * 
      * @return idのプロパティ名
      */
     public static PropertyName<Integer> id() {
@@ -24,7 +21,7 @@ public class FavoliteNames {
 
     /**
      * murmuridのプロパティ名を返します。
-     *
+     * 
      * @return murmuridのプロパティ名
      */
     public static PropertyName<Integer> murmurid() {
@@ -33,24 +30,12 @@ public class FavoliteNames {
 
     /**
      * useridのプロパティ名を返します。
-     *
+     * 
      * @return useridのプロパティ名
      */
     public static PropertyName<Integer> userid() {
         return new PropertyName<Integer>("userid");
     }
-
-
-    /**
-     * murmurのプロパティ名を返します。
-     *
-     * @return murmurのプロパティ名
-     */
-    public static _MurmurNames murmur() {
-        return new _MurmurNames("murmur");
-    }
-
-
 
     /**
      * @author S2JDBC-Gen
@@ -65,7 +50,7 @@ public class FavoliteNames {
 
         /**
          * インスタンスを構築します。
-         *
+         * 
          * @param name
          *            名前
          */
@@ -75,7 +60,7 @@ public class FavoliteNames {
 
         /**
          * インスタンスを構築します。
-         *
+         * 
          * @param parent
          *            親
          * @param name
@@ -111,17 +96,5 @@ public class FavoliteNames {
         public PropertyName<Integer> userid() {
             return new PropertyName<Integer>(this, "userid");
         }
-
-
-        /**
-         * murmurのプロパティ名を返します。
-         *
-         * @return murmurのプロパティ名
-         */
-        public _MurmurNames tuser() {
-            return new _MurmurNames(this, "murmur");
-        }
-
-
     }
 }

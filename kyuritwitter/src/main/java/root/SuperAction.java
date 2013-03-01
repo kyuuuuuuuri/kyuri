@@ -10,8 +10,10 @@ import root.dto.UserDto;
 import root.entity.Tuser;
 import root.service.FavoliteService;
 import root.service.FollowService;
+import root.service.InListUserService;
+import root.service.ListFollowService;
 import root.service.MurmurService;
-import root.service.ReptwitidService;
+import root.service.TlistService;
 import root.service.TuserService;
 
 public class SuperAction {
@@ -22,31 +24,33 @@ public class SuperAction {
 	@Resource
 	protected MurmurDto murmurDto;
 
-
 	//Service Class
 	@Resource
-    protected FollowService followService;
-    @Resource
-    protected TuserService tuserService;
-    @Resource
-    protected MurmurService murmurService;
-    @Resource
-    protected FavoliteService favoliteService;
-    @Resource
-    protected ReptwitidService reptwitidService;
+	protected FollowService followService;
+	@Resource
+	protected TuserService tuserService;
+	@Resource
+	protected MurmurService murmurService;
+	@Resource
+	protected FavoliteService favoliteService;
+	@Resource
+	protected InListUserService inListUserService;
+	@Resource
+	protected TlistService tlistService;
+	@Resource
+	protected ListFollowService listFollowService;
 
-    //loginUser number
-    public int mine=0;
+	//loginUser number
+	public int mine = 0;
 
-    //mydata
+	//mydata
 	public Tuser mydata = new Tuser();
 
 	//表示するメニュー
 	public int menuFlag = 0;
 
-
-    //Pager
-    //前のページがあるかどうか
+	//Pager
+	//前のページがあるかどうか
 	public boolean hasNext = false;
 	//次のページがあるかどうか
 	public boolean hasPrev = false;
@@ -55,19 +59,17 @@ public class SuperAction {
 	//1ページに表示する件数
 	protected static final int LIMIT = 10;
 
-
 	//ログアウトmethode
-	@Execute(validator=false)
-	@RemoveSession(name="userDto")
-	public String logout(){
-		System.out.println("moro");
-		return "/login/";
+	@Execute(validator = false)
+	@RemoveSession(name = "userDto")
+	public String logout() {
+		return "/login?redirect=true";
 	}
 
 	//設定
-	@Execute(validator=false)
-	public String setting(){
-		return "/setting/";
+	@Execute(validator = false)
+	public String setting() {
+		return "/setting?redirect=true";
 	}
 
 }

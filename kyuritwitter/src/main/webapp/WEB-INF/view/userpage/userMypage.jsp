@@ -33,16 +33,19 @@
 			<span id = "userImg"><html:img src="${pageContext.request.contextPath}/main/showUserImg/${mydata.userid}" width="100" height="100" /></span>
 			<p id = "usernickSuper">${mydata.usernick }</p>
 			<div id="followButton">
-				<c:if test = "${mydata.userid != mine && mydata.ffollowList[0].userid != mine}">
+			<c:if test = "${mydata.userid != mine}">
+				<c:if test = "${mydata.ffollowList[0].userid != mine}">
 					<input id ="followSub" type="button" class="btn btn-primary" onclick="follow(${mydata.userid})" value="フォロー" />
 				</c:if>
-				<c:if test = "${mydata.userid != mine && mydata.ffollowList[0].userid == mine}">
+				<c:if test = "${mydata.ffollowList[0].userid == mine}">
 					<input id="unfollowSub" type="button" class="btn btn-danger" onclick="unfollow(${mydata.userid})" value="フォロー解除" />
+				</c:if>
+					<input id ="blockButton" type="button" class="btn btn-danger" onclick="block(${mydata.userid})" value="ブロックする" />
 			</c:if>
 			</div>
 
-
 		</div>
+
 		<!-- つぶやきが一件もなかった場合 -->
 		<c:if test="${empty murmurList }">
 			<div>

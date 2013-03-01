@@ -50,10 +50,10 @@
 
 			<div class="followButton">
 				<c:if test="${followList.ftuser.userid != mine }">
-					<c:if test="${followList.ftuser.ffollowList[0].userid != 1}">
+					<c:if test="${followList.ftuser.ffollowList[0].userid != mine}">
 						<input id ="${followList.ftuser.userid}followSub" type="button" class="btn btn-primary" onclick="follow(${followList.ftuser.userid})" value="フォロー" />
 					</c:if>
-					<c:if test="${followList.ftuser.ffollowList[0].userid == 1}">
+					<c:if test="${followList.ftuser.ffollowList[0].userid == mine}">
 						<input id="${followList.ftuser.userid}unfollowSub" type="button" class="btn btn-danger" onclick="unfollow(${followList.ftuser.userid})" value="フォロー解除" />
 					</c:if>
 				</c:if>

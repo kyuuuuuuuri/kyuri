@@ -203,6 +203,19 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 	}
 
+//	//listのmurmurid
+//	public List<Murmur> listMurmurForTlist(List<Integer> useridList, int userid, int offset, int LIMIT){
+//		return select()
+//				.innerJoin("tuser")
+//				.leftOuterJoin("favolite", new SimpleWhere().eq("userid", userid)
+//						)
+//				.orderBy(desc("murmurid"))
+//				.limit(LIMIT)
+//				.offset(offset)
+//				.getResultList();
+//
+//	}
+
 
 	/**
 	 * つぶやきに更新があったか
@@ -210,9 +223,7 @@ public class MurmurService extends AbstractService<Murmur> {
 	 * @return
 	 */
 	public boolean existNewTwit(int id, List<Integer> murmurId){
-//		for(int i=0; i<murmurId.size() ; i++){
-//			System.out.println(murmurId.get(i));
-//		}
+
 		List<Murmur> murmur = new ArrayList<Murmur>();
 		murmur = select()
 				.innerJoin("tuser")
@@ -222,6 +233,28 @@ public class MurmurService extends AbstractService<Murmur> {
 								new SimpleWhere().gt("murmurid", id)
 							)
 						)
+		.orderBy(desc("murmurid"))
+		.getResultList();
+		if(!murmur.isEmpty()){
+
+			return true;
+		}
+		return false;
+	}
+
+
+
+	/**
+	 * つぶやきに更新があったか
+	 * @param id
+	 * @return
+	 */
+	public boolean existNewTwitForNotwit(List<Integer> murmurId){
+
+		List<Murmur> murmur = new ArrayList<Murmur>();
+		murmur = select()
+				.innerJoin("tuser")
+				.where(new SimpleWhere().in("userid", murmurId.toArray()))
 		.orderBy(desc("murmurid"))
 		.getResultList();
 		if(!murmur.isEmpty()){
@@ -248,6 +281,17 @@ public class MurmurService extends AbstractService<Murmur> {
 								new SimpleWhere().gt("murmurid", id)
 						)
 				)
+				.orderBy(desc("murmurid"))
+				.getResultList();
+	}
+
+	public List<Murmur> selectNewTwitFirstTwit(List<Integer> murmurId, int userid){
+		return select()
+				.innerJoin("tuser")
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.where(new SimpleWhere().in("userid", murmurId.toArray()))
 				.orderBy(desc("murmurid"))
 				.getResultList();
 	}

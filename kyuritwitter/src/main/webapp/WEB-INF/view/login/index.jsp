@@ -63,11 +63,13 @@
 
 					<pre id="login">
 					<s:form>
-						<p><input type="text" name="UserName" class="form_style" id="userid" placeholder="ユーザ名、またはメールアドレス"/></p>
+					<html:errors />
+						<p><input type="text" name="UserName" class="form_style" id="userid" placeholder="ユーザ名"/></p>
 						<p><input type="password" name="Pass" autocomplete="off" class="form_style" id="pass" placeholder="パスワード"/></p>
 					<p class="login_buton"><s:submit property = "loginSubmit">ログイン</s:submit></p>
-
 					</s:form>
+
+						<html:link href="toSetPass">パスワードをお忘れですか？</html:link>
 					</pre>
 
 					<pre id="user_register">

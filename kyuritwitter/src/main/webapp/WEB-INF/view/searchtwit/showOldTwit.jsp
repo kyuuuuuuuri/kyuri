@@ -15,7 +15,13 @@
 							<p class="twitid">
 							${f:h(tubuyaki.murmur)}
 							</p>
-							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">開く</span>
+							<c:if test="${not empty tubuyaki.imageurl}" >
+								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+							</c:if>
+							<c:if test="${not empty tubuyaki.imageurl}" >
+								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+							</c:if>
+							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="open(${tubuyaki.murmurid})">開く</span>
 							<span class="date twit_info">
 							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
 							</span>

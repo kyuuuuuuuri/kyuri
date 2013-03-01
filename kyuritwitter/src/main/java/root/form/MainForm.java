@@ -1,5 +1,6 @@
 package root.form;
 
+import org.apache.struts.upload.FormFile;
 import org.seasar.struts.annotation.IntegerType;
 
 public class MainForm extends CommonForm {
@@ -26,6 +27,10 @@ public class MainForm extends CommonForm {
 	public String rep_user;
 
 	public String hashtag;
+
+	//画像関連の
+	public FormFile imageFile;
+	public String imgUrl;
 
 
 	//座標の位置をあれする

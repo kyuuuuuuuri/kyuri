@@ -15,17 +15,14 @@
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/cssfile.css" />
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 
-
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/searchtwit.js"></script>
 
-
-<!--<tiles:insert page="/WEB-INF/view/common/header.jsp"  />-->
 		<title>メインページ</title>
 	</head>
 	<body>
 		<tiles:insert template="/WEB-INF/view/common/layout.jsp" flush="true">
-		<tiles:put name="title" value="followedpage" />
+		<tiles:put name="title" value="searchtwit" />
 		<tiles:put name="content" type="string">
 
 		<!-- つぶやきが一件もなかった場合 -->
@@ -44,26 +41,25 @@
 			<c:forEach var="tubuyaki" items="${murmurList}" varStatus="status">
 
 						<div id="${tubuyaki.murmurid}" class="twitmain">
-							<span class="pImg"> <html:img
-									src="${pageContext.request.contextPath}/main/showUserImg/${tubuyaki.tuser.userid}"
-									width="50" height="50" />
-							</span> <span class="usernick"> <s:link href="#">
-									<span class="usernickLink">${tubuyaki.tuser.usernick}</span>
-								</s:link>
+							<span class="pImg">
+							<html:img src="${pageContext.request.contextPath}/main/showUserImg/${tubuyaki.tuser.userid}" width="50" height="50" />
+							</span> <span class="usernick">
+							<s:link href="userpage/${tubuyaki.tuser.usernick}">
+								<span class="usernickLink">${tubuyaki.tuser.usernick}</span>
+							</s:link>
 							</span> <span class="username">${tubuyaki.tuser.username}</span>
 							<p class="twitid">${f:br(tubuyaki.murmur)}</p>
 							<span id="${tubuyaki.murmurid}open"
-								class="open_details_twit twit_info_link"
-								onclick="changeRepform(${tubuyaki.murmurid})">開く</span> <span
-								class="date twit_info"> <fmt:formatDate
-									value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
-							</span> <span class="favorite twit_info twit_info_link">お気に入りに登録</span>
+								class="open_details_twit twit_info_link" onclick="openRep(${tubuyaki.murmurid})">開く</span>
+								<span class="date twit_info">
+								<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
+							</span>
+							<span class="favorite twit_info twit_info_link">お気に入りに登録</span>
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
+							<c:if test="${tubuyaki.tuser.userid != mine}">
 								<s:link href="/main/retwit/${tubuyaki.murmurid }"
 									styleClass="twit_info twit_info_link">リツイート</s:link>
-								<s:link href="">返信</s:link>
-
+								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
 							</c:if>
 
 							<!-- 自分のつぶやきだった場合削除リンクをつける -->

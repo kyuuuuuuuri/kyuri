@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/21 19:54:37")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/28 3:52:02")
 public class Tuser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,17 +74,36 @@ public class Tuser implements Serializable {
     @Column(length = 16777215, nullable = true, unique = false)
     public byte[] profileimg;
 
+    /** secretquestionプロパティ */
+    @Column(length = 64, nullable = true, unique = false)
+    public String secretquestion;
+
+    /** secretanswerプロパティ */
+    @Column(length = 128, nullable = true, unique = false)
+    public String secretanswer;
+
     /** followList関連プロパティ */
     @OneToMany(mappedBy = "tuser")
     public List<Follow> followList;
 
-    /** followList関連プロパティ */
-    @OneToMany(mappedBy = "ftuser")
-    public List<Follow> ffollowList;
+    /** inListUserList関連プロパティ */
+    @OneToMany(mappedBy = "list")
+    public List<InListUser> inListUserList;
+
+    /** listFollowList関連プロパティ */
+    @OneToMany(mappedBy = "followThis")
+    public List<ListFollow> listFollowList;
 
     /** murmurList関連プロパティ */
     @OneToMany(mappedBy = "tuser")
     public List<Murmur> murmurList;
 
+    /** tlistList関連プロパティ */
+    @OneToMany(mappedBy = "tuser")
+    public List<Tlist> tlistList;
+
+    /** followList関連プロパティ */
+    @OneToMany(mappedBy = "ftuser")
+    public List<Follow> ffollowList;
 
 }

@@ -4,7 +4,7 @@ $(function(){
 	mouseHoverEvents();
 	scrollEvents();
 	searchUser();
-
+	DoModal();
 });
 
 function inits(){
@@ -22,8 +22,130 @@ function inits(){
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
 	});
+}
+
+function beforeQuery(id){
+	// alert("before");
+	var repUser = $(".usernickLink","#"+id).text();
+
+	$.ajax({
+		type:"POST",
+		url:"repListBefore",
+		data:{
+			"tubuyakiId":id
+		},
+		dataType:"html",
+		success: function(data,dataType){
+			// alert("OK");
+
+			$("#"+id).prepend(data);
+			initWhenAjaxDo();
+
+			$("#" + id).css({
+				"margin-top" : "10px"
+			});
+			$("#" + id + "r").show();
+			$("#" + id + "r").css("margin-bottom","10px");
+			$(".rep_textarea", "#" + id + "r").val("@"+ repUser + " ");
+			replyForm(id);
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
+	});
+}
+
+function initWhenAjaxDo(){
+
+	$("div.repform").hide();
+	$("#twit_textarea").attr("row", "1");
+
+
+	// ＠のついた文字列をリンク付けする
+	// hashタグにリンク付けする
+	$('p').each(function(){
+		// var text=$(this).text();
+		var text = $(this).text();
+		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage?userni=$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
+		$(this).html(text);
+		});
 
 }
+
+
+function DoModal(){
+	$('[data-toggle="modal"]').click(function(e) {
+		e.preventDefault();
+		var url = $(this).attr('href');
+		if (url.indexOf('#') == 0) {
+			$(url).modal('open');
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "showTwitImg",
+				data : {
+					'imgurl' : url
+				},
+				dataType : "html",
+				success : function(data, dataType) {
+					$('<div class="modal hide fade">' + data + '</div>').modal();
+				},
+				error : function() {
+					alert("問題が発生しました");
+				}
+			});
+		}
+	});
+}
+
+
+//openメソッド
+function openRep(id){
+
+	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
+		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
+		$(".twitplus").remove();
+
+		$.ajax({
+			type:"POST",
+			url:"repListAfter",
+			data:{
+				"tubuyakiId":id
+			},
+			dataType:"html",
+			success: function(data,dataType){
+				// alert("OK" + id);
+				$("#"+id).append(data);
+				initWhenAjaxDo();
+
+				beforeQuery(id);
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+
+	}else if($('.open_details_twit', "#"+id).attr("id") == id+"close"){
+		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
+
+		$(".twitplus").remove();
+
+		$("#" + id).css({
+			"margin-top" : "0px"
+		});
+		$("#" + id + "r").css("margin-bottom","0px");
+		$("#"+ id +"r").hide().css("margin-bottom","0px");
+
+
+	}else{
+		alert("問題が起こりました");
+	}
+
+}
+
 
 function searchUser(){
 

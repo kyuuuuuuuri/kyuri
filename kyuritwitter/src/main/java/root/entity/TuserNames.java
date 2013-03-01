@@ -4,13 +4,16 @@ import java.sql.Timestamp;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import root.entity.FollowNames._FollowNames;
+import root.entity.InListUserNames._InListUserNames;
+import root.entity.ListFollowNames._ListFollowNames;
 import root.entity.MurmurNames._MurmurNames;
+import root.entity.TlistNames._TlistNames;
 
 /**
  * {@link Tuser}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/21 19:55:01")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/28 3:52:23")
 public class TuserNames {
 
     /**
@@ -122,6 +125,24 @@ public class TuserNames {
     }
 
     /**
+     * secretquestionのプロパティ名を返します。
+     * 
+     * @return secretquestionのプロパティ名
+     */
+    public static PropertyName<String> secretquestion() {
+        return new PropertyName<String>("secretquestion");
+    }
+
+    /**
+     * secretanswerのプロパティ名を返します。
+     * 
+     * @return secretanswerのプロパティ名
+     */
+    public static PropertyName<String> secretanswer() {
+        return new PropertyName<String>("secretanswer");
+    }
+
+    /**
      * followListのプロパティ名を返します。
      * 
      * @return followListのプロパティ名
@@ -131,12 +152,39 @@ public class TuserNames {
     }
 
     /**
+     * inListUserListのプロパティ名を返します。
+     * 
+     * @return inListUserListのプロパティ名
+     */
+    public static _InListUserNames inListUserList() {
+        return new _InListUserNames("inListUserList");
+    }
+
+    /**
+     * listFollowListのプロパティ名を返します。
+     * 
+     * @return listFollowListのプロパティ名
+     */
+    public static _ListFollowNames listFollowList() {
+        return new _ListFollowNames("listFollowList");
+    }
+
+    /**
      * murmurListのプロパティ名を返します。
      * 
      * @return murmurListのプロパティ名
      */
     public static _MurmurNames murmurList() {
         return new _MurmurNames("murmurList");
+    }
+
+    /**
+     * tlistListのプロパティ名を返します。
+     * 
+     * @return tlistListのプロパティ名
+     */
+    public static _TlistNames tlistList() {
+        return new _TlistNames("tlistList");
     }
 
     /**
@@ -281,6 +329,24 @@ public class TuserNames {
         }
 
         /**
+         * secretquestionのプロパティ名を返します。
+         *
+         * @return secretquestionのプロパティ名
+         */
+        public PropertyName<String> secretquestion() {
+            return new PropertyName<String>(this, "secretquestion");
+        }
+
+        /**
+         * secretanswerのプロパティ名を返します。
+         *
+         * @return secretanswerのプロパティ名
+         */
+        public PropertyName<String> secretanswer() {
+            return new PropertyName<String>(this, "secretanswer");
+        }
+
+        /**
          * followListのプロパティ名を返します。
          * 
          * @return followListのプロパティ名
@@ -290,12 +356,39 @@ public class TuserNames {
         }
 
         /**
+         * inListUserListのプロパティ名を返します。
+         * 
+         * @return inListUserListのプロパティ名
+         */
+        public _InListUserNames inListUserList() {
+            return new _InListUserNames(this, "inListUserList");
+        }
+
+        /**
+         * listFollowListのプロパティ名を返します。
+         * 
+         * @return listFollowListのプロパティ名
+         */
+        public _ListFollowNames listFollowList() {
+            return new _ListFollowNames(this, "listFollowList");
+        }
+
+        /**
          * murmurListのプロパティ名を返します。
          * 
          * @return murmurListのプロパティ名
          */
         public _MurmurNames murmurList() {
             return new _MurmurNames(this, "murmurList");
+        }
+
+        /**
+         * tlistListのプロパティ名を返します。
+         * 
+         * @return tlistListのプロパティ名
+         */
+        public _TlistNames tlistList() {
+            return new _TlistNames(this, "tlistList");
         }
     }
 }

@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+label{
+	font-weight:bold;
+	font-size:10px;
+}
+
+#ListLine{
+	margin-top:30px;
+}
+
+#modalBody {
+	font-weight:bold;
+	font-size:10px;
+}
+#makeListSub {
+	margin-top:10px;
+}
+
+#makeListLink {
+	margin-bottom:10px;
+}
+
+input#keycheck {
+	vertical-align: middle;
+}
+
+.edit {
+	position:absolute;
+	margin-top:-20px;
+	margin-left:200px;
+}
+
+p.timeLine_border{
+	border-bottom: 1px solid #dddddd;
+	margin:0px;
+}
+
+.ListUser {
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.changeUserToListButton{
+	position:absolute;
+	margin-top:-20px;
+	margin-left:200px;
+}
+
+.listUsername{
+	font-size:x-small;
+}

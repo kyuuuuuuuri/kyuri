@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/21 19:54:37")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2013/02/28 3:52:01")
 public class Murmur implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -83,13 +83,10 @@ public class Murmur implements Serializable {
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     public Tuser tuser;
 
+
     /** favolite関連プロパティ */
     @OneToMany(mappedBy = "murmur")
     public List<Favolite> favolite;
-
-    /** reptwitList関連プロパティ */
-    @OneToMany(mappedBy = "murmur")
-    public List<Reptwitid> reptwitid;
 
     /* --------------   自己結合   --------------  */
 
@@ -100,6 +97,5 @@ public class Murmur implements Serializable {
 
     @OneToMany(mappedBy="beforeParent")
     public List<Murmur> murmurList;
-
 
 }

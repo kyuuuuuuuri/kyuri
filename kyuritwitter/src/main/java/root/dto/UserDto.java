@@ -13,5 +13,7 @@ public class UserDto implements Serializable{
 
 	public String searchWord = null;
 
+	public String usernick=null;
+
 }
 

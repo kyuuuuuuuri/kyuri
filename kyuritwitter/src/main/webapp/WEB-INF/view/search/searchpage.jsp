@@ -52,12 +52,12 @@
 								</s:link>
 							</span> <span class="username">${tubuyaki.tuser.username}</span>
 							<p class="twitid">${f:br(tubuyaki.murmur)}</p>
-							<span id="${tubuyaki.murmurid}open"
-								class="open_details_twit twit_info_link"
-								onclick="changeRepform(${tubuyaki.murmurid})">開く</span> <span
-								class="date twit_info"> <fmt:formatDate
-									value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
-							</span> <span class="favorite twit_info twit_info_link">お気に入りに登録</span>
+							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">開く</span>
+
+							<span class="date twit_info">
+								<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
+							</span>
+							<span class="favorite twit_info twit_info_link">お気に入りに登録</span>
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
 							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
 								<s:link href="/main/retwit/${tubuyaki.murmurid }"

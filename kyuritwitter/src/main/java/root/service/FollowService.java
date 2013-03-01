@@ -101,6 +101,19 @@ public class FollowService extends AbstractService<Follow> {
 	}
 
 	/**
+	 * ユーザがフォローしているユーザを抜き出すとともに、Listに入っているかを抜き出す
+	 * @return
+	 */
+	public List<Follow> findFollowListAndMakeList(int userid, int listid, int LIMIT){
+		return jdbcManager.from(Follow.class)
+				.innerJoin("ftuser")
+				.leftOuterJoin("ftuser.inListUserList", new SimpleWhere().eq("ftuser.inListUserList.listid", listid))
+				.where("userid = ?", userid)
+				.limit(LIMIT)
+				.getResultList();
+	}
+
+	/**
 	 * フォローユーザの検索
 	 * @param delete_userID
 	 * @param userid

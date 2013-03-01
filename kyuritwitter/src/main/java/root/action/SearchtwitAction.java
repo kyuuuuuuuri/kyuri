@@ -39,6 +39,44 @@ public class SearchtwitAction extends SuperAction{
 	public int fFlag =0;
 
 
+	//返信リストを返すafter
+	@Execute(validator = false)
+	public String repListAfter() {
+		System.out.println("もろきゅう");
+		int userid = userDto.userID;
+		String murId = req.getParameter("tubuyakiId");
+
+		List<Murmur> murmur = murmurService.zibunJoinAfterList(Integer.parseInt(murId), userid);
+		if (murmur == null) {
+			return null;
+		}
+		if (murmur.isEmpty()) {
+			return null;
+		}
+
+		murmurList = murmur;
+
+		return "twitplus.jsp";
+	}
+
+	//返信リストを返すbefore
+	@Execute(validator = false)
+	public String repListBefore() {
+		int userid = userDto.userID;
+		String murId = req.getParameter("tubuyakiId");
+		System.out.println(murId);
+		List<Murmur> murmur = murmurService.zibunJoinBeforeList(Integer.parseInt(murId), userid);
+
+		if (murmur.isEmpty()) {
+			return null;
+		}
+		murmurList = murmur;
+
+		return "twitplus.jsp";
+	}
+
+
+
 //	//solrを検索する
 	@Execute(validator = false)
 	public String index(){
@@ -112,6 +150,38 @@ public class SearchtwitAction extends SuperAction{
 		String searchUsernick = searchtwitForm.searchUser;
 
 		return "/search?search="+ searchUsernick +"?redirect=true";
+	}
+
+	//ユーザ個々のつぶやきを表示する
+	@Execute(validator = false, urlPattern = "userpage/{userni}")
+	public String showdata() {
+
+		String nick = searchtwitForm.userni;
+
+		return "/userpage?userni=" + nick + "?redirect=true";
+	}
+
+	//hashタグリストを出力する
+	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
+	public String showHashData() {
+		menuFlag = 1;
+		int id;
+		String hash = searchtwitForm.hashtag;
+		List<Integer> idList = new ArrayList<Integer>();
+		mine = userDto.userID;
+
+		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+		searchDto = new ArrayList<SearchDto>();
+		searchDto = getTwitFromSolr.getHashTwit(hash);
+
+		for (int i = 0; i < searchDto.size(); i++) {
+			id = Integer.valueOf(searchDto.get(i).getId());
+			idList.add(id);
+		}
+
+		murmurList = murmurService.SelectListSearch(idList);
+
+		return "searchtwit.jsp";
 	}
 
 

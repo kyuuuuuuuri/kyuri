@@ -1,5 +1,14 @@
 package root.action;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -8,9 +17,11 @@ import java.util.regex.Pattern;
 import javasource.ChangeLocationNum;
 import javasource.GetTwitFromSolr;
 import javasource.MakeHashList;
+import javasource.MakeImgType;
 import javasource.SetTwitToSolr;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +41,6 @@ import root.entity.Murmur;
 import root.entity.Tuser;
 import root.form.MainForm;
 
-//ソート用
 
 public class MainAction extends SuperAction {
 
@@ -42,13 +52,20 @@ public class MainAction extends SuperAction {
 	@Resource
 	protected MainForm mainForm;
 
+	@Resource
+	HttpServletRequest req;
+
+	//jspファイルに渡すつぶやきリストを格納する変数
+	public List<Murmur> murmurList = new ArrayList<Murmur>();
+
 	public Tuser mydata = new Tuser();
 
 	public int fFlag = 0;
 
-	// JdbcManagerのインスタンスを取得
-		JdbcManager jdbcManager=SingletonS2Container.getComponent("jdbcManager");
+	private SetTwitToSolr setTwitToSolr;
 
+	// JdbcManagerのインスタンスを取得
+	JdbcManager jdbcManager = SingletonS2Container.getComponent("jdbcManager");
 
 	public List<SearchDto> searchDto;
 
@@ -57,23 +74,14 @@ public class MainAction extends SuperAction {
 		return "main";
 	}
 
-	private SetTwitToSolr setTwitToSolr;
-
-	//jspファイルに渡すつぶやきリストを格納する変数
-	public List<Murmur> murmurList = new ArrayList<Murmur>();
-
-
 	//メインページ表示メソッド(自分のつぶやき＋他人のつぶやき
 	@Execute(validator = false, urlPattern = "main")
-	public String main(){
+	public String main() {
 		int userid = userDto.userID;
 		mine = userid;
 
-//		String newPath = application.getRealPath("/img/profileImg/" + userDto.userID + ".jpg");
-
 		//ユーザ自身のデータ
 		mydata = tuserService.findById(userid);
-
 
 		List<Integer> murmur_userid = new ArrayList<Integer>();
 
@@ -93,7 +101,7 @@ public class MainAction extends SuperAction {
 		this.total = murmurService.listCount(murmur_userid);
 
 		// 以下ページング処理
-		murmurList = murmurService.mainListPager(LIMIT, page, murmur_userid,userid);
+		murmurList = murmurService.mainListPager(LIMIT, page, murmur_userid, userid);
 		//前ページがあるかどうかを判定
 		hasPrev = murmurService.hasPrev(page);
 		//次のページがあるかどうかを判定
@@ -102,12 +110,9 @@ public class MainAction extends SuperAction {
 		return mainPageJsp;
 	}
 
-	@Resource
-	HttpServletRequest req;
-
 	//ajaxload
 	@Execute(validator = false)
-	public String loadOldTwit(){
+	public String loadOldTwit() {
 		//System.out.println("ajaxdo");
 		int userid = userDto.userID;
 		mine = userid;
@@ -136,13 +141,15 @@ public class MainAction extends SuperAction {
 	}
 
 	//つぶやくメソッド
-	@Execute(validator =false)
+	@Execute(validator = false)
 	public String insertTwit() {
+		int userid = userDto.userID;
+
+		String[] hashArray;
 
 		setTwitToSolr = new SetTwitToSolr();
-		String[] hashArray;
+
 		List<String> hashList = new ArrayList<String>();
-		int userid = userDto.userID;
 
 		//Formに渡されたつぶやきを格納する変数
 		String mur = mainForm.tubuyaki;
@@ -151,28 +158,24 @@ public class MainAction extends SuperAction {
 			throw new ActionMessagesException("なにか入力してください", false);
 		}
 
-		String hash ="[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
+		String hash = "[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
 		Pattern p = Pattern.compile(hash);
 		Matcher matcher = p.matcher(mur);
-			while (matcher.find()) {
 
-				for (int i = 0; i <= matcher.groupCount(); i++) {
-					System.out.println(matcher.group(i));
-				}
-				hashList.add(matcher.group(2));
-			}
+		while (matcher.find()) {
+			hashList.add(matcher.group(2));
+		}
 
-			hashArray = new String[hashList.size()];
+		hashArray = new String[hashList.size()];
 
 		if (hashList.size() != 0) {
 			for (int i = 0; i < hashList.size(); i++) {
 				hashArray[i] = hashList.get(i);
 			}
 		}
-		for(int i =0; i<hashArray.length;i++){
+		for (int i = 0; i < hashArray.length; i++) {
 			System.out.println(hashArray[i]);
 		}
-
 
 		Murmur murmur = new Murmur();
 
@@ -194,13 +197,13 @@ public class MainAction extends SuperAction {
 		//solrに登録する
 		setTwitToSolr.setTwit(murmur, hashArray);
 
-
 		return "main";
 	}
 
 	@Execute(validator = false)
-	public String checkNewTwit(){
+	public String checkNewTwit() {
 
+		int id=0;
 		fFlag = 1;
 		int userid = userDto.userID;
 		mine = userid;
@@ -218,20 +221,24 @@ public class MainAction extends SuperAction {
 		murmur_userid.add(userid);
 		//System.out.println(userid);
 
-
 		String topId = req.getParameter("topId");
-		int id = Integer.parseInt(topId);
-		if(murmurService.existNewTwit(id, murmur_userid)){
+		if(topId != null){
+			id = Integer.parseInt(topId);
 
+			if (murmurService.existNewTwit(id, murmur_userid)) {
+				ResponseUtil.write("<div id='existNewtwit' class='existNewtwit'>新しいつぶやきがあります</div>");
+				return null;
+			}
+
+		}else if(murmurService.existNewTwitForNotwit(murmur_userid)){
 			ResponseUtil.write("<div id='existNewtwit' class='existNewtwit'>新しいつぶやきがあります</div>");
-			return null;
 		}
 
 		return null;
 	}
 
 	@Execute(validator = false)
-	public String NewTwitList(){
+	public String NewTwitList() {
 		int userid = userDto.userID;
 		mine = userid;
 		fFlag = 1;
@@ -251,15 +258,15 @@ public class MainAction extends SuperAction {
 		String topId = req.getParameter("topId");
 		int id = Integer.parseInt(topId);
 		System.out.println("入りました" + id + "morokyu");
-		murmurList = murmurService.selectNewTwit(id, murmur_userid,userid);
+		murmurList = murmurService.selectNewTwit(id, murmur_userid, userid);
 
 		return "showOldTwit.jsp";
 	}
 
 	@Execute(validator = false)
-	public String ins_tubuyaki_rep(){
+	public String ins_tubuyaki_rep() {
 
-		String topId=req.getParameter("topIdrep");
+		String topId = req.getParameter("topIdrep");
 		String ParentTutuyakiId = req.getParameter("thisId");
 		String mur = req.getParameter("tubuyaki");
 		setTwitToSolr = new SetTwitToSolr();
@@ -299,14 +306,14 @@ public class MainAction extends SuperAction {
 		//solrに登録する
 		Murmur murmurForSolr = murmurService.findById(newMurmurId);
 
-		if(murmurForSolr == null){
+		if (murmurForSolr == null) {
 			System.out.println("nullだよnullだよ");
 		}
 
-		if(hashArray==null){
+		if (hashArray == null) {
 			setTwitToSolr.setTwit(murmurForSolr, null);
 
-		}else{
+		} else {
 			setTwitToSolr.setTwit(murmurForSolr, hashArray);
 		}
 
@@ -324,32 +331,39 @@ public class MainAction extends SuperAction {
 		murmur_userid.add(userid);
 
 		//出力リスト
-		murmurList = murmurService.selectNewTwit(id, murmur_userid,userid);
+		murmurList = murmurService.selectNewTwit(id, murmur_userid, userid);
 
 		return "main";
 	}
 
 	@Execute(validator = false)
-	public String ajaxSubmit(){
+	public String ajaxSubmit() {
 
+		int id = 0;
 		setTwitToSolr = new SetTwitToSolr();
 		String[] hashArray;
 		List<String> hashList = new ArrayList<String>();
 		int userid = userDto.userID;
 		mine = userid;
 		Murmur murmur = new Murmur();
+		String topId  = null;
 
 		//Formに渡されたつぶやきを格納する変数
-		String mur = req.getParameter("tubuyaki");
+		String mur       = req.getParameter("tubuyaki");
 		//GPS情報
-		String Location = req.getParameter("Location");
-		String topId=req.getParameter("topId");
-		int id = Integer.parseInt(topId);
-		String latitude = req.getParameter("Latitude");
+		String Location  = req.getParameter("Location");
+		       topId     = req.getParameter("topId");
+		String latitude  = req.getParameter("Latitude");
 		String longitude = req.getParameter("Longitude");
+		String imgurl    = req.getParameter("imgurl");
+
+		if(topId != null){
+			id = Integer.parseInt(topId);
+		}
+
 		murmur.gpslatitude = (double) 0;
-		murmur.gpslongitude =(double) 0;
-		if(!(latitude.isEmpty() || longitude.isEmpty())){
+		murmur.gpslongitude = (double) 0;
+		if (!(latitude.isEmpty() || longitude.isEmpty())) {
 
 			ChangeLocationNum changeL = new ChangeLocationNum();
 
@@ -360,35 +374,39 @@ public class MainAction extends SuperAction {
 
 		}
 
+		//画像情報を格納する
+		if(!(imgurl.isEmpty())){
+			murmur.imageurl = imgurl;
+		}
+
 
 		//登録済みかユーザチェック
 		if (mur == null) {
 			throw new ActionMessagesException("なにか入力してください", false);
 		}
 
-		String hash ="[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
+		String hash = "[　|\\s](#)([a-zA-Zあ-んア-ン_]+)";
 		Pattern p = Pattern.compile(hash);
 		Matcher matcher = p.matcher(mur);
 
-			while (matcher.find()) {
+		while (matcher.find()) {
 
-				for (int i = 0; i <= matcher.groupCount(); i++) {
-					System.out.println(matcher.group(i));
-				}
-				hashList.add(matcher.group(2));
+			for (int i = 0; i <= matcher.groupCount(); i++) {
+				System.out.println(matcher.group(i));
 			}
+			hashList.add(matcher.group(2));
+		}
 
-			hashArray = new String[hashList.size()];
+		hashArray = new String[hashList.size()];
 
 		if (hashList.size() != 0) {
 			for (int i = 0; i < hashList.size(); i++) {
 				hashArray[i] = hashList.get(i);
 			}
 		}
-		for(int i =0; i<hashArray.length;i++){
+		for (int i = 0; i < hashArray.length; i++) {
 			System.out.println(hashArray[i]);
 		}
-
 
 		//新しいつぶやきをデータベースに格納する
 		murmur.userid = userid;
@@ -421,14 +439,84 @@ public class MainAction extends SuperAction {
 		murmur_userid.add(userid);
 
 		//出力リスト
-		murmurList = murmurService.selectNewTwit(id, murmur_userid,userid);
+		if(id != 0){
+			murmurList = murmurService.selectNewTwit(id, murmur_userid, userid);
+		}else{
+			murmurList = murmurService.selectNewTwitFirstTwit(murmur_userid, userid);
+		}
 
 		return "showOldTwit.jsp";
 	}
 
+	public String imgShowUrl;
+
+	//ajaxで画像をアップロードするメソッドだよ
+	@Execute(validator = false)
+	public String imagePost() throws IOException {
+
+		String fileName = mainForm.imageFile.getFileName();
+		//		String fileInfoJson = null;
+
+		InputStream fileData = this.mainForm.imageFile.getInputStream();
+		BufferedInputStream fileDataBuffer = new BufferedInputStream(fileData);
+
+		String path = application.getRealPath("/img/tempoImg/" + fileName);
+		OutputStream profileImgPath = new FileOutputStream(path);
+		BufferedOutputStream outBuf = new BufferedOutputStream(profileImgPath);
+
+		int contents;
+		while ((contents = fileDataBuffer.read()) != -1) {
+			outBuf.write(contents);
+		}
+
+		outBuf.flush();
+		outBuf.close();
+		fileDataBuffer.close();
+
+		/** ---- 一時的なファイルに書き込むのはここまで ---- */
+
+		BufferedImage sourceImage = ImageIO.read(new File(path));
+
+		MakeImgType mit = new MakeImgType();
+		String LocalImgShowUrl = mit.makeImgName();
+
+		String newPath = application.getRealPath("/img/twitImg/" + LocalImgShowUrl + ".jpg");
+
+		try {
+			OutputStream out = new FileOutputStream(newPath);
+			ImageIO.write(sourceImage, "jpg", out);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		File delFile = new File(path);
+		delFile.delete();
+
+		imgShowUrl = LocalImgShowUrl + ".jpg";
+
+		return "frameImg.jsp";
+	}
+
+	//画像を消去しちゃうぞ
+	@Execute(validator = false)
+	public String deleteImg(){
+
+		String url = req.getParameter("deleteurl");
+		url = application.getRealPath("/img/twitImg/" + url);
+		File file = new File(url);
+
+		if(file.exists()){
+			file.delete();
+		}else {
+			System.out.println("この画像は存在しないんだ");
+		}
+
+		return null;
+	}
+
 	//お気に入りに登録する
 	@Execute(validator = false)
-	public String doFavorite(){
+	public String doFavorite() {
 		String murmurid = req.getParameter("murmurid");
 		int murmuridInt = Integer.parseInt(murmurid);
 		Murmur murmur = new Murmur();
@@ -437,7 +525,7 @@ public class MainAction extends SuperAction {
 
 		//murmurServiceのお気に入りフラグ
 		murmur.murmurid = murmuridInt;
-		murmur.favoritenum = + 1;
+		murmur.favoritenum = +1;
 		murmurService.updateFavoriteFlagTrue(murmur);
 
 		//favoriteTableに挿入する
@@ -450,7 +538,7 @@ public class MainAction extends SuperAction {
 
 	//お気に入りから外す
 	@Execute(validator = false)
-	public String canselFavorite(){
+	public String canselFavorite() {
 		String murmurid = req.getParameter("murmurid");
 		int murmuridInt = Integer.parseInt(murmurid);
 		Murmur murmur = new Murmur();
@@ -467,7 +555,7 @@ public class MainAction extends SuperAction {
 		favolite.murmurid = murmuridInt;
 		favolite.userid = userid;
 		favoliteList = favoliteService.findDeleteFavoList(favolite);
-		if(!favoliteList.isEmpty()){
+		if (!favoliteList.isEmpty()) {
 			favoliteService.deleteById(favoliteList);
 		}
 		return null;
@@ -475,50 +563,41 @@ public class MainAction extends SuperAction {
 
 	//お気に入りリストを返そう
 	@Execute(validator = false)
-	public String BeFavorite(){
-
-		return null;
-	}
-
-	//我お気に入りしているか
-	public String userFavorite(){
+	public String BeFavorite() {
 
 		return null;
 	}
 
 	//retwitをする
 	@Execute(validator = false)
-	public String Retwit(){
+	public String Retwit() {
 		return null;
 	}
 
 	//retwitを取り消す
 	@Execute(validator = false)
-	public String canselRetwit(){
+	public String canselRetwit() {
 
 		return null;
 	}
 
-	//retwitされているのか,リツイートリストを返そう
+	//お気に入り,リツイートリストを返そう
 	@Execute(validator = false)
-	public String BeRetwited(){
+	public String BeRetwited() {
 		return null;
 	}
 
 	//返信リストを返すafter
 	@Execute(validator = false)
-	public String repListAfter(){
+	public String repListAfter() {
 		int userid = userDto.userID;
 		String murId = req.getParameter("tubuyakiId");
-		System.out.println("afterはいったよ" + murId);
 
-		List<Murmur> murmur = murmurService.zibunJoinAfterList(Integer.parseInt(murId) , userid);
-		if(murmur == null){
-			System.out.println("値がないよ");
+		List<Murmur> murmur = murmurService.zibunJoinAfterList(Integer.parseInt(murId), userid);
+		if (murmur == null) {
 			return null;
 		}
-		if(murmur.isEmpty()){
-			System.out.println("値がないよ");
+		if (murmur.isEmpty()) {
 			return null;
 		}
 
@@ -529,13 +608,13 @@ public class MainAction extends SuperAction {
 
 	//返信リストを返すbefore
 	@Execute(validator = false)
-	public String repListBefore(){
+	public String repListBefore() {
 		int userid = userDto.userID;
 		String murId = req.getParameter("tubuyakiId");
 		System.out.println(murId);
 		List<Murmur> murmur = murmurService.zibunJoinBeforeList(Integer.parseInt(murId), userid);
 
-		if(murmur.isEmpty()){
+		if (murmur.isEmpty()) {
 			return null;
 		}
 		murmurList = murmur;
@@ -543,108 +622,109 @@ public class MainAction extends SuperAction {
 		return "twitplus.jsp";
 	}
 
-
 	//ユーザ個々のつぶやきを表示する
 	@Execute(validator = false, urlPattern = "userpage/{userni}")
 	public String showdata() {
 
 		String nick = mainForm.userni;
 
-		return "/userpage?userni="+ nick +"?redirect=true";
-
+		return "/userpage?userni=" + nick + "?redirect=true";
 	}
 
 	//ユーザプロフィール画像
-	@Execute(validator=false, urlPattern="showUserImg/{userid}")
-	public String showUserImg(){
+	@Execute(validator = false, urlPattern = "showUserImg/{userid}")
+	public String showUserImg() {
 		int id = mainForm.userid;
 		Tuser userImg = tuserService.getTuserImg(id);
-		String filename = userImg.userid+".jpg";
-		if(userImg != null){
+		String filename = userImg.userid + ".jpg";
+		if (userImg != null) {
 			ResponseUtil.download(filename, userImg.profileimg);
 		}
-
 		return null;
 	}
 
-
 	//ユーザプロフィール画像
-	@Execute(validator=false)
-	public String showUserImgSetting(){
+	@Execute(validator = false)
+	public String showUserImgSetting() {
 		int id = userDto.userID;
 		Tuser userImg = tuserService.getTuserImg(id);
-		String filename = userImg.userid+".jpg";
-		if(userImg != null){
+		String filename = userImg.userid + ".jpg";
+		if (userImg != null) {
 			ResponseUtil.download(filename, userImg.profileimg);
 		}
-
 		return null;
+	}
+
+	//ツイート画像を表示する
+	@Execute(validator = false)
+	public String showTwitImg(){
+		String imgUrl = req.getParameter("imgurl");
+		imgShowUrl = imgUrl;
+
+		return "ImgModal.jsp";
 	}
 
 	//検索ユーザを代入するとこだよ
 	public List<Tuser> tuserList = new ArrayList<Tuser>();
 
 	@Execute(validator = false)
-	public String searchUsershort(){
+	public String searchUsershort() {
 		String searchUser = req.getParameter("searchword");
 
 		int userid = userDto.userID;
 
 		tuserList = tuserService.tuserSearch(searchUser, userid, 3, 0);
-		if(tuserList.isEmpty()){
+		if (tuserList.isEmpty()) {
 		}
 
 		return "searchUser.jsp";
 	}
 
-	@Execute(validator = false , urlPattern="search/{searchUser}")
-	public String searchUserAll(){
+	@Execute(validator = false, urlPattern = "search/{searchUser}")
+	public String searchUserAll() {
 		String searchUsernick = mainForm.searchUser;
 
-		return "/search?search="+ searchUsernick +"?redirect=true";
+		return "/search?search=" + searchUsernick + "?redirect=true";
 	}
 
 	//フォローユーザへ
-	@Execute(validator = false, urlPattern="followlist/{userid}/{followOrUnfollow}")
-	public String toFollowPage(){
+	@Execute(validator = false, urlPattern = "followlist/{userid}/{followOrUnfollow}")
+	public String toFollowPage() {
 		int id = mainForm.userid;
 		String followFlag = mainForm.followOrUnfollow;
 		System.out.println("moromoro" + followFlag);
-
-		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag +"?redirect=true";
-	}
-
-	//フォロワーユーザへ
-	@Execute(validator  = false, urlPattern="followedlist/{userid}/{followOrUnfollow}")
-	public String toBefollowedPage(){
-		int id = mainForm.userid;
-		String followFlag = mainForm.followOrUnfollow;
-		System.out.println("moromoro" + followFlag);
-
 
 		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag + "?redirect=true";
 	}
 
+	//フォロワーユーザへ
+	@Execute(validator = false, urlPattern = "followedlist/{userid}/{followOrUnfollow}")
+	public String toBefollowedPage() {
+		int id = mainForm.userid;
+		String followFlag = mainForm.followOrUnfollow;
+		System.out.println("moromoro" + followFlag);
+
+		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag + "?redirect=true";
+	}
 
 	//
-	@Execute(validator=false)
-	public String repform(){
+	@Execute(validator = false)
+	public String repform() {
 		return "repform.jsp";
 	}
-//
-//	//solrを検索する
+
+	//solrを検索する
 	@Execute(validator = false)
-	public String searchAll(){
+	public String searchAll() {
 
 		String searchWord = mainForm.searchWord;
-		System.out.println(searchWord + "mokyu");
 		userDto.searchWord = searchWord;
 
-		return "/searchtwit?searchWord=" + searchWord + "?redirect=true";
+		return "/searchtwit?redirect=true";
 	}
 
 	@Execute(validator = false)
-	public String searchAjax(){
+	public String searchAjax() {
 
 		fFlag = 1;
 		//System.out.println("morokyumain");
@@ -656,9 +736,9 @@ public class MainAction extends SuperAction {
 
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
-		searchDto = getTwitFromSolr.getAllTwit(userDto.searchWord, page*10);
+		searchDto = getTwitFromSolr.getAllTwit(userDto.searchWord, page * 10);
 
-		if(!searchDto.isEmpty()){
+		if (!searchDto.isEmpty()) {
 			for (int i = 0; i < searchDto.size(); i++) {
 				id = Integer.valueOf(searchDto.get(i).getId());
 				idList.add(id);
@@ -670,20 +750,19 @@ public class MainAction extends SuperAction {
 	}
 
 	//hashタグリストを出力する
-	@Execute(validator = false, urlPattern="showHashData/{hashtag}")
-	public String showHashData(){
-		menuFlag=1;
+	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
+	public String showHashData() {
+		menuFlag = 1;
 		int id;
 		String hash = mainForm.hashtag;
 		List<Integer> idList = new ArrayList<Integer>();
 		mine = userDto.userID;
 
-
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
 		searchDto = getTwitFromSolr.getHashTwit(hash);
 
-		for(int i=0; i<searchDto.size(); i++){
+		for (int i = 0; i < searchDto.size(); i++) {
 			id = Integer.valueOf(searchDto.get(i).getId());
 			idList.add(id);
 		}
@@ -692,12 +771,5 @@ public class MainAction extends SuperAction {
 
 		return mainPageJsp;
 	}
-//
-//	@Execute(validator = false, urlPattern ="userpage/{userid}")
-//	public String toUserpage(){
-//		int id = mainForm.userid;
-//
-//		return "/userpage?userid="+ id;
-//	}
 
 }

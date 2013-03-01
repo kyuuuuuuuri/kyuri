@@ -25,6 +25,12 @@ public class UserpageAction extends SuperAction{
 
 	public int fFlag = 0;
 
+	public String imgShowUrl;
+
+	@Resource
+	HttpServletRequest req;
+
+
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
 
@@ -49,6 +55,17 @@ public class UserpageAction extends SuperAction{
 		return "";
 	}
 
+
+	//ツイート画像を表示する
+	@Execute(validator = false)
+	public String showTwitImg(){
+		String imgUrl = req.getParameter("imgurl");
+		imgShowUrl = imgUrl;
+
+		return "ImgModal.jsp";
+	}
+
+
 	//ユーザプロフィール画像
 	@Execute(validator=false, urlPattern="showUserImg/{userid}")
 	public String showUserImg(){
@@ -61,9 +78,6 @@ public class UserpageAction extends SuperAction{
 
 		return null;
 	}
-
-	@Resource
-	HttpServletRequest req;
 
 	//フォローする
 	@Execute(validator = false)
@@ -131,6 +145,51 @@ public class UserpageAction extends SuperAction{
 		}
 		return null;
 	}
+
+	//ユーザが作成したリストを出力する
+	public String showListUserMake(){
+		
+		
+		return "";
+	}
+
+
+	//返信リストを返すafter
+	@Execute(validator = false)
+	public String repListAfter() {
+		int userid = userDto.userID;
+		String murId = req.getParameter("tubuyakiId");
+
+		List<Murmur> murmur = murmurService.zibunJoinAfterList(Integer.parseInt(murId), userid);
+		if (murmur == null) {
+			return null;
+		}
+		if (murmur.isEmpty()) {
+			return null;
+		}
+
+		murmurList = murmur;
+
+		return "twitplus.jsp";
+	}
+
+	//返信リストを返すbefore
+	@Execute(validator = false)
+	public String repListBefore() {
+		int userid = userDto.userID;
+		String murId = req.getParameter("tubuyakiId");
+		System.out.println(murId);
+		List<Murmur> murmur = murmurService.zibunJoinBeforeList(Integer.parseInt(murId), userid);
+
+		if (murmur.isEmpty()) {
+			return null;
+		}
+		murmurList = murmur;
+
+		return "twitplus.jsp";
+	}
+
+
 
 	//フォローユーザへ
 	@Execute(validator = false, urlPattern="followlist/{userid}/{followOrUnfollow}")

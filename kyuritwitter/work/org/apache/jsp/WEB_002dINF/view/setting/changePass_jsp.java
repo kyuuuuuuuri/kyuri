@@ -131,7 +131,7 @@ static {
       out.write("\t\t\t\t\t\t<ul class=\"nav nav-list\">\r\n");
       out.write("\t\t\t\t\t\t\t<li class=\"nav-header\">Menu</li>\r\n");
       out.write("\t\t\t\t\t\t\t<li id=\"change1\" class=\"\">\r\n");
-      out.write("\t\t\t\t\t\t\t<a href=\"index\" >プロフィールを変える</a></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<a href=\"setting\" >プロフィールを変える</a></li>\r\n");
       out.write("\t\t\t\t\t\t\t<li id=\"change2\" class=\"\">\r\n");
       out.write("\t\t\t\t\t\t\t<a href=\"changeUserImg\" >画像を変える</a></li>\r\n");
       out.write("\t\t\t\t\t\t\t<li id=\"change3\" class=\"active\">\r\n");

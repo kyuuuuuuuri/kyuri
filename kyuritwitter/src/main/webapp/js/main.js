@@ -3,8 +3,35 @@ $(function(){
 	init();
 	mouseHoverEvent();
 	searchUser();
+	DoModal();
 
 });
+
+function DoModal(){
+	$('[data-toggle="modal"]').click(function(e) {
+		e.preventDefault();
+		var url = $(this).attr('href');
+		if (url.indexOf('#') == 0) {
+			$(url).modal('open');
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "showTwitImg",
+				data : {
+					'imgurl' : url
+				},
+				dataType : "html",
+				success : function(data, dataType) {
+					$('<div class="modal hide fade">' + data + '</div>').modal();
+				},
+				error : function() {
+					alert("問題が発生しました");
+				}
+			});
+		}
+	});
+}
+
 
 // 検索エンジンに文字を入れたとき、ユーザを一緒に検索する
 function searchUser(){
@@ -80,6 +107,8 @@ function init(){
 
 	$("div.repform").hide();
 	$("#dropDownMenu").hide();
+	$("#imgPost").hide();
+	$("iframe").hide();
 
 	// ＠のついた文字列をリンク付けする
 	// hashタグにリンク付けする
@@ -201,6 +230,8 @@ function getGps(){
 function initWhenAjaxDo(){
 
 	$("div.repform").hide();
+	$("#twit_textarea").attr("row", "1");
+
 
 	// ＠のついた文字列をリンク付けする
 	// hashタグにリンク付けする
@@ -244,8 +275,6 @@ function mouseHoverEvent(){
 		});
 }
 
-
-
 // replyanメソッド
 function replyan(usernick){
 	var selecter;
@@ -255,8 +284,8 @@ function replyan(usernick){
 	$("input[name='tubuyaki']").focus();
 }
 
-// replyformメソッド
-function changeRepform(id){
+// openメソッド
+function openRep(id){
 
 	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
 		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
@@ -298,6 +327,26 @@ function changeRepform(id){
 		alert("問題が起こりました");
 	}
 
+}
+
+function changeRepform(id){
+
+	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
+		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
+
+	}else if($('.open_details_twit', "#"+id).attr("id") == id+"close"){
+		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
+
+		$("#" + id).css({
+			"margin-top" : "0px"
+		});
+		$("#" + id + "r").css("margin-bottom","0px");
+		$("#"+ id +"r").hide().css("margin-bottom","0px");
+
+
+	}else{
+		alert("問題が起こりました");
+	}
 }
 
 function beforeQuery(id){

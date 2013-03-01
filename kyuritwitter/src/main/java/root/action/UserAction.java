@@ -1,5 +1,8 @@
 package root.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javasource.passwordhash;
 
 import javax.annotation.Resource;
@@ -42,22 +45,27 @@ public class UserAction extends SuperAction {
 		//    		throw new ActionMessagesException("パスワードが一致しません。確認してください。", false);
 		//    	}
 		////
-		tuser.username = userName;
-		tuser.usernick = userNick;
-		tuser.mailad = userForm.mailAd;
-		tuser.passWord = pass;
+		tuser.username       = userName;
+		tuser.usernick       = userNick;
+		tuser.mailad         = userForm.mailAd;
+		tuser.passWord       = pass;
 
 		return "entrypage.jsp";
 
 	}
 
 	//新しいユーザのDB登録を実行する
-	@Execute(validator = false, input = "")
+	@Execute(validator = false, input = "entrypage.jsp")
 	public String registerNewUser() {
-		//final String algorithmName = "SHA-256";
+
+		Map<Integer, String> map = new HashMap<Integer, String>();
+		map.put(1, "出身はどこですか？");
+		map.put(2, "好きな映画はなんですか？");
+		map.put(3, "飼っている犬の名前はなんですか？");
 		passwordhash e = new passwordhash();
 
 		String pass_hash = e.getpassword(userForm.pass);
+		String question = map.get(userForm.question);
 
 		tuser.username = userForm.userName;
 		tuser.usernick = userForm.userNick;
@@ -67,6 +75,8 @@ public class UserAction extends SuperAction {
 		tuser.followed = 0;
 		tuser.skey = 0;
 		tuser.postNum = 0;
+		tuser.secretquestion = question;
+		tuser.secretanswer = userForm.answer;
 
 		System.out.println(tuser.username + "kyuuri" + pass_hash);
 		tuserService.insert(tuser);
@@ -115,7 +125,6 @@ public class UserAction extends SuperAction {
 	@Execute(validator = false)
 	public String usernick_check() {
 		String userparam = req.getParameter("param");
-		System.out.println("kyuuri" + userparam);
 		Tuser result = tuserService.findByNameForCheck(userparam);
 		String usernickPattern = "^[-a-zA-Z0-9_]+$";
 

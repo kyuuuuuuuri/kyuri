@@ -1,25 +1,20 @@
 package root.entity;
 
 import java.sql.Timestamp;
-
 import javax.annotation.Generated;
-
 import org.seasar.extension.jdbc.name.PropertyName;
-
-import root.entity.FavoliteNames._FavoliteNames;
-import root.entity.ReptwitidNames._ReptwitidNames;
 import root.entity.TuserNames._TuserNames;
 
 /**
  * {@link Murmur}のプロパティ名の集合です。
- *
+ * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/21 19:55:01")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/28 3:52:23")
 public class MurmurNames {
 
     /**
      * useridのプロパティ名を返します。
-     *
+     * 
      * @return useridのプロパティ名
      */
     public static PropertyName<Integer> userid() {
@@ -28,7 +23,7 @@ public class MurmurNames {
 
     /**
      * murmuridのプロパティ名を返します。
-     *
+     * 
      * @return murmuridのプロパティ名
      */
     public static PropertyName<Integer> murmurid() {
@@ -37,7 +32,7 @@ public class MurmurNames {
 
     /**
      * murmurのプロパティ名を返します。
-     *
+     * 
      * @return murmurのプロパティ名
      */
     public static PropertyName<String> murmur() {
@@ -46,7 +41,7 @@ public class MurmurNames {
 
     /**
      * dateTimeのプロパティ名を返します。
-     *
+     * 
      * @return dateTimeのプロパティ名
      */
     public static PropertyName<Timestamp> dateTime() {
@@ -55,7 +50,7 @@ public class MurmurNames {
 
     /**
      * gpslatitudeのプロパティ名を返します。
-     *
+     * 
      * @return gpslatitudeのプロパティ名
      */
     public static PropertyName<Double> gpslatitude() {
@@ -64,7 +59,7 @@ public class MurmurNames {
 
     /**
      * gpslongitudeのプロパティ名を返します。
-     *
+     * 
      * @return gpslongitudeのプロパティ名
      */
     public static PropertyName<Double> gpslongitude() {
@@ -73,7 +68,7 @@ public class MurmurNames {
 
     /**
      * gpslocationのプロパティ名を返します。
-     *
+     * 
      * @return gpslocationのプロパティ名
      */
     public static PropertyName<String> gpslocation() {
@@ -82,7 +77,7 @@ public class MurmurNames {
 
     /**
      * beforeidのプロパティ名を返します。
-     *
+     * 
      * @return beforeidのプロパティ名
      */
     public static PropertyName<Integer> beforeid() {
@@ -91,7 +86,7 @@ public class MurmurNames {
 
     /**
      * afteridflagのプロパティ名を返します。
-     *
+     * 
      * @return afteridflagのプロパティ名
      */
     public static PropertyName<Integer> afteridflag() {
@@ -100,7 +95,7 @@ public class MurmurNames {
 
     /**
      * imageurlのプロパティ名を返します。
-     *
+     * 
      * @return imageurlのプロパティ名
      */
     public static PropertyName<String> imageurl() {
@@ -109,7 +104,7 @@ public class MurmurNames {
 
     /**
      * favoritenumのプロパティ名を返します。
-     *
+     * 
      * @return favoritenumのプロパティ名
      */
     public static PropertyName<Integer> favoritenum() {
@@ -118,7 +113,7 @@ public class MurmurNames {
 
     /**
      * retwitflagのプロパティ名を返します。
-     *
+     * 
      * @return retwitflagのプロパティ名
      */
     public static PropertyName<Integer> retwitflag() {
@@ -127,7 +122,7 @@ public class MurmurNames {
 
     /**
      * beRetwitednumのプロパティ名を返します。
-     *
+     * 
      * @return beRetwitednumのプロパティ名
      */
     public static PropertyName<Integer> beRetwitednum() {
@@ -136,32 +131,12 @@ public class MurmurNames {
 
     /**
      * tuserのプロパティ名を返します。
-     *
+     * 
      * @return tuserのプロパティ名
      */
     public static _TuserNames tuser() {
         return new _TuserNames("tuser");
     }
-
-
-    /**
-     * favoliteListのプロパティ名を返します。
-     *
-     * @return favoliteListのプロパティ名
-     */
-    public static _FavoliteNames favoliteList() {
-        return new _FavoliteNames("favoliteList");
-    }
-
-    /**
-     * reptwitidListのプロパティ名を返します。
-     *
-     * @return reptwitidListのプロパティ名
-     */
-    public static _ReptwitidNames reptwitidList() {
-        return new _ReptwitidNames("reptwitidList");
-    }
-
 
     /**
      * @author S2JDBC-Gen
@@ -176,7 +151,7 @@ public class MurmurNames {
 
         /**
          * インスタンスを構築します。
-         *
+         * 
          * @param name
          *            名前
          */
@@ -186,7 +161,7 @@ public class MurmurNames {
 
         /**
          * インスタンスを構築します。
-         *
+         * 
          * @param parent
          *            親
          * @param name
@@ -315,30 +290,11 @@ public class MurmurNames {
 
         /**
          * tuserのプロパティ名を返します。
-         *
+         * 
          * @return tuserのプロパティ名
          */
         public _TuserNames tuser() {
             return new _TuserNames(this, "tuser");
-        }
-
-
-        /**
-         * favoliteListのプロパティ名を返します。
-         *
-         * @return favoliteListのプロパティ名
-         */
-        public _FavoliteNames favoliteList() {
-            return new _FavoliteNames(this, "favoliteList");
-        }
-
-        /**
-         * reptwitidListのプロパティ名を返します。
-         *
-         * @return reptwitidListのプロパティ名
-         */
-        public _ReptwitidNames reptwitidList() {
-            return new _ReptwitidNames(this, "reptwitidList");
         }
     }
 }

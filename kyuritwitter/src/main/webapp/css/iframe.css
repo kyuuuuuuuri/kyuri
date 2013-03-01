@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+body {
+	background:#FFFFFF;
+}
+
+div {
+	display: inline-block;
+	_display: inline;
+}
+
+a{
+	text-decoration: none;
+}
+
+#deleteImg{
+	font-size:xx-small;
+	font-color:#808000;
+	cursor:pointer;
+}
+
+#imgFileUrl {
+	display:none;
+}

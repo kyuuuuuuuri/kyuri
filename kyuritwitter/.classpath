@@ -43,6 +43,7 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/sa-struts-1.0.4-sp9.jar" sourcepath="src/main/webapp/WEB-INF/lib/sources/sa-struts-1.0.4-sp9-sources.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/struts-1.2.9.jar" sourcepath="src/main/webapp/WEB-INF/lib/sources/struts-1.2.9-sources.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.8-bin.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>

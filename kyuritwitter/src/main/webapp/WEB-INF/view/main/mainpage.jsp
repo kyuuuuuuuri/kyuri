@@ -13,6 +13,8 @@
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/newTwitCheck.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/image.js"></script>
+
 
 
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
@@ -26,25 +28,23 @@
 	</head>
 	<body>
 		<tiles:insert template="/WEB-INF/view/common/layout.jsp" flush="true">
-		<tiles:put name="title" value="followedpage" />
+		<tiles:put name="title" value="mainpage" />
 		<tiles:put name="content" type="string">
 
-		<!-- つぶやきが一件もなかった場合 -->
-		<c:if test="${empty murmurList }">
-			<div>
-				表示すべきつぶやきが一件もありません
-			</div>
-		</c:if>
-
-		<!-- つぶやきが一件以上ある場合 -->
-		<c:if test="${!empty murmurList}">
 		<div id="timeLine">
 			<div id="twitTitle"><h4>ツイート</h4></div>
 
-
 			<p class="timeLine_border"></p>
 
-			<c:forEach var="tubuyaki" items="${murmurList}">
+			<c:if test="${empty murmurList }">
+				<div id="noTwit" class="noTwit">
+					表示すべきつぶやきが一件もありません
+				</div>
+			</c:if>
+
+
+			<c:if test="${!empty murmurList}">
+				<c:forEach var="tubuyaki" items="${murmurList}">
 
 						<div id="${tubuyaki.murmurid}" class="twitmain">
 							<span class="pImg">
@@ -60,7 +60,11 @@
 							<p class="twitid">
 							${f:h(tubuyaki.murmur)}
 							</p>
-							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">開く</span>
+							<c:if test="${not empty tubuyaki.imageurl}" >
+								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+							</c:if>
+
+							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="openRep(${tubuyaki.murmurid})">開く</span>
 							<span class="date twit_info">
 							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
 							</span>
@@ -77,17 +81,15 @@
 							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
 
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
+							<c:if test="${tubuyaki.tuser.userid!=mine}">
 								<s:link href="/main/retwit/${tubuyaki.murmurid }"
 									styleClass="twit_info twit_info_link">リツイート</s:link>
 								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
-
 							</c:if>
 
 							<!-- 自分のつぶやきだった場合削除リンクをつける -->
 							<c:if test="${tubuyaki.tuser.userid==mine}">
-								<s:link href="/main/delete/${tubuyaki.murmurid}"
-									styleClass="twit_info twit_info_link">削除</s:link>
+								<s:link href="/main/delete/${tubuyaki.murmurid}" styleClass="twit_info twit_info_link">削除</s:link>
 							</c:if>
 
 						</div>
@@ -105,11 +107,10 @@
 						</div>
 						<p class="timeLine_border"></p>
 
-			</c:forEach>
+				</c:forEach>
+			</c:if>
 			<div id="lastLine" class="0">　</div>
 		</div>
-
-		</c:if>
 
 </tiles:put>
 </tiles:insert>

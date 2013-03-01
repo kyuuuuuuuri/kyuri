@@ -15,18 +15,32 @@ $(function(){
 	$('#mailad').each(function(){
 		$(this).bind('keyup', check_mailad(this));
 	});
+	$('#secret_answer').keyup(function(){
+		var $answer = $('#secret_answer'),
+		$answer_span = $("#answer_span"),
+		str = $answer.val();
+		if(str.length == 0){
+			$answer_span.attr("class", "alert_css").text("秘密の質問の答えを入力してください");
+		}else if(str.length > 60){
+			$answer_span.attr("class", "alert_css").text("60文字以下で入力してください");
+		}else{
+			$answer_span.attr("class", "success_css").text("確認しました");
+		}
+	});
 
 	$(".user_reg").submit(function() {
 		if ($('#ajax_username').attr('class') == "success_css" &&
 				$('#ajax_usernick').attr('class') == "success_css" &&
 				$('#ajax_password').attr('class') == "success_css" &&
-				$('#ajax_mailad').attr('class') == "success_css"
+				$('#ajax_mailad').attr('class') == "success_css" &&
+				$('#answer_span').attr('class') == "success_css"
 		){
-			alert("OK");
+			alert("確認しました");
 			return true;
 		}else{
-			alert("submit cancel success");
-			return false;}
+			alert("入力値を確認してください");
+			return false;
+			}
 	});
 
 });
@@ -38,6 +52,7 @@ function init(){
 	checkAjax('mailad');
 
 }
+
 
 function button_flag(){
 	alert($('#ajax_username').attr('class'));

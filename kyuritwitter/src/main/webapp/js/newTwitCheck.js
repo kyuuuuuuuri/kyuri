@@ -25,11 +25,13 @@ function twitsubmit(){
 
 	$("#twitter_form").submit(function(){
 		//alert("submit cansel");
-		var topId = $(".twitmain:first").attr("id");
-		var tubuyaki = $("#twit_textarea").val();
-		var location = $("#address").text();
-		var latitude = $("#latitude").val();
+		var topId     = $(".twitmain:first").attr("id");
+		var tubuyaki  = $("#twit_textarea").val();
+		var location  = $("#address").text();
+		var latitude  = $("#latitude").val();
 		var longitude = $("#longitude").val();
+		var imgurl    = $("#imgHiddenUrl").val();
+		alert(imgurl);
 
 		$.ajax({
 			type:"POST",
@@ -39,13 +41,21 @@ function twitsubmit(){
 				"Location":location,
 				"topId":topId,
 				"Latitude":latitude,
-				"Longitude":longitude
+				"Longitude":longitude,
+				"imgurl":imgurl
 			},
 			dataType:"html",
 			success: function(data, dataType){
 				alert("成功しました");
 				if($("#existNewtwit").get(0)){
 					$("#existNewtwit").replaceWith(data);
+					mainInit();
+					initWhenAjaxDo();
+					mouseHoverEvent();
+
+				}else if($("#noTwit").get(0)){
+					$("#noTwit").replaceWith(data);
+					mainInit();
 					initWhenAjaxDo();
 					mouseHoverEvent();
 				}else{
@@ -106,10 +116,10 @@ function menu(){
 	$("#noGPS").click(function(){
 		$(".gpsmenu").hide();
 		$("#address").text("");
+		$("#latitude").val("");
+		$("#longitude").val("");
 		$("#gps").show();
 	});
-
-
 
 	$("#twit_textarea").blur(function(){
 		$(this).css("background-color", "#fff");
@@ -141,7 +151,6 @@ function menu(){
 //つぶやきの更新があるかどうかをチェックする
 function checkNewTwit(){
 	topId = $(".twitmain:first").attr("id");
-
 
 	$.ajax({
 		type:"POST",
@@ -225,7 +234,6 @@ function getOldTwit(){
 			mouseHoverEvent();
 		},
 		error: function(){
-			alert("問題が発生しました");
 		}
 	});
 }

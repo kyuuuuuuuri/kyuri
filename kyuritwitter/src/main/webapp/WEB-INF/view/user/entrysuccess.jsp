@@ -7,6 +7,8 @@
 
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" />
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" />
+
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
 
 
@@ -16,7 +18,6 @@
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/entrypage.css" />
 
 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 
 		<script type="text/javascript">
 		$(function(){
