@@ -79,7 +79,9 @@
 
 			<tr><td><span>${mydata.postNum }</span>　
 				<s:link href="userpage/${mydata.usernick}" >投稿数</s:link></td></tr>
-			<tr><td><span><s:link href="toList">リスト</s:link></span></td></tr>
+			<tr><td><span><s:link href="toList/${mydata.userid}">リスト</s:link></span></td></tr>
+			<tr><td><span><s:link href="favoliteLine/">お気に入り</s:link></span></td></tr>
+			<tr><td><span><s:link href="replyLine/">返信関連</s:link></span></td></tr>
 
 		</table>
 	</c:if>
@@ -102,8 +104,45 @@
 
 			<tr><td><span>${mydata.postNum }</span>　
 				<s:link href="userpage/${mydata.usernick}" >投稿数</s:link></td></tr>
-			<tr><td><span><s:link href="toList">リスト</s:link></span></td></tr>
-
+			<tr><td><span><s:link href="/userpage/toList/${mydata.userid}">リスト</s:link></span></td></tr>
+			<tr><td><span><s:link href="favoliteLine/${mydata.userid}">お気に入り</s:link></span></td></tr>
+			<c:if test="${mydata.userid == mine}">
+			<tr><td><span><s:link href="replyLine/${mydata.userid}">返信関連</s:link></span></td></tr>
+			</c:if>
 		</table>
+
+	</c:if>
+
+	<c:if test="${menuFlag==4}">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="3"><span class="pImg">
+					<html:img src="${pageContext.request.contextPath}/main/showUserImg/${showTlist.userid}" width="50" height="50" /></span>
+					<span>${showTlist.listname}</span>
+					<!--  <span class="pUsernick">がこのリストを作成しました</span></th>-->
+				</tr>
+			</thead>
+			<tr><td>
+			<div id="useAndunUseListButton">
+				<c:if test="${showTlist.userid != mine }">
+				<c:if test="${UserUseThisList == 0 }">
+					<span class="btn btn-info" onclick="useList(${showTlist.listid})" >このリストを使用する</span>
+				</c:if>
+				<c:if test="${UserUseThisList == 1 }">
+					<span class="btn btn-danger" onclick="unUseList(${showTlist.listid})" >このリストを使用しない</span>
+				</c:if>
+				</c:if>
+			</div>
+
+			</td></tr>
+			<tr><td>
+				<s:link href="showListUser/${showTlist.listid}">ツイート</s:link>
+			</td></tr>
+			<tr><td>
+				<s:link href="userInList/${showTlist.listid}">このリストに登録されているユーザ</s:link>
+			</td></tr>
+		</table>
+
 	</c:if>
 </div>

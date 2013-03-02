@@ -11,13 +11,15 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ResponseUtil;
 
 import root.SuperAction;
+import root.entity.Favolite;
 import root.entity.Follow;
+import root.entity.ListFollow;
 import root.entity.Murmur;
+import root.entity.Tlist;
 import root.entity.Tuser;
 import root.form.UserpageForm;
 
 public class UserpageAction extends SuperAction{
-
 
 	@ActionForm
 	@Resource
@@ -27,9 +29,20 @@ public class UserpageAction extends SuperAction{
 
 	public String imgShowUrl;
 
+	//userが作成したリストを出力する
+	public List<Tlist> tlistList = new ArrayList<Tlist>();
+
+	public Tlist showTlist = new Tlist();
+
+	public List<ListFollow> listFollow = new ArrayList<ListFollow>();
+
+	public List<Tuser> tuserList = new ArrayList<Tuser>();
+
+	public int UserUseThisList;
+
+
 	@Resource
 	HttpServletRequest req;
-
 
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
@@ -119,14 +132,13 @@ public class UserpageAction extends SuperAction{
 	public String toUnFollow() {
 		int userid = userDto.userID;
 		String useridStr = req.getParameter("unFollowUserId");
-		System.out.println(useridStr + "きゅうり");
 		int toFollowUserId = Integer.parseInt(useridStr);
 
 		//すでにフォローしていたら何もしない
 		Follow fol = followService.delFollow(toFollowUserId, userid);
 
 		if (fol == null) {
-			System.out.println("こんなのっておかしいよ");
+			System.out.println("おかしい");
 			return null;
 		} else {
 			//フォローしていなかったらフォロワ―をinsertする。
@@ -146,11 +158,113 @@ public class UserpageAction extends SuperAction{
 		return null;
 	}
 
-	//ユーザが作成したリストを出力する
+	//ユーザがフォローしているリストを出力
+	@Execute(validator = false, urlPattern = "toList/{userid}")
 	public String showListUserMake(){
-		
-		
-		return "";
+		int userid = userDto.userID;
+		mine = userid;
+		int thisUserId = userpageForm.userid;
+		menuFlag = 2;
+		mydata = tuserService.findById(thisUserId);
+		System.out.println(userid+"lemon");
+
+		listFollow = listFollowService.findListFollowByUserAndMyInfo(thisUserId, userid);
+
+		return "UserList.jsp";
+	}
+
+	//listに登録されているユーザのつぶやきを表示する
+	@Execute(validator = false, urlPattern = "showListUser/{listid}")
+	public String showListUser() {
+		menuFlag = 4;
+		int page   = 0;
+		int listid = userpageForm.listid;
+		int userid = userDto.userID;
+		mine = userid;
+
+		List<Integer> useridList = new ArrayList<Integer>();
+		useridList = inListUserService.findUserInTheList(listid);
+
+		if(listFollowService.existListFollow(listid, userid)){
+			UserUseThisList = 1;
+		}else{
+			UserUseThisList = 0;
+		}
+
+		showTlist = tlistService.findByListId(listid);
+
+		murmurList = murmurService.mainListPager(LIMIT, page, useridList, userid);
+
+		return "mainListpage.jsp";
+	}
+
+	//listに登録されているユーザを表示する
+	@Execute(validator = false,urlPattern="userInList/{listid}")
+	public String userInList(){
+		int userid = userDto.userID;
+		mine = userid;
+		int listid = userpageForm.listid;
+		menuFlag = 4;
+
+		if(listFollowService.existListFollow(listid, userid)){
+			UserUseThisList = 1;
+		}else{
+			UserUseThisList = 0;
+		}
+
+		showTlist = tlistService.findById(listid);
+
+		tuserList = tuserService.tuserListFollowByUser(listid,userid);
+
+		return "userInList.jsp";
+	}
+
+	//listを登録する
+	@Execute(validator = false)
+	public String doUseList(){
+		System.out.println("morokyu");
+
+
+		String listidStr = req.getParameter("listIDAjax");
+
+		System.out.println("morokyu" + listidStr);
+		int listidInt = Integer.parseInt(listidStr);
+		int userid = userDto.userID;
+
+		ListFollow listF = new ListFollow();
+		listF.listid = listidInt;
+		listF.followThisUserid = userid;
+
+		if(listFollowService.existListFollow(listidInt, userid)){
+			throw new Error("もうすでに登録してます");
+		}
+
+		listFollowService.insert(listF);
+
+		return null;
+	}
+
+	//listを削除する
+	@Execute(validator = false)
+	public String doUnUseList(){
+
+		String listidStr = req.getParameter("listIDAjax");
+		int listid = Integer.parseInt(listidStr);
+		int userid = userDto.userID;
+
+		ListFollow listF = new ListFollow();
+		listF.listid = listid;
+		listF.followThisUserid = userid;
+
+		if(!(listFollowService.existListFollow(listid, userid))){
+			throw new Error("登録されていないユーザを削除しようとしています");
+		}
+
+		listF = listFollowService.findListFollowForDelete(listid, userid);
+
+		listFollowService.delete(listF);
+
+		return null;
 	}
 
 
@@ -189,14 +303,77 @@ public class UserpageAction extends SuperAction{
 		return "twitplus.jsp";
 	}
 
+	//お気に入りに登録する
+	@Execute(validator = false)
+	public String doFavorite() {
+		String murmurid = req.getParameter("murmurid");
+		int murmuridInt = Integer.parseInt(murmurid);
+		Murmur murmur = new Murmur();
+		Favolite favolite = new Favolite();
+		int userid = userDto.userID;
 
+		//murmurServiceのお気に入りフラグ
+		murmur.murmurid = murmuridInt;
+		murmur.favoritenum = +1;
+		murmurService.updateFavoriteFlagTrue(murmur);
+
+		//favoriteTableに挿入する
+		favolite.murmurid = murmuridInt;
+		favolite.userid = userid;
+		favoliteService.insert(favolite);
+
+		return null;
+	}
+
+	//お気に入りから外す
+	@Execute(validator = false)
+	public String canselFavorite() {
+		String murmurid = req.getParameter("murmurid");
+		int murmuridInt = Integer.parseInt(murmurid);
+		Murmur murmur = new Murmur();
+		Favolite favolite = new Favolite();
+		int userid = userDto.userID;
+		List<Favolite> favoliteList = new ArrayList<Favolite>();
+
+		//murmurServiceのお気に入りフラグ
+		murmur.murmurid = murmuridInt;
+		murmur.favoritenum = -1;
+		murmurService.updateFavoriteFlagTrue(murmur);
+
+		//favoriteTableに挿入する
+		favolite.murmurid = murmuridInt;
+		favolite.userid = userid;
+		favoliteList = favoliteService.findDeleteFavoList(favolite);
+		if (!favoliteList.isEmpty()) {
+			favoliteService.deleteById(favoliteList);
+		}
+		return null;
+	}
+
+
+	//お気に入りのタイムラインを表示する
+	@Execute(validator = false, urlPattern="favoliteLine/{userid}")
+	public String favoliteLine() {
+		int userid = userpageForm.userid;
+		murmurList = murmurService.findAllOrderById();
+
+		return "";
+	}
+
+	//リプライのラインを表示する
+	@Execute(validator = false, urlPattern="replyLine/{userid}")
+	public String replyLine() {
+		int userid = userpageForm.userid;
+//		murmurList = murmurService.findById();
+		return "";
+	}
 
 	//フォローユーザへ
 	@Execute(validator = false, urlPattern="followlist/{userid}/{followOrUnfollow}")
 	public String toFollowPage(){
 		int id = userpageForm.userid;
 		String followFlag = userpageForm.followOrUnfollow;
-		System.out.println("moromoro" + followFlag);
+//		System.out.println("moromoro" + followFlag);
 
 		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag +"?redirect=true";
 	}
@@ -206,7 +383,7 @@ public class UserpageAction extends SuperAction{
 	public String toBefollowedPage(){
 		int id = userpageForm.userid;
 		String followFlag = userpageForm.followOrUnfollow;
-		System.out.println("moromoro" + followFlag);
+//		System.out.println("moromoro" + followFlag);
 
 
 		return "/followlist?id=" + id + "&followOrUnfollow=" + followFlag + "?redirect=true";
@@ -217,9 +394,7 @@ public class UserpageAction extends SuperAction{
 	public String showdata() {
 
 		String nick = userpageForm.userni;
-
 		return "/userpage?userni="+ nick +"?redirect=true";
-
 	}
 
 	//検索する
@@ -230,8 +405,7 @@ public class UserpageAction extends SuperAction{
 		return "/searchtwit?searchWord=" + searchWord + "?redirect=true";
 	}
 
-	public List<Tuser> tuserList = new ArrayList<Tuser>();
-
+	//上部に表示するやつ
 	@Execute(validator = false)
 	public String searchUsershort(){
 		String searchUser = req.getParameter("searchword");
@@ -245,6 +419,7 @@ public class UserpageAction extends SuperAction{
 		return "/main/searchUser.jsp";
 	}
 
+	//ユーザを検索する
 	@Execute(validator = false , urlPattern="search/{searchUser}")
 	public String searchUserAll(){
 		String searchUsernick = userpageForm.searchUser;

@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.where.SimpleWhere;
+
 import root.entity.ListFollow;
 
 /**
@@ -49,5 +51,61 @@ public class ListFollowService extends AbstractService<ListFollow> {
 				.where("followThisUserid = ?", userid)
 				.getResultList();
 	}
+
+	/**
+	 *
+	 * @param userid
+	 * @param MyUserid
+	 * @return
+	 */
+	public List<ListFollow> findListFollowByUserAndMyInfo(int userid, int MyUserid){
+		System.out.println(MyUserid+"kyuri");
+		return jdbcManager
+				.from(ListFollow.class)
+				.where("followThisUserid = ?", userid)
+				.innerJoin("tlist")
+				.innerJoin("tlist.tuser")
+				.getResultList();
+	}
+
+	/**
+	 * listFollowが存在するかどうか
+	 * @param listid
+	 * @param userid
+	 * @return
+	 */
+	public boolean existListFollow(int listid, int userid){
+		ListFollow listfollow =
+				jdbcManager
+						.from(ListFollow.class)
+						.where(
+								and(
+										new SimpleWhere().eq("listid", listid),
+										new SimpleWhere().eq("followThisUserid", userid)
+								)
+						)
+						.getSingleResult();
+		if (listfollow == null) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * deleteするユーザを取得する
+	 * @param listid
+	 * @param userid
+	 * @return
+	 */
+	public ListFollow findListFollowForDelete (int listid, int userid) {
+		return select().where(
+				and(
+						new SimpleWhere().eq("listid", listid),
+						new SimpleWhere().eq("followThisUserid", userid)
+						)
+				)
+		.getSingleResult();
+	}
+
 
 }

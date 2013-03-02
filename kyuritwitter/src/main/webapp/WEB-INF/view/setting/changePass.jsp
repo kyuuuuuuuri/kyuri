@@ -31,14 +31,11 @@
 					<div class="setspanMenu">
 						<ul class="nav nav-list">
 							<li class="nav-header">Menu</li>
-							<li id="change1" class="">
-							<a href="setting" >プロフィールを変える</a></li>
-							<li id="change2" class="">
-							<a href="changeUserImg" >画像を変える</a></li>
-							<li id="change3" class="active">
-							<a href="changePassword" >パスワードを変える</a></li>
+							<li id="change1" class=""><s:link href="setting">プロフィールを変える</s:link></li>
+							<li id="change2" class=""><s:link href="changeUserImg">画像を変える</s:link></li>
+							<li id="change3" class="active"><s:link href="changePassword">パスワードを変える</s:link></li>
 							<li id="change4" class="">
-							<a href="makeList">リスト</a></li>
+							<s:link href="makeList">リスト</s:link></li>
 						</ul>
 					</div>
 				</div>
@@ -57,8 +54,8 @@
 							<html:password property="newpass" styleId="password" />
 
 							<p>
-								<input type="submit" id="changePass" name="changePasswordSubmit"
-									class="btn" value="変更する" />
+								<html:submit styleId="changePass" property="changePasswordSubmit"
+									styleClass="btn" value="変更する" />
 							</p>
 						</s:form>
 

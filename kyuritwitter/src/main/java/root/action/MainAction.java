@@ -38,6 +38,7 @@ import root.dto.SearchDto;
 import root.entity.Favolite;
 import root.entity.Follow;
 import root.entity.Murmur;
+import root.entity.Retweets;
 import root.entity.Tuser;
 import root.form.MainForm;
 
@@ -102,10 +103,7 @@ public class MainAction extends SuperAction {
 
 		// 以下ページング処理
 		murmurList = murmurService.mainListPager(LIMIT, page, murmur_userid, userid);
-		//前ページがあるかどうかを判定
-		hasPrev = murmurService.hasPrev(page);
-		//次のページがあるかどうかを判定
-		hasNext = murmurService.hasNext(LIMIT, this.total, page);
+
 
 		return mainPageJsp;
 	}
@@ -257,7 +255,6 @@ public class MainAction extends SuperAction {
 
 		String topId = req.getParameter("topId");
 		int id = Integer.parseInt(topId);
-		System.out.println("入りました" + id + "morokyu");
 		murmurList = murmurService.selectNewTwit(id, murmur_userid, userid);
 
 		return "showOldTwit.jsp";
@@ -361,7 +358,7 @@ public class MainAction extends SuperAction {
 			id = Integer.parseInt(topId);
 		}
 
-		murmur.gpslatitude = (double) 0;
+		murmur.gpslatitude  = (double) 0;
 		murmur.gpslongitude = (double) 0;
 		if (!(latitude.isEmpty() || longitude.isEmpty())) {
 
@@ -404,14 +401,16 @@ public class MainAction extends SuperAction {
 				hashArray[i] = hashList.get(i);
 			}
 		}
-		for (int i = 0; i < hashArray.length; i++) {
-			System.out.println(hashArray[i]);
-		}
+//		for (int i = 0; i < hashArray.length; i++) {
+//			System.out.println(hashArray[i]);
+//		}
 
 		//新しいつぶやきをデータベースに格納する
 		murmur.userid = userid;
 		murmur.murmur = mur;
 		murmur.dateTime = null;
+//		murmur.retwitflag = 0;
+//		murmur.beRetwitednum = 0;
 		int newMurmurId = murmurService.insertMurmur(murmur);
 
 		//自分の最新のつぶやきを更新する
@@ -571,6 +570,33 @@ public class MainAction extends SuperAction {
 	//retwitをする
 	@Execute(validator = false)
 	public String Retwit() {
+
+		String murmurid = req.getParameter("murmurid");
+		int murmuridInt = Integer.parseInt(murmurid);
+		int userid = userDto.userID;
+
+		if(retweetsService.existRetweetNum(userid, murmuridInt)){
+			 throw new Error("すでにリツイートしています");
+		}
+
+		Murmur mur = murmurService.findById(murmuridInt);
+
+		Murmur retMur = new Murmur();
+
+		retMur.murmur       = mur.murmur;
+		retMur.dateTime     = mur.dateTime;
+		retMur.imageurl     = mur.imageurl;
+		retMur.gpslatitude  = mur.gpslatitude;
+		retMur.gpslongitude = mur.gpslongitude;
+		retMur.gpslocation  = mur.gpslocation;
+		//リツイートということを表すフラグ
+		retMur.retwitflag   = mur.murmurid;
+		retMur.beRetwitednum = userid;
+
+		Retweets retweet = new Retweets();
+		retweet.murmurid = murmuridInt;
+		retweet.userid  = userid;
+
 		return null;
 	}
 
@@ -578,7 +604,31 @@ public class MainAction extends SuperAction {
 	@Execute(validator = false)
 	public String canselRetwit() {
 
+		String murmurid = req.getParameter("murmurid");
+		int murmuridInt = Integer.parseInt(murmurid);
+		int userid = userDto.userID;
+
+		//
+		Murmur mur = murmurService.findById(murmuridInt);
+		if(mur.retwitflag == null){
+			mur = murmurService.findUserRetweetId(murmuridInt, userid);
+		}
+		if(mur == null){
+			 throw new Error("値がおかしいです");
+		}
+
+		if(!(retweetsService.existRetweetNum(userid, murmuridInt))){
+			 throw new Error("リツイートしていません");
+		}
+
+		murmurService.delete(mur);
+
+		Retweets retweet = new Retweets();
+		retweet = retweetsService.findRetweetNumForDel(userid, murmuridInt);
+		retweetsService.delete(retweet);
+
 		return null;
+
 	}
 
 	//お気に入り,リツイートリストを返そう
@@ -769,7 +819,7 @@ public class MainAction extends SuperAction {
 
 		murmurList = murmurService.SelectListSearch(idList);
 
-		return mainPageJsp;
+		return "hashpage.jsp";
 	}
 
 }

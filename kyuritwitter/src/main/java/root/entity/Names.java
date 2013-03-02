@@ -6,6 +6,7 @@ import root.entity.FollowNames._FollowNames;
 import root.entity.InListUserNames._InListUserNames;
 import root.entity.ListFollowNames._ListFollowNames;
 import root.entity.MurmurNames._MurmurNames;
+import root.entity.RetweetsNames._RetweetsNames;
 import root.entity.TlistNames._TlistNames;
 import root.entity.TuserNames._TuserNames;
 
@@ -13,7 +14,7 @@ import root.entity.TuserNames._TuserNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2013/02/28 3:52:23")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2013/03/02 19:05:42")
 public class Names {
 
     /**
@@ -59,6 +60,15 @@ public class Names {
      */
     public static _MurmurNames murmur() {
         return new _MurmurNames();
+    }
+
+    /**
+     * {@link Retweets}の名前クラスを返します。
+     * 
+     * @return Retweetsの名前クラス
+     */
+    public static _RetweetsNames retweets() {
+        return new _RetweetsNames();
     }
 
     /**

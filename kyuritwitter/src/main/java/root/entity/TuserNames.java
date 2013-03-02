@@ -13,7 +13,7 @@ import root.entity.TlistNames._TlistNames;
  * {@link Tuser}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/28 3:52:23")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/02 19:05:42")
 public class TuserNames {
 
     /**
@@ -185,6 +185,15 @@ public class TuserNames {
      */
     public static _TlistNames tlistList() {
         return new _TlistNames("tlistList");
+    }
+
+    /**
+     * ffollowListのプロパティ名を返します。
+     * 
+     * @return ffollowListのプロパティ名
+     */
+    public static _FollowNames ffollowList() {
+        return new _FollowNames("ffollowList");
     }
 
     /**
@@ -389,6 +398,15 @@ public class TuserNames {
          */
         public _TlistNames tlistList() {
             return new _TlistNames(this, "tlistList");
+        }
+
+        /**
+         * ffollowListのプロパティ名を返します。
+         * 
+         * @return ffollowListのプロパティ名
+         */
+        public _FollowNames ffollowList() {
+            return new _FollowNames(this, "ffollowList");
         }
     }
 }

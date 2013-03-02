@@ -226,4 +226,15 @@ public class TuserService extends AbstractService<Tuser> {
 		tuser.skey = skey;
 		jdbcManager.update(tuser).includes("username","skey").execute();
 	}
+
+	public List<Tuser> tuserListFollowByUser(int listid, int userid){
+		return jdbcManager
+				.from(Tuser.class)
+				.leftOuterJoin("ffollowList", new SimpleWhere().eq("ffollowList.userid", userid))
+				.leftOuterJoin("inListUserList")
+				.where("inListUserList.listid = ?", listid)
+				.getResultList();
+	}
+
+
 }

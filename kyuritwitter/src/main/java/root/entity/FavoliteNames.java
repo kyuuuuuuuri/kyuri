@@ -2,12 +2,13 @@ package root.entity;
 
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
+import root.entity.MurmurNames._MurmurNames;
 
 /**
  * {@link Favolite}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/28 3:52:23")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/02 19:05:42")
 public class FavoliteNames {
 
     /**
@@ -35,6 +36,15 @@ public class FavoliteNames {
      */
     public static PropertyName<Integer> userid() {
         return new PropertyName<Integer>("userid");
+    }
+
+    /**
+     * murmurのプロパティ名を返します。
+     * 
+     * @return murmurのプロパティ名
+     */
+    public static _MurmurNames murmur() {
+        return new _MurmurNames("murmur");
     }
 
     /**
@@ -95,6 +105,15 @@ public class FavoliteNames {
          */
         public PropertyName<Integer> userid() {
             return new PropertyName<Integer>(this, "userid");
+        }
+
+        /**
+         * murmurのプロパティ名を返します。
+         * 
+         * @return murmurのプロパティ名
+         */
+        public _MurmurNames murmur() {
+            return new _MurmurNames(this, "murmur");
         }
     }
 }

@@ -341,7 +341,7 @@ static {
         out.write("\t\t<p>");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.username }", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
         out.write('は');
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.follow }", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${mydata.followed }", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
         out.write("人にフォローされています</p>\r\n");
         out.write("\t");
         if (_jspx_meth_c_005fforEach_005f0(_jspx_th_c_005fif_005f1, _jspx_page_context))

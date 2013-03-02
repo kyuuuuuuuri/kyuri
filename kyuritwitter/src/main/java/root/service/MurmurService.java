@@ -171,7 +171,7 @@ public class MurmurService extends AbstractService<Murmur> {
 
 
 	/**
-	 *
+	 * タイムライン、メインリスト
 	 * @param LIMIT
 	 * @param page
 	 * @param murmur_userid
@@ -179,8 +179,13 @@ public class MurmurService extends AbstractService<Murmur> {
 	 */
 
 	public List<Murmur> mainListPager(int LIMIT, int page, List<Integer> murmur_userid, int userid) {
-		return jdbcManager.from(Murmur.class).innerJoin("tuser")
-				.where(new SimpleWhere().in("userid", murmur_userid.toArray()))
+		return jdbcManager.from(Murmur.class)
+				.innerJoin("tuser")
+				.where(
+						or(
+								new SimpleWhere().in("userid", murmur_userid.toArray()).isNull("retwitflag", true),
+								new SimpleWhere().in("retwitflag", murmur_userid.toArray())
+						))
 				.leftOuterJoin("favolite",
 						new SimpleWhere().eq("userid", userid)
 						)
@@ -203,6 +208,21 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 	}
 
+//コードの保存
+//	public List<Murmur> mainListPager(int LIMIT, int page, List<Integer> murmur_userid, int userid) {
+//		return jdbcManager.from(Murmur.class)
+//				.innerJoin("tuser")
+//				.where(new SimpleWhere().in("userid", murmur_userid.toArray()))
+//				.leftOuterJoin("favolite",
+//						new SimpleWhere().eq("userid", userid)
+//						)
+//				.orderBy(desc("murmurid"))
+//				.limit(LIMIT)
+//				.offset(page * LIMIT)
+//				.getResultList();
+//	}
+//
+
 //	//listのmurmurid
 //	public List<Murmur> listMurmurForTlist(List<Integer> useridList, int userid, int offset, int LIMIT){
 //		return select()
@@ -216,6 +236,16 @@ public class MurmurService extends AbstractService<Murmur> {
 //
 //	}
 
+	//リツイートしている項目を探す
+	public Murmur findUserRetweetId(int murmurid, int userid){
+		return jdbcManager
+				.from(Murmur.class)
+				.where(and(
+						new SimpleWhere().eq("retwitflag", murmurid),
+						new SimpleWhere().eq("beRetwitednum", userid)
+						))
+				.getSingleResult();
+	}
 
 	/**
 	 * つぶやきに更新があったか

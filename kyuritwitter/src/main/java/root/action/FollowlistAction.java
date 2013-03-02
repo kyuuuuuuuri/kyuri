@@ -115,7 +115,7 @@ public class FollowlistAction extends SuperAction {
 		Follow fol = followService.delFollow(toFollowUserId, userid);
 
 		if (fol != null) {
-			System.out.println("おかしいよ");
+//			System.out.println("おかしいよ");
 			return null;
 		} else {
 			//フォローしていなかったらフォロワ―をinsertする。
@@ -143,7 +143,7 @@ public class FollowlistAction extends SuperAction {
 	public String toUnFollow() {
 		int userid = userDto.userID;
 		String useridStr = req.getParameter("unFollowUserId");
-		System.out.println(useridStr + "きゅうり");
+//		System.out.println(useridStr + "きゅうり");
 		int toFollowUserId = Integer.parseInt(useridStr);
 
 		//すでにフォローしていたら何もしない
@@ -224,6 +224,15 @@ public class FollowlistAction extends SuperAction {
 		String searchUsernick = followlistForm.searchUser;
 
 		return "/search?search="+ searchUsernick +"?redirect=true";
+	}
+
+	//ユーザがフォローしているリストを出力
+	@Execute(validator = false, urlPattern = "toList/{userid}")
+	public String showListUserMake(){
+
+		int thisUserId = followlistForm.userid;
+
+		return "/userpage/toList?userid=" + thisUserId;
 	}
 
 

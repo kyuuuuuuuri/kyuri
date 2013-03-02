@@ -37,7 +37,7 @@
 
 	<c:if test="${!empty followList}">
 	<div id ="tuserMain">
-		<p>${mydata.username }は${mydata.follow }人にフォローされています</p>
+		<p>${mydata.username }は${mydata.followed }人にフォローされています</p>
 	<c:forEach var="followList" items="${followList}">
 		<div class="twitmain">
 		<span class="pImg">

@@ -3,13 +3,15 @@ package root.entity;
 import java.sql.Timestamp;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
+import root.entity.FavoliteNames._FavoliteNames;
+import root.entity.MurmurNames._MurmurNames;
 import root.entity.TuserNames._TuserNames;
 
 /**
  * {@link Murmur}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/02/28 3:52:23")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/02 19:05:42")
 public class MurmurNames {
 
     /**
@@ -136,6 +138,33 @@ public class MurmurNames {
      */
     public static _TuserNames tuser() {
         return new _TuserNames("tuser");
+    }
+
+    /**
+     * favoliteのプロパティ名を返します。
+     * 
+     * @return favoliteのプロパティ名
+     */
+    public static _FavoliteNames favolite() {
+        return new _FavoliteNames("favolite");
+    }
+
+    /**
+     * beforeParentのプロパティ名を返します。
+     * 
+     * @return beforeParentのプロパティ名
+     */
+    public static _MurmurNames beforeParent() {
+        return new _MurmurNames("beforeParent");
+    }
+
+    /**
+     * murmurListのプロパティ名を返します。
+     * 
+     * @return murmurListのプロパティ名
+     */
+    public static _MurmurNames murmurList() {
+        return new _MurmurNames("murmurList");
     }
 
     /**
@@ -295,6 +324,33 @@ public class MurmurNames {
          */
         public _TuserNames tuser() {
             return new _TuserNames(this, "tuser");
+        }
+
+        /**
+         * favoliteのプロパティ名を返します。
+         * 
+         * @return favoliteのプロパティ名
+         */
+        public _FavoliteNames favolite() {
+            return new _FavoliteNames(this, "favolite");
+        }
+
+        /**
+         * beforeParentのプロパティ名を返します。
+         * 
+         * @return beforeParentのプロパティ名
+         */
+        public _MurmurNames beforeParent() {
+            return new _MurmurNames(this, "beforeParent");
+        }
+
+        /**
+         * murmurListのプロパティ名を返します。
+         * 
+         * @return murmurListのプロパティ名
+         */
+        public _MurmurNames murmurList() {
+            return new _MurmurNames(this, "murmurList");
         }
     }
 }

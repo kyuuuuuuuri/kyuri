@@ -18,7 +18,7 @@ function inits(){
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage/$2">$1$2</a>');
-		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="/kyuritwitter/main/showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
 	});
@@ -68,7 +68,7 @@ function initWhenAjaxDo(){
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage?userni=$2">$1$2</a>');
-		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="/kyuritwitter/main/showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
 		});

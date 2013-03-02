@@ -81,10 +81,13 @@
 							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
 
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-							<c:if test="${tubuyaki.tuser.userid!=mine}">
-								<s:link href="/main/retwit/${tubuyaki.murmurid }"
-									styleClass="twit_info twit_info_link">リツイート</s:link>
-								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
+							<c:if test="${tubuyaki.tuser.userid != mine}">
+								<c:set var = "retweetMsg" value="リツイート" />
+
+								<span class="retweet twit_info twit_info_link" onclick="retweet(${tubuyaki.murmurid})">${f:h(retweetMsg)}</span>
+
+
+								<span class="twit_info twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
 							</c:if>
 
 							<!-- 自分のつぶやきだった場合削除リンクをつける -->

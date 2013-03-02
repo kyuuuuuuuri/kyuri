@@ -45,6 +45,7 @@ public class InListUserService extends AbstractService<InListUser> {
 		List<Integer> useridList = new ArrayList<Integer>();
 		for(InListUser i : inListUser){
 			useridList.add(i.listUserid);
+			System.out.println(i.listUserid + " kyuri");
 		}
 
 		return useridList;

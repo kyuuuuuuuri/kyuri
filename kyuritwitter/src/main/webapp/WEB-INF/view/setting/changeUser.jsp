@@ -31,14 +31,11 @@
 					<div class="setspanMenu">
 						<ul class="nav nav-list">
 							<li class="nav-header">Menu</li>
-							<li id="change1" class="active">
-							<a href="setting" >プロフィールを変える</a></li>
-							<li id="change2" class="">
-							<a href="changeUserImg" >画像を変える</a></li>
-							<li id="change3" class="">
-							<a href="changePassword">パスワードを変える</a></li>
+							<li id="change1" class=""><s:link href="setting">プロフィールを変える</s:link></li>
+							<li id="change2" class="active"><s:link href="changeUserImg">画像を変える</s:link></li>
+							<li id="change3" class=""><s:link href="changePassword">パスワードを変える</s:link></li>
 							<li id="change4" class="">
-							<a href="makeList">リスト</a></li>
+							<s:link href="makeList">リスト</s:link></li>
 						</ul>
 					</div>
 				</div>

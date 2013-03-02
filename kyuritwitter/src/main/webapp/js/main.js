@@ -68,6 +68,7 @@ function searchUser(){
 
 // リぷをしたときのつぶやき格納
 function repSubmit(id){
+
 	$(".topId").val( $(".twitmain:first").attr("id"));
 	var thisId = id;
 	var tubuyaki = $(".rep_textarea", "#" + id + "r").val();
@@ -116,12 +117,55 @@ function init(){
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage/$2">$1$2</a>');
-		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="/kyuritwitter/main/showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
 	});
 
 	$("#twit_button").attr("disabled","true");
+}
+
+//reTwit
+function retweet(id){
+	var $retweet = $("#" + id + " .retweet");
+	alert($retweet);
+
+	if($retweet.text() == "リツイート"){
+		$.ajax({
+			type:"POST",
+			url:"Retwit",
+			data:{
+				"murmurid":id
+			},
+			dataType:"text",
+			success: function(data,dataType){
+				alert("リツイートを削除しました");
+				$retweet.text("リツイートを取り消す");
+
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+	}
+
+	if($retweet.text() == "リツイートを取り消す"){
+		$.ajax({
+			type:"POST",
+			url:"canselRetwit",
+			data:{
+				"murmurid":id
+			},
+			dataType:"text",
+			success: function(data,dataType){
+				alert("リツイートを削除しました");
+				$retweet.text("リツイート");
+			},
+			error: function(){
+				alert("問題が発生しました");
+			}
+		});
+	}
 }
 
 // お気に入りに登録
@@ -240,11 +284,10 @@ function initWhenAjaxDo(){
 		var text = $(this).text();
 		text = text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 		text = text.replace (/(@)([A-Za-z0-9]{4,20})/g, '<a href="userpage?userni=$2">$1$2</a>');
-		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="showHashData/$2">$1$2</a>');
+		text = text.replace(/(\s#)([a-zA-Zあ-んア-ン_]+)/g,'<a href="/kyuritwitter/main/showHashData/$2">$1$2</a>');
 		text = text.replace(/(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g,'<a href="$1$2">$1$2</a>');
 		$(this).html(text);
 		});
-
 }
 
 function mouseHoverEvent(){

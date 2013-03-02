@@ -13,6 +13,7 @@ import root.service.FollowService;
 import root.service.InListUserService;
 import root.service.ListFollowService;
 import root.service.MurmurService;
+import root.service.RetweetsService;
 import root.service.TlistService;
 import root.service.TuserService;
 
@@ -39,6 +40,8 @@ public class SuperAction {
 	protected TlistService tlistService;
 	@Resource
 	protected ListFollowService listFollowService;
+	@Resource
+	protected RetweetsService retweetsService;
 
 	//loginUser number
 	public int mine = 0;

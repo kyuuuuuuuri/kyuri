@@ -46,7 +46,28 @@ public class TlistService extends AbstractService<Tlist> {
 				.getResultList();
 	}
 
-	//insertしつつ、autoincrementidを返す
+	public Tlist findByListId(int listid){
+		return jdbcManager
+				.from(Tlist.class)
+				.innerJoin("tuser")
+				.where(new SimpleWhere().eq(listid(), listid))
+				.getSingleResult();
+	}
+
+	public List<Tlist> findTlistUserMade(int thisUserid, int userid){
+		return jdbcManager
+				.from(Tlist.class)
+				.leftOuterJoin("listFollowList",
+						new SimpleWhere().eq("listFollowList.followThisUserid", userid))
+				.where("userid = ?", thisUserid)
+				.getResultList();
+	}
+
+	/**
+	 * tlistにデータを格納しつつ、新しいidを取ってくる
+	 * @param tlist
+	 * @return
+	 */
 	public int insertTlist(Tlist tlist){
 		insert(tlist);
 		List<Tlist> list = select().orderBy(desc("listid")).getResultList();

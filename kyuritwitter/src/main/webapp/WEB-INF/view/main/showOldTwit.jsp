@@ -53,12 +53,14 @@
 						</div>
 						<div id="${tubuyaki.murmurid}r" class="repform">
 
-							<s:form styleClass="rep_form">
+						<s:form styleClass="rep_form" onsubmit="repSubmit(${tubuyaki.murmurid}); return false;">
 								<textarea class="rep_textarea" name="tubuyaki" rows="1"></textarea>
 								<br>
+								<html:hidden styleClass = "topId" property="topIdrep" value=""/>
+								<html:hidden property="thisId" value="${tubuyaki.murmurid}"/>
 								<span class="rep_text_size">140</span>
 								<s:submit styleClass="btn btn-info rep_twit_btn"
-									property="ins_tubuyaki">ツイート</s:submit>
+									property="ins_tubuyaki_rep">ツイート</s:submit>
 							</s:form>
 						</div>
 						<p class="timeLine_border"></p>

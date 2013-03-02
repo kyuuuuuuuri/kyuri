@@ -80,6 +80,8 @@
 					<c:if test="${not empty listFollow}">
 						<c:forEach var="tlist" items="${listFollow}">
 							<a href="showListUser/${tlist.tlist.listid}" class="list">${tlist.tlist.listname}</a>
+							<span class="listdesc">${tlist.tlist.listname}</span>
+							<p class="makeUser">${tlist.tlist.tuser.usernick} が作成しました</p>
 
 							<!-- if this user make this list -->
 							<c:if test="${tlist.tlist.userid == mine}">

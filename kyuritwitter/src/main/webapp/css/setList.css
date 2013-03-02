@@ -50,3 +50,33 @@ p.timeLine_border{
 .listUsername{
 	font-size:x-small;
 }
+
+.listLine {
+	padding-top:20px;
+}
+
+.makeUser {
+	color:#999999;
+	font-size:xx-small;
+}
+
+
+
+
+
+#timeLine {
+	background-color:#EBEBEB;
+}
+
+.userNewTwitDesc {
+	color:#999999;
+	font-size:xx-small;
+}
+
+.UserInList {
+
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-left:20px;
+
+}
