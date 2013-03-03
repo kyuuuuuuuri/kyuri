@@ -65,6 +65,9 @@ public class MainAction extends SuperAction {
 
 	private SetTwitToSolr setTwitToSolr;
 
+	int retNum;
+	int favoNum;
+
 	// JdbcManagerのインスタンスを取得
 	JdbcManager jdbcManager = SingletonS2Container.getComponent("jdbcManager");
 
@@ -268,7 +271,14 @@ public class MainAction extends SuperAction {
 		String mur = req.getParameter("tubuyaki");
 		setTwitToSolr = new SetTwitToSolr();
 
-		System.out.println(topId + ParentTutuyakiId + mur + "もろきゅう");
+		int ParentTutuyakiIdInt = Integer.parseInt(ParentTutuyakiId);
+
+		Murmur checkMur = murmurService.findById(ParentTutuyakiIdInt);
+		//もし、リツイートされたつぶやきだったら、リツイート元のidを取ってくる
+		if(checkMur.retwitflag != null){
+			ParentTutuyakiIdInt = checkMur.retwitflag;
+		}
+//		System.out.println(topId + ParentTutuyakiId + mur + "もろきゅう");
 
 		int id = Integer.parseInt(topId);
 		String[] hashArray;
@@ -289,7 +299,7 @@ public class MainAction extends SuperAction {
 		murmur.userid = userid;
 		murmur.murmur = mur;
 		murmur.dateTime = null;
-		murmur.beforeid = Integer.parseInt(ParentTutuyakiId);
+		murmur.beforeid = ParentTutuyakiIdInt;
 		int newMurmurId = murmurService.insertMurmur(murmur);
 		System.out.println(newMurmurId);
 
@@ -522,6 +532,11 @@ public class MainAction extends SuperAction {
 		Favolite favolite = new Favolite();
 		int userid = userDto.userID;
 
+		murmur = murmurService.findById(murmuridInt);
+		if(murmur.retwitflag != null){
+			murmuridInt = murmur.retwitflag;
+		}
+
 		//murmurServiceのお気に入りフラグ
 		murmur.murmurid = murmuridInt;
 		murmur.favoritenum = +1;
@@ -583,6 +598,7 @@ public class MainAction extends SuperAction {
 
 		Murmur retMur = new Murmur();
 
+		retMur.userid       = mur.userid;
 		retMur.murmur       = mur.murmur;
 		retMur.dateTime     = mur.dateTime;
 		retMur.imageurl     = mur.imageurl;
@@ -591,11 +607,15 @@ public class MainAction extends SuperAction {
 		retMur.gpslocation  = mur.gpslocation;
 		//リツイートということを表すフラグ
 		retMur.retwitflag   = mur.murmurid;
-		retMur.beRetwitednum = userid;
+		retMur.retweetuser = userid;
+
+		murmurService.insert(retMur);
 
 		Retweets retweet = new Retweets();
 		retweet.murmurid = murmuridInt;
 		retweet.userid  = userid;
+
+		retweetsService.insert(retweet);
 
 		return null;
 	}
@@ -608,24 +628,29 @@ public class MainAction extends SuperAction {
 		int murmuridInt = Integer.parseInt(murmurid);
 		int userid = userDto.userID;
 
-		//
 		Murmur mur = murmurService.findById(murmuridInt);
 		if(mur.retwitflag == null){
-			mur = murmurService.findUserRetweetId(murmuridInt, userid);
+			System.out.println(mur.retwitflag);
+			//リツイートしている行を抜き出す
+			mur = murmurService.findUserRetweetId(mur.murmurid, userid);
 		}
+
 		if(mur == null){
 			 throw new Error("値がおかしいです");
 		}
 
-		if(!(retweetsService.existRetweetNum(userid, murmuridInt))){
+		if(!(retweetsService.existRetweetNum(userid, mur.retwitflag))){
+			System.out.println(userid + " " + mur.murmurid + "moromoromorokyuri");
 			 throw new Error("リツイートしていません");
 		}
 
+		Retweets retweet = new Retweets();
+		retweet = retweetsService.findRetweetNumForDel(userid, mur.retwitflag);
+		retweetsService.delete(retweet);
+
 		murmurService.delete(mur);
 
-		Retweets retweet = new Retweets();
-		retweet = retweetsService.findRetweetNumForDel(userid, murmuridInt);
-		retweetsService.delete(retweet);
+		ResponseUtil.write("#"+mur.murmurid);
 
 		return null;
 
@@ -634,7 +659,12 @@ public class MainAction extends SuperAction {
 	//お気に入り,リツイートリストを返そう
 	@Execute(validator = false)
 	public String BeRetwited() {
-		return null;
+		String murmuridStr = req.getParameter("tubuyakiId");
+		int murmurid = Integer.parseInt(murmuridStr);
+		favoNum = murmurService.findById(murmurid).favoritenum;
+		retNum = (int) retweetsService.findRetweetNum(murmurid);
+
+		return "retAndFavoInf.jsp";
 	}
 
 	//返信リストを返すafter
@@ -642,8 +672,19 @@ public class MainAction extends SuperAction {
 	public String repListAfter() {
 		int userid = userDto.userID;
 		String murId = req.getParameter("tubuyakiId");
+		int murIdInt = Integer.parseInt(murId);
+		Murmur mur = new Murmur();
 
-		List<Murmur> murmur = murmurService.zibunJoinAfterList(Integer.parseInt(murId), userid);
+		mur = murmurService.findById(murIdInt);
+
+		if(mur.retwitflag != null){
+			mur = murmurService.findById(mur.retwitflag);
+			murIdInt = mur.murmurid;
+		}
+
+		List<Murmur> murmur = murmurService.zibunJoinAfterList(murIdInt, userid);
+
+
 		if (murmur == null) {
 			return null;
 		}
@@ -661,8 +702,18 @@ public class MainAction extends SuperAction {
 	public String repListBefore() {
 		int userid = userDto.userID;
 		String murId = req.getParameter("tubuyakiId");
-		System.out.println(murId);
-		List<Murmur> murmur = murmurService.zibunJoinBeforeList(Integer.parseInt(murId), userid);
+		int murIdInt = Integer.parseInt(murId);
+
+		Murmur mur = new Murmur();
+
+		mur = murmurService.findById(murIdInt);
+
+		if(mur.retwitflag != null){
+			mur = murmurService.findById(mur.retwitflag);
+			murIdInt = mur.murmurid;
+		}
+
+		List<Murmur> murmur = murmurService.zibunJoinBeforeList(murIdInt, userid);
 
 		if (murmur.isEmpty()) {
 			return null;

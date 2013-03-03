@@ -38,6 +38,12 @@ public class RetweetsService extends AbstractService<Retweets> {
 		return select().orderBy(asc(id())).getResultList();
 	}
 
+	public long findRetweetNum(int murmurid){
+		return select()
+				.where("murmurid", murmurid)
+				.getCount();
+	}
+
 	/**
 	 * リツイートしているかどうかをチェックする
 	 * @param userid
@@ -75,5 +81,17 @@ public class RetweetsService extends AbstractService<Retweets> {
 						))
 				.getSingleResult();
 
+	}
+
+	/**
+	 * ツイートが消された後、リツイートされている情報を消す
+	 * @param murmurid
+	 */
+	public void deleteTwitAfterUserDelTwit(int murmurid){
+		List<Retweets> retweetsList =
+				jdbcManager.from(Retweets.class)
+				.where("", murmurid)
+				.getResultList();
+		jdbcManager.deleteBatch(retweetsList);
 	}
 }

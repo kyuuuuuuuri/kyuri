@@ -128,7 +128,6 @@ function init(){
 //reTwit
 function retweet(id){
 	var $retweet = $("#" + id + " .retweet");
-	alert($retweet);
 
 	if($retweet.text() == "リツイート"){
 		$.ajax({
@@ -139,9 +138,8 @@ function retweet(id){
 			},
 			dataType:"text",
 			success: function(data,dataType){
-				alert("リツイートを削除しました");
+				alert("リツイートしました");
 				$retweet.text("リツイートを取り消す");
-
 			},
 			error: function(){
 				alert("問題が発生しました");
@@ -158,8 +156,8 @@ function retweet(id){
 			},
 			dataType:"text",
 			success: function(data,dataType){
-				alert("リツイートを削除しました");
-				$retweet.text("リツイート");
+				alert("リツイートを削除しました"+data);
+				$(data).remove();
 			},
 			error: function(){
 				alert("問題が発生しました");
@@ -369,27 +367,25 @@ function openRep(id){
 	}else{
 		alert("問題が起こりました");
 	}
-
 }
 
-function changeRepform(id){
+//お気に入りリストとふぁぼ情報を取ってくる
+function retAndFavoInfo(id){
+	$.ajax({
+		type:"POST",
+		url:"BeRetwited",
+		data:{
+			"tubuyakiId":id
+		},
+		dataType:"html",
+		success: function(data,dataType){
 
-	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
-		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
-
-	}else if($('.open_details_twit', "#"+id).attr("id") == id+"close"){
-		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
-
-		$("#" + id).css({
-			"margin-top" : "0px"
-		});
-		$("#" + id + "r").css("margin-bottom","0px");
-		$("#"+ id +"r").hide().css("margin-bottom","0px");
-
-
-	}else{
-		alert("問題が起こりました");
-	}
+			$("#"+id).prepend(data);
+			beforeQuery(id);
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
 }
 
 function beforeQuery(id){
@@ -423,7 +419,39 @@ function beforeQuery(id){
 	});
 }
 
+function changeRepform(id){
+	var repUser = $(".usernickLink","#"+id).text();
+
+	if($('.open_details_twit', "#"+id).attr("id") == id+"open"){
+		$('.open_details_twit', "#"+id).attr("id", id+"close").text("閉じる");
+
+		$("#" + id).css({
+			"margin-top" : "10px"
+		});
+		$("#" + id + "r").show();
+		$("#" + id + "r").css("margin-bottom","10px");
+		$(".rep_textarea", "#" + id + "r").val("@"+ repUser + " ");
+		replyForm(id);
+
+	}else if($('.open_details_twit', "#"+id).attr("id") == id+"close"){
+		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
+
+		$("#" + id).css({
+			"margin-top" : "0px"
+		});
+		$("#" + id + "r").css("margin-bottom","0px");
+		$("#"+ id +"r").hide().css("margin-bottom","0px");
+
+
+	}else{
+		alert("問題が起こりました");
+	}
+}
+
+
+//返信フォームの中身
 function replyForm(id){
+
 	var size = 140 - $(".rep_textarea", "#"+id+"r").val().length;
 	$(".rep_text_size", "#"+id+"r" ).text(size);
 
@@ -436,6 +464,7 @@ function replyForm(id){
 
 			size = 140 - $(this).val().length;
 			$(".rep_text_size", "#"+id+"r" ).text(size);
+
 			$(".rep_twit_btn", "#"+id+"r" ).removeAttr("disabled");
 
 			if (size == 140 || size < 0) {

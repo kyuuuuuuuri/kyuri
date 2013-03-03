@@ -64,6 +64,14 @@
 								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
 							</c:if>
 
+							<c:if test="${not empty tubuyaki.retweetuser}">
+								<c:set var = "WhoRetweetThis" value="${tubuyaki.retuser.usernick} がリツイートしました" />
+							</c:if>
+							<c:if test="${empty tubuyaki.retweetuser}">
+								<c:set var = "WhoRetweetThis" value="" />
+							</c:if>
+							<p class="retwitInfo"><b>${f:h(WhoRetweetThis)}</b></p>
+
 							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="openRep(${tubuyaki.murmurid})">開く</span>
 							<span class="date twit_info">
 							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
@@ -71,19 +79,22 @@
 							<c:if test="${not empty tubuyaki.gpslocation}">
 							<span class="twit_info">${tubuyaki.gpslocation }</span>
 							</c:if>
-							<c:if test="${empty tubuyaki.favolite}">
+							<c:if test="${empty tubuyaki.favolite[0].userid || empty tubuyaki.favoliteReVar[0].userid}">
 								<c:set var = "favoriteMsg" value="お気に入りに登録" />
 							</c:if>
-							<c:if test="${not empty tubuyaki.favolite}">
+							<c:if test="${not empty tubuyaki.favolite[0].userid || not empty tubuyaki.favoliteReVar[0].userid}">
 								<c:set var = "favoriteMsg" value="★お気に入りを取り消す" />
 							</c:if>
 
 							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
-
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
 							<c:if test="${tubuyaki.tuser.userid != mine}">
+							<c:if test="${empty tubuyaki.retweets[0].userid}">
 								<c:set var = "retweetMsg" value="リツイート" />
-
+							</c:if>
+							<c:if test="${not empty tubuyaki.retweets[0].userid || tubuyaki.retweetuser == mine}">
+								<c:set var = "retweetMsg" value="リツイートを取り消す" />
+							</c:if>
 								<span class="retweet twit_info twit_info_link" onclick="retweet(${tubuyaki.murmurid})">${f:h(retweetMsg)}</span>
 
 

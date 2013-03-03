@@ -74,19 +74,29 @@ public class Murmur implements Serializable {
     @Column(precision = 10, nullable = true, unique = false)
     public Integer retwitflag;
 
-    /** beRetwitednumプロパティ */
+    /** retweetuserプロパティ */
     @Column(precision = 10, nullable = true, unique = false)
-    public Integer beRetwitednum;
+    public Integer retweetuser;
 
     /** tuser関連プロパティ */
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     public Tuser tuser;
 
+    @ManyToOne
+    @JoinColumn(name = "retweetuser", referencedColumnName = "userID", nullable = true)
+    public Tuser retuser;
 
     /** favolite関連プロパティ */
     @OneToMany(mappedBy = "murmur")
     public List<Favolite> favolite;
+
+    @OneToMany(mappedBy = "reMurmurFavo")
+    public List<Favolite> favoliteReVar;
+
+    /** retweets関連プロパティ */
+    @OneToMany(mappedBy = "murmur")
+    public List<Retweets> retweets;
 
     /* --------------   自己結合   --------------  */
 

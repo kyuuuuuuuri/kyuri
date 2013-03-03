@@ -39,4 +39,8 @@ public class Favolite implements Serializable {
     @ManyToOne
     @JoinColumn(name = "murmurid", referencedColumnName = "murmurid")
     public Murmur murmur;
+
+    @ManyToOne
+    @JoinColumn(name = "murmurid", referencedColumnName = "retwitflag")
+    public Murmur reMurmurFavo;
 }

@@ -49,6 +49,8 @@ public class DeleteAction extends SuperAction{
 			//solrのも消す
 			setTwitToSolr.deleteTwit(delete_murID);
 
+			murmurService.deleteTwitWhatBeRetweet(delete_murID);
+
 	    	//投稿数を1減らす
 	    	Tuser tuser =
 	    			jdbcManager

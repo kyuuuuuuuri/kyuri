@@ -235,7 +235,20 @@ public class FollowlistAction extends SuperAction {
 		return "/userpage/toList?userid=" + thisUserId;
 	}
 
-
-
+	//お気に入りされているユーザ一覧
+	@Execute(validator = false, urlPattern="showFavoList/{id}")
+	public String showFavoList() {
+		int murmurid = followlistForm.id;
+		
+		
+		return "";
+	}
+	
+	//リツイートされているユーザ一覧
+	@Execute(validator = false)
+	public String showRetList() {
+		
+		return "";
+	}
 
 }

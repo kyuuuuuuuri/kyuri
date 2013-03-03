@@ -78,7 +78,7 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getSingleResult();
 
 		if(mur == null){
-			System.out.println("見つからないよ見つからない…");
+			System.out.println("見つからない…");
 		}
 		murmur = MakezibunJoinBeforeList(mur,id);
 		return murmur;
@@ -181,14 +181,19 @@ public class MurmurService extends AbstractService<Murmur> {
 	public List<Murmur> mainListPager(int LIMIT, int page, List<Integer> murmur_userid, int userid) {
 		return jdbcManager.from(Murmur.class)
 				.innerJoin("tuser")
+				.leftOuterJoin("retweets",
+						new SimpleWhere().eq("retweets.userid", userid)
+						)
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("favolite.userid", userid)
+						)
+				.leftOuterJoin("favoliteReVar", new SimpleWhere().eq("favoliteReVar.userid", userid))
+				.leftOuterJoin("retuser")
 				.where(
 						or(
 								new SimpleWhere().in("userid", murmur_userid.toArray()).isNull("retwitflag", true),
-								new SimpleWhere().in("retwitflag", murmur_userid.toArray())
+								new SimpleWhere().in("retweetuser", murmur_userid.toArray())
 						))
-				.leftOuterJoin("favolite",
-						new SimpleWhere().eq("userid", userid)
-						)
 				.orderBy(desc("murmurid"))
 				.limit(LIMIT)
 				.offset(page * LIMIT)
@@ -240,10 +245,11 @@ public class MurmurService extends AbstractService<Murmur> {
 	public Murmur findUserRetweetId(int murmurid, int userid){
 		return jdbcManager
 				.from(Murmur.class)
-				.where(and(
-						new SimpleWhere().eq("retwitflag", murmurid),
-						new SimpleWhere().eq("beRetwitednum", userid)
-						))
+				.where(
+						and(
+						new SimpleWhere().eq("retwitFlag", murmurid)),
+						new SimpleWhere().eq("retweetuser", userid)
+						)
 				.getSingleResult();
 	}
 
@@ -252,30 +258,39 @@ public class MurmurService extends AbstractService<Murmur> {
 	 * @param id
 	 * @return
 	 */
-	public boolean existNewTwit(int id, List<Integer> murmurId){
+	public boolean existNewTwit(int id, List<Integer> murmurId) {
 
 		List<Murmur> murmur = new ArrayList<Murmur>();
 		murmur = select()
 				.innerJoin("tuser")
 				.where(
-						and(
-								new SimpleWhere().in("userid", murmurId.toArray()),
+						or(
+								new SimpleWhere().in("userid", murmurId.toArray()).isNull("retwitflag", true),
+								new SimpleWhere().in("retweetuser", murmurId.toArray())
+								),
 								new SimpleWhere().gt("murmurid", id)
-							)
 						)
-		.orderBy(desc("murmurid"))
-		.getResultList();
-		if(!murmur.isEmpty()){
+				.orderBy(desc("murmurid"))
+				.getResultList();
+		//		select()
+		//				.innerJoin("tuser")
+		//				.where(
+		//						and(
+		//								new SimpleWhere().in("userid", murmurId.toArray()),
+		//								new SimpleWhere().gt("murmurid", id)
+		//							)
+		//						)
+		//		.orderBy(desc("murmurid"))
+		//		.getResultList();
+		if (!murmur.isEmpty()) {
 
 			return true;
 		}
 		return false;
 	}
 
-
-
 	/**
-	 * つぶやきに更新があったか
+	 * タイムラインに一件もなかったとき、つぶやきに更新があったか
 	 * @param id
 	 * @return
 	 */
@@ -284,7 +299,10 @@ public class MurmurService extends AbstractService<Murmur> {
 		List<Murmur> murmur = new ArrayList<Murmur>();
 		murmur = select()
 				.innerJoin("tuser")
-				.where(new SimpleWhere().in("userid", murmurId.toArray()))
+				.where(or(
+						new SimpleWhere().in("userid", murmurId.toArray()).isNull("retwitflag", true),
+						new SimpleWhere().in("retweetuser", murmurId.toArray())
+						))
 		.orderBy(desc("murmurid"))
 		.getResultList();
 		if(!murmur.isEmpty()){
@@ -300,19 +318,37 @@ public class MurmurService extends AbstractService<Murmur> {
 	 * @return
 	 */
 	public List<Murmur> selectNewTwit(int id, List<Integer> murmurId, int userid){
-		return select()
+		return
+				jdbcManager.from(Murmur.class)
 				.innerJoin("tuser")
-				.leftOuterJoin("favolite",
-						new SimpleWhere().eq("userid", userid)
-						)
 				.where(
-						and(
-								new SimpleWhere().in("userid", murmurId.toArray()),
-								new SimpleWhere().gt("murmurid", id)
+						new SimpleWhere().gt("murmurid", id),
+						or(
+								new SimpleWhere().in("userid", murmurId.toArray()).isNull("retwitflag", true),
+								new SimpleWhere().in("retweetuser", murmurId.toArray())
+						))
+				.leftOuterJoin("retweets",
+						new SimpleWhere().eq("retweets.userid", userid)
 						)
-				)
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("favolite.userid", userid)
+						)
+				.leftOuterJoin("retuser")
 				.orderBy(desc("murmurid"))
 				.getResultList();
+
+//				.innerJoin("tuser")
+//				.leftOuterJoin("favolite",
+//						new SimpleWhere().eq("userid", userid)
+//						)
+//				.where(
+//						and(
+//								new SimpleWhere().in("userid", murmurId.toArray()),
+//								new SimpleWhere().gt("murmurid", id)
+//						)
+//				)
+//				.orderBy(desc("murmurid"))
+//				.getResultList();
 	}
 
 	public List<Murmur> selectNewTwitFirstTwit(List<Integer> murmurId, int userid){
@@ -326,17 +362,29 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 	}
 
+	/**
+	 * 昔のツイートを読み込む
+	 * @param id
+	 * @param murmurId
+	 * @param userid
+	 * @return
+	 */
 	public List<Murmur> selectOldTwit(int id , List<Integer> murmurId, int userid){
 		return select()
 				.innerJoin("tuser")
 				.leftOuterJoin("favolite",
 						new SimpleWhere().eq("userid", userid)
 						)
-				.where(and(
-						new SimpleWhere().in("userid", murmurId.toArray()),
-						new SimpleWhere().lt("murmurid", id)
+				.leftOuterJoin("retweets",
+						new SimpleWhere().eq("retweets.userid", userid)
 						)
-						)
+				.leftOuterJoin("retuser")
+				.where(
+						new SimpleWhere().lt("murmurid", id),
+						or(
+								new SimpleWhere().in("userid", murmurId.toArray()).isNull("retwitflag", true),
+								new SimpleWhere().in("retweetuser", murmurId.toArray())
+						))
 						.orderBy(desc("murmurid"))
 						.limit(10)
 						.getResultList();
@@ -378,6 +426,19 @@ public class MurmurService extends AbstractService<Murmur> {
 		List<Murmur> twits = select().orderBy(desc("murmurid")).getResultList();
 		Murmur twit = twits.get(0);
 		return twit.murmurid;
+	}
+
+	/**
+	 * あるツイートを消したとき、それをリツイートしているツイートも一緒に消す
+	 * @param murmurid
+	 */
+	public void deleteTwitWhatBeRetweet(int murmurid){
+		List<Murmur> murmurList =
+				jdbcManager
+				.from(Murmur.class)
+				.where("retwitflag",murmurid)
+				.getResultList();
+		jdbcManager.deleteBatch(murmurList).execute();
 	}
 
 	/**

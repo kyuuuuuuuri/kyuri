@@ -89,6 +89,15 @@ td.contents {
 
 }
 
+.retwitInfo {
+	color:#003300;
+	font-size:x-small;
+}
+
+.retweet {
+	cursor:pointer;
+}
+
 .noTwit {
 	background-color:#F4F4F4;
 }

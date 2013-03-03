@@ -105,18 +105,36 @@ public class MurmurServiceTest extends S2TestCase {
 
 	}
 
+	public void mainListTest(){
+		List<Murmur> twitList = new ArrayList<Murmur>();
+		List<Integer> useridList = new ArrayList<Integer>();
+
+		useridList.add(1);
+		useridList.add(11);
+
+		twitList = murmurService.mainListPager(10, 0, useridList, 1);
+		for(Murmur m : twitList){
+			System.out.println(m.murmur + " " +  m.retweets.size() + " " + m.favolite.size());
+			if(m.retweets.size() != 0){
+				System.out.println(m.retweets.get(0).murmurid);
+			}
+		}
+
+	}
+
+
 	/**
 	 * listPager Class Test
 	 */
-	public void listPagerTest() {
-		List<Murmur> twitList = new ArrayList<Murmur>();
-
-		twitList = murmurService.listPager(5, 0, 1);
-		int twitID = twitList.get(0).murmurid;
-		int twitListLong = twitList.size();
-		assertEquals("つぶやきの結果が違う", twitID, 131);
-		assertEquals("取得したつぶやきの数が違う", twitListLong, 5);
-	}
+//	public void listPagerTest() {
+//		List<Murmur> twitList = new ArrayList<Murmur>();
+//
+//		twitList = murmurService.listPager(5, 0, 1);
+//		int twitID = twitList.get(0).murmurid;
+//		int twitListLong = twitList.size();
+//		assertEquals("つぶやきの結果が違う", twitID, 131);
+//		assertEquals("取得したつぶやきの数が違う", twitListLong, 5);
+//	}
 
 	/**
 	 * another_user_twitList Class Test
@@ -130,11 +148,11 @@ public class MurmurServiceTest extends S2TestCase {
 		assertEquals("userNameが違う", twitUsername, "にゅるん");
 		assertEquals("twitIdが違う", twitid, 49);
 	}
-
-	public void zibunJoinmainTest() {
-		List<Murmur> murmurlist = murmurService.zibunJoinBeforeList(250);
-
-	}
+//
+//	public void zibunJoinmainTest() {
+//		List<Murmur> murmurlist = murmurService.zibunJoinBeforeList(250);
+//
+//	}
 
 	public void zibunJoinBeforeList(Murmur mur) {
 
@@ -147,12 +165,12 @@ public class MurmurServiceTest extends S2TestCase {
 		}
 	}
 
-	public void zibunJoinmainArterTest() {
-		List<Murmur> murmurlist = murmurService.zibunJoinAfterList(249);
-
-				zibunJoinAfterTest(murmurlist);
-
-	}
+//	public void zibunJoinmainArterTest() {
+//		List<Murmur> murmurlist = murmurService.zibunJoinAfterList(249);
+//
+//				zibunJoinAfterTest(murmurlist);
+//
+//	}
 
 	public void zibunJoinAfterTest(List<Murmur> mur) {
 		for (Murmur m : mur) {
@@ -162,5 +180,7 @@ public class MurmurServiceTest extends S2TestCase {
 			}
 		}
 	}
+
+
 
 }
