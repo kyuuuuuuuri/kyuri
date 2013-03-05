@@ -31,8 +31,8 @@
 					<div class="setspanMenu">
 						<ul class="nav nav-list">
 							<li class="nav-header">Menu</li>
-							<li id="change1" class=""><s:link href="setting">プロフィールを変える</s:link></li>
-							<li id="change2" class="active"><s:link href="changeUserImg">画像を変える</s:link></li>
+							<li id="change1" class="active"><s:link href="setting">プロフィールを変える</s:link></li>
+							<li id="change2" class=""><s:link href="changeUserImg">画像を変える</s:link></li>
 							<li id="change3" class=""><s:link href="changePassword">パスワードを変える</s:link></li>
 							<li id="change4" class="">
 							<s:link href="makeList">リスト</s:link></li>

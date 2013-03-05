@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javasource.ChangeLocationNum;
+import javasource.GetFacetFromSolr;
 import javasource.GetTwitFromSolr;
 import javasource.MakeHashList;
 import javasource.MakeImgType;
@@ -59,14 +60,17 @@ public class MainAction extends SuperAction {
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
 
+	public List<String> trandList  = new ArrayList<String>();
+
 	public Tuser mydata = new Tuser();
 
 	public int fFlag = 0;
 
 	private SetTwitToSolr setTwitToSolr;
 
-	int retNum;
-	int favoNum;
+	public int retNum;
+	public int favoNum;
+	public int murid;
 
 	// JdbcManagerのインスタンスを取得
 	JdbcManager jdbcManager = SingletonS2Container.getComponent("jdbcManager");
@@ -83,6 +87,8 @@ public class MainAction extends SuperAction {
 	public String main() {
 		int userid = userDto.userID;
 		mine = userid;
+
+		GetFacetFromSolr getFacetFromSolr = new GetFacetFromSolr();
 
 		//ユーザ自身のデータ
 		mydata = tuserService.findById(userid);
@@ -102,11 +108,11 @@ public class MainAction extends SuperAction {
 		}
 		murmur_userid.add(userid);
 
-		this.total = murmurService.listCount(murmur_userid);
+//		this.total = murmurService.listCount(murmur_userid);
 
-		// 以下ページング処理
+		trandList = getFacetFromSolr.makeTrand();
+
 		murmurList = murmurService.mainListPager(LIMIT, page, murmur_userid, userid);
-
 
 		return mainPageJsp;
 	}
@@ -419,6 +425,7 @@ public class MainAction extends SuperAction {
 		murmur.userid = userid;
 		murmur.murmur = mur;
 		murmur.dateTime = null;
+		murmur.favoritenum=0;
 //		murmur.retwitflag = 0;
 //		murmur.beRetwitednum = 0;
 		int newMurmurId = murmurService.insertMurmur(murmur);
@@ -661,10 +668,21 @@ public class MainAction extends SuperAction {
 	public String BeRetwited() {
 		String murmuridStr = req.getParameter("tubuyakiId");
 		int murmurid = Integer.parseInt(murmuridStr);
-		favoNum = murmurService.findById(murmurid).favoritenum;
-		retNum = (int) retweetsService.findRetweetNum(murmurid);
+		Murmur mur = murmurService.findById(murmurid);
 
-		return "retAndFavoInf.jsp";
+		if(mur.retwitflag!=null){
+			murmurid = mur.retwitflag;
+		}
+		murid = murmurid;
+
+		favoNum = (int) favoliteService.findFavoNum(murmurid);
+		retNum  = (int) retweetsService.findRetweetNum(murmurid);
+		if(favoNum == 0 && retNum == 0){
+			return null;
+		}
+//		System.out.println(favoNum + " " + retNum + "kyuri");
+
+		return "retAndFavoInfo.jsp";
 	}
 
 	//返信リストを返すafter
@@ -827,6 +845,8 @@ public class MainAction extends SuperAction {
 	@Execute(validator = false)
 	public String searchAjax() {
 
+		int userid = userDto.userID;
+
 		fFlag = 1;
 		//System.out.println("morokyumain");
 		int id;
@@ -844,7 +864,7 @@ public class MainAction extends SuperAction {
 				id = Integer.valueOf(searchDto.get(i).getId());
 				idList.add(id);
 			}
-			murmurList = murmurService.SelectListSearch(idList);
+			murmurList = murmurService.SelectListSearch(idList,userid);
 		}
 
 		return "showOldTwit.jsp";
@@ -853,11 +873,12 @@ public class MainAction extends SuperAction {
 	//hashタグリストを出力する
 	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
 	public String showHashData() {
+		int userid = userDto.userID;
 		menuFlag = 1;
 		int id;
 		String hash = mainForm.hashtag;
 		List<Integer> idList = new ArrayList<Integer>();
-		mine = userDto.userID;
+		mine = userid;
 
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
@@ -868,7 +889,7 @@ public class MainAction extends SuperAction {
 			idList.add(id);
 		}
 
-		murmurList = murmurService.SelectListSearch(idList);
+		murmurList = murmurService.SelectListSearch(idList, userid);
 
 		return "hashpage.jsp";
 	}

@@ -106,6 +106,14 @@ public class Tuser implements Serializable {
 	@OneToMany(mappedBy = "ftuser")
 	public List<Follow> ffollowList;
 
+	/** favolite関連プロパティ */
+	@OneToMany(mappedBy = "tuser")
+	public List<Favolite> favoliteList;
+
+	/** retweet関連プロパティ*/
+	@OneToMany(mappedBy = "tuser")
+	public List<Retweets> retweetsList;
+
 	/** --------- 結合 --------- */
 	@OneToMany(mappedBy = "retuser")
 	public List<Murmur> reMurmurList;

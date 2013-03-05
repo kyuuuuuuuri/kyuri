@@ -40,7 +40,7 @@ public class RetweetsService extends AbstractService<Retweets> {
 
 	public long findRetweetNum(int murmurid){
 		return select()
-				.where("murmurid", murmurid)
+				.where("murmurid = ?", murmurid)
 				.getCount();
 	}
 
@@ -81,6 +81,20 @@ public class RetweetsService extends AbstractService<Retweets> {
 						))
 				.getSingleResult();
 
+	}
+
+	/**
+	 * リツイートしているユーザ一覧を取ってくる
+	 * @param murmurid
+	 * @return
+	 */
+	public List<Retweets> findRetweetUser(int murmurid, int userid){
+		return select()
+				.innerJoin("tuser")
+				.leftOuterJoin("tuser.ffollowList",
+						new SimpleWhere().eq("tuser.ffollowList.userid", userid))
+				.where("murmurid = ?", murmurid)
+				.getResultList();
 	}
 
 	/**

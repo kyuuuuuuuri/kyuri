@@ -46,22 +46,27 @@ function twitsubmit(){
 			},
 			dataType:"html",
 			success: function(data, dataType){
-				alert("成功しました");
+//				alert("成功しました");
 				if($("#existNewtwit").get(0)){
 					$("#existNewtwit").replaceWith(data);
 					mainInit();
 					initWhenAjaxDo();
 					mouseHoverEvent();
 
+
 				}else if($("#noTwit").get(0)){
 					$("#noTwit").replaceWith(data);
 					mainInit();
 					initWhenAjaxDo();
 					mouseHoverEvent();
+
+
 				}else{
 					$("#twitTitle").after(data);
 					initWhenAjaxDo();
 					mouseHoverEvent();
+
+
 				}
 			},
 			error: function(){
@@ -230,11 +235,14 @@ function getOldTwit(){
 		success: function(data, dataType){
 
 			$("#lastLine").before(data);
+
 			initWhenAjaxDo();
 			mouseHoverEvent();
+
 		},
 		error: function(){
 		}
 	});
 }
+
 

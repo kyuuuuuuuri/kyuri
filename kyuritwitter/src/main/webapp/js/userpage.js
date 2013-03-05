@@ -1,34 +1,9 @@
 $(function(){
 
 	searchUser();
-	DoModal();
 
 });
 
-function DoModal(){
-	$('[data-toggle="modal"]').click(function(e) {
-		e.preventDefault();
-		var url = $(this).attr('href');
-		if (url.indexOf('#') == 0) {
-			$(url).modal('open');
-		} else {
-			$.ajax({
-				type : "POST",
-				url : "showTwitImg",
-				data : {
-					'imgurl' : url
-				},
-				dataType : "html",
-				success : function(data, dataType) {
-					$('<div class="modal hide fade">' + data + '</div>').modal();
-				},
-				error : function() {
-					alert("問題が発生しました");
-				}
-			});
-		}
-	});
-}
 
 function searchUser(){
 

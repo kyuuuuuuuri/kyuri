@@ -597,7 +597,7 @@ static {
         out.write("\r\n");
         out.write("\t\t\t\t\t\t\t\t<a href=\"");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tubuyaki.imageurl}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-        out.write("\" data-toggle=\"modal\">");
+        out.write("\" data-toggle=\"modal\" >");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tubuyaki.imageurl}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
         out.write("</a><br>\r\n");
         out.write("\t\t\t\t\t\t\t");
@@ -908,7 +908,6 @@ static {
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${f:h(retweetMsg)}", java.lang.String.class, (PageContext)_jspx_page_context, _jspx_fnmap_1, false));
         out.write("</span>\r\n");
         out.write("\r\n");
-        out.write("\r\n");
         out.write("\t\t\t\t\t\t\t\t<span class=\"twit_info twit_info_link\" onclick=\"changeRepform(");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tubuyaki.murmurid}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
         out.write(")\">返信</span>\r\n");
@@ -1040,8 +1039,8 @@ static {
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_005fif_005f11 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _005fjspx_005ftagPool_005fc_005fif_0026_005ftest.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_005fif_005f11.setPageContext(_jspx_page_context);
     _jspx_th_c_005fif_005f11.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f0);
-    // /WEB-INF/view/main/mainpage.jsp(105,7) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
-    _jspx_th_c_005fif_005f11.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tubuyaki.tuser.userid==mine}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null, false)).booleanValue());
+    // /WEB-INF/view/main/mainpage.jsp(104,7) name = test type = boolean reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    _jspx_th_c_005fif_005f11.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tubuyaki.tuser.userid == mine}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null, false)).booleanValue());
     int _jspx_eval_c_005fif_005f11 = _jspx_th_c_005fif_005f11.doStartTag();
     if (_jspx_eval_c_005fif_005f11 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
@@ -1072,9 +1071,9 @@ static {
     org.seasar.struts.taglib.S2LinkTag _jspx_th_s_005flink_005f1 = (org.seasar.struts.taglib.S2LinkTag) _005fjspx_005ftagPool_005fs_005flink_0026_005fstyleClass_005fhref.get(org.seasar.struts.taglib.S2LinkTag.class);
     _jspx_th_s_005flink_005f1.setPageContext(_jspx_page_context);
     _jspx_th_s_005flink_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fif_005f11);
-    // /WEB-INF/view/main/mainpage.jsp(106,8) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(105,8) name = href type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f1.setHref((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("/main/delete/${tubuyaki.murmurid}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-    // /WEB-INF/view/main/mainpage.jsp(106,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(105,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005flink_005f1.setStyleClass("twit_info twit_info_link");
     int _jspx_eval_s_005flink_005f1 = _jspx_th_s_005flink_005f1.doStartTag();
     if (_jspx_eval_s_005flink_005f1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -1112,9 +1111,9 @@ static {
     org.seasar.struts.taglib.S2FormTag _jspx_th_s_005fform_005f0 = (org.seasar.struts.taglib.S2FormTag) _005fjspx_005ftagPool_005fs_005fform_0026_005fstyleClass_005fonsubmit.get(org.seasar.struts.taglib.S2FormTag.class);
     _jspx_th_s_005fform_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fform_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_005fforEach_005f0);
-    // /WEB-INF/view/main/mainpage.jsp(112,7) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(111,7) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fform_005f0.setStyleClass("rep_form");
-    // /WEB-INF/view/main/mainpage.jsp(112,7) name = onsubmit type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(111,7) name = onsubmit type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fform_005f0.setOnsubmit((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("repSubmit(${tubuyaki.murmurid}); return false;", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_s_005fform_005f0 = _jspx_th_s_005fform_005f0.doStartTag();
     if (_jspx_eval_s_005fform_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
@@ -1157,11 +1156,11 @@ static {
     org.apache.struts.taglib.html.HiddenTag _jspx_th_html_005fhidden_005f0 = (org.apache.struts.taglib.html.HiddenTag) _005fjspx_005ftagPool_005fhtml_005fhidden_0026_005fvalue_005fstyleClass_005fproperty_005fnobody.get(org.apache.struts.taglib.html.HiddenTag.class);
     _jspx_th_html_005fhidden_005f0.setPageContext(_jspx_page_context);
     _jspx_th_html_005fhidden_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/main/mainpage.jsp(115,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(114,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fhidden_005f0.setStyleClass("topId");
-    // /WEB-INF/view/main/mainpage.jsp(115,8) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(114,8) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fhidden_005f0.setProperty("topIdrep");
-    // /WEB-INF/view/main/mainpage.jsp(115,8) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(114,8) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fhidden_005f0.setValue("");
     int _jspx_eval_html_005fhidden_005f0 = _jspx_th_html_005fhidden_005f0.doStartTag();
     if (_jspx_th_html_005fhidden_005f0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1180,9 +1179,9 @@ static {
     org.apache.struts.taglib.html.HiddenTag _jspx_th_html_005fhidden_005f1 = (org.apache.struts.taglib.html.HiddenTag) _005fjspx_005ftagPool_005fhtml_005fhidden_0026_005fvalue_005fproperty_005fnobody.get(org.apache.struts.taglib.html.HiddenTag.class);
     _jspx_th_html_005fhidden_005f1.setPageContext(_jspx_page_context);
     _jspx_th_html_005fhidden_005f1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/main/mainpage.jsp(116,8) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(115,8) name = property type = null reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fhidden_005f1.setProperty("thisId");
-    // /WEB-INF/view/main/mainpage.jsp(116,8) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(115,8) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_html_005fhidden_005f1.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${tubuyaki.murmurid}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
     int _jspx_eval_html_005fhidden_005f1 = _jspx_th_html_005fhidden_005f1.doStartTag();
     if (_jspx_th_html_005fhidden_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
@@ -1201,9 +1200,9 @@ static {
     org.seasar.struts.taglib.S2SubmitTag _jspx_th_s_005fsubmit_005f0 = (org.seasar.struts.taglib.S2SubmitTag) _005fjspx_005ftagPool_005fs_005fsubmit_0026_005fstyleClass_005fproperty.get(org.seasar.struts.taglib.S2SubmitTag.class);
     _jspx_th_s_005fsubmit_005f0.setPageContext(_jspx_page_context);
     _jspx_th_s_005fsubmit_005f0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_s_005fform_005f0);
-    // /WEB-INF/view/main/mainpage.jsp(118,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(117,8) name = styleClass type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setStyleClass("btn btn-info rep_twit_btn");
-    // /WEB-INF/view/main/mainpage.jsp(118,8) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/view/main/mainpage.jsp(117,8) name = property type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_s_005fsubmit_005f0.setProperty("ins_tubuyaki_rep");
     int _jspx_eval_s_005fsubmit_005f0 = _jspx_th_s_005fsubmit_005f0.doStartTag();
     if (_jspx_eval_s_005fsubmit_005f0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {

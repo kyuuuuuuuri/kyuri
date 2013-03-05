@@ -57,12 +57,20 @@
 				</td>
 			</tr>
 		</table>
+
+		<div id="trand">
+		<p id="trandTitle">トレンド</p>
+		<c:forEach var="trand" items="${trandList}">
+
+			<div class="trandBody"><s:link href="/searchtwit/trandSearch/${trand}">${trand}</s:link></div>
+		</c:forEach>
+		</div>
 	</c:if>
-	<c:if test="${menuFlag==1 }">
+	<c:if test="${menuFlag == 1 }">
 		menu2
 	</c:if>
 
-	<c:if test="${menuFlag==2 }">
+	<c:if test="${menuFlag == 2 }">
 		<table class="table table-bordered">
 			<thead>
 				<tr>

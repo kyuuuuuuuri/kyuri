@@ -81,8 +81,14 @@
 
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
 							<c:if test="${tubuyaki.tuser.userid!=mine}">
-								<s:link href="/main/retwit/${tubuyaki.murmurid }"
-									styleClass="twit_info twit_info_link">リツイート</s:link>
+							<c:if test="${empty tubuyaki.retweets[0].userid}">
+								<c:set var = "retweetMsg" value="リツイート" />
+							</c:if>
+							<c:if test="${not empty tubuyaki.retweets[0].userid || tubuyaki.retweetuser == mine}">
+								<c:set var = "retweetMsg" value="リツイートを取り消す" />
+							</c:if>
+								<span class="retweet twit_info twit_info_link" onclick="retweet(${tubuyaki.murmurid})">${f:h(retweetMsg)}</span>
+
 								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
 							</c:if>
 

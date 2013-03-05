@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/root/action/mainpage.jsp=UTF-8
+encoding//src/main/java/root/form/CommonForm.java=UTF-8
 encoding//src/main/resources/j2ee.dicon=UTF-8
 encoding//src/main/resources/transaction.dicon=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/footer.jsp=UTF-8
@@ -17,7 +18,9 @@ encoding//src/main/webapp/WEB-INF/view/main/twitplus.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/main/window.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/search/searchResult.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/search/searchpage.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/searchtwit/searchtwit.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/searchtwit/showOldTwit.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/searchtwit/trand.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/searchtwit/twitplus.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/setting/changePass.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/user/entrypage.jsp=UTF-8

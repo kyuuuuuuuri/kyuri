@@ -79,4 +79,26 @@ public class FavoliteService extends AbstractService<Favolite> {
 		}
 
 	}
+
+	/**
+	 * お気に入りしているユーザ一覧
+	 * @param murmurid
+	 * @return
+	 */
+	public List<Favolite> findFavoUser(int murmurid, int userid){
+		return select()
+				.innerJoin("tuser")
+				.leftOuterJoin("tuser.ffollowList",
+						new SimpleWhere().eq("tuser.ffollowList.userid", userid))
+				.where("murmurid = ?", murmurid)
+				.getResultList();
+	}
+
+
+	//お気に入りされている数をとってくる
+	public long findFavoNum(int murmurid){
+		return select()
+				.where("murmurid = ?", murmurid)
+				.getCount();
+	}
 }

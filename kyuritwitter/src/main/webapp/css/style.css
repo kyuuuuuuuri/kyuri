@@ -185,6 +185,16 @@ textarea{
 	margin-right:50px;
 }
 
+#trand{
+	background-color:#EBEBEB;
+	padding:20px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
+
+
+}
 
 table {
 	background-color:#EBEBEB;
@@ -325,6 +335,14 @@ div.twitmain{
 }
 .floatclear {
 	clear: both;
+}
+
+.favoInfo {
+	font-size:x-small;
+}
+
+.retInfo {
+	font-size:x-small;
 }
 
 

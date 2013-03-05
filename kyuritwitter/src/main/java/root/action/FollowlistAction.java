@@ -10,7 +10,9 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import root.SuperAction;
+import root.entity.Favolite;
 import root.entity.Follow;
+import root.entity.Retweets;
 import root.entity.Tuser;
 import root.form.FollowlistForm;
 
@@ -23,6 +25,8 @@ public class FollowlistAction extends SuperAction {
 
 	public List<Follow> followList = new ArrayList<Follow>();
 	public List<Tuser> followedList = new ArrayList<Tuser>();
+	public List<Favolite> favoliteList = new ArrayList<Favolite>();
+	public List<Retweets> retweetsList = new ArrayList<Retweets>();
 	public int followCheck;
 	public List<Integer> fc_userid = new ArrayList<Integer>();
 	public long followcheckcount = 0;
@@ -238,17 +242,29 @@ public class FollowlistAction extends SuperAction {
 	//お気に入りされているユーザ一覧
 	@Execute(validator = false, urlPattern="showFavoList/{id}")
 	public String showFavoList() {
+		int userid = userDto.userID;
+		mine = userid;
+
+		menuFlag = 1;
+
 		int murmurid = followlistForm.id;
-		
-		
-		return "";
+		favoliteList = favoliteService.findFavoUser(murmurid,userid);
+
+
+		return "favoUserList.jsp";
 	}
-	
+
 	//リツイートされているユーザ一覧
-	@Execute(validator = false)
+	@Execute(validator = false, urlPattern="showRetList/{id}")
 	public String showRetList() {
-		
-		return "";
+		int userid = userDto.userID;
+		mine = userid;
+		menuFlag = 1;
+
+		int murmurid = followlistForm.id;
+		retweetsList = retweetsService.findRetweetUser(murmurid, userid);
+
+		return "retweetUserList.jsp";
 	}
 
 }

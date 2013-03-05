@@ -1,23 +1,24 @@
 <div class="retAndFavoArea">
 
 <table>
-	<thead>
+		<thead>
 
-				<tr>
-					<th>
-					<s:link href="">
-						${favoNum}お気に入りされてます
-					</s:link>
+			<tr>
+				<c:if test="${favoNum != 0 }">
+					<th class="favoInfo"><s:link
+							href="/followlist/showFavoList/${murid}">
+							<span>${favoNum}</span>件お気に入り
+					</s:link></th>
+				</c:if>
 
-					</th>
+				<c:if test="${retNum != 0 }">
+					<th class="retInfo"><s:link
+							href="/followlist/showRetList/${murid}">
+							<span>${retNum}</span>件リツイート
+					</s:link></th>
+				</c:if>
+			</tr>
+		</thead>
 
-					<s:link href="">
-					${retNum}リツイートされてます
-					</s:link>
-					<th>
-					</th>
-				</tr>
-			</thead>
-
-</table>
+	</table>
 </div>

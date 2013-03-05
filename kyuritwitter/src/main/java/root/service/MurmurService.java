@@ -135,7 +135,7 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 
 		if(list.isEmpty()){
-			System.out.println("空だよ");
+//			System.out.println("空だよ");
 			return null;
 		}
 
@@ -203,10 +203,13 @@ public class MurmurService extends AbstractService<Murmur> {
 	public List<Murmur> listPager(int LIMIT, int page, String userni , int userid) {
 		return select()
 				.innerJoin("tuser")
+				.leftOuterJoin("retweets",
+						new SimpleWhere().eq("retweets.userid", userid)
+						)
 				.leftOuterJoin("favolite",
 						new SimpleWhere().eq("userid", userid)
 						)
-				.where("usernick = ?", userni)
+				.where(new SimpleWhere().eq("tuser.usernick", userni).isNull("retwitflag", true))
 				.orderBy(desc("murmurid"))
 				.limit(LIMIT)
 				.offset(page * LIMIT)
@@ -395,9 +398,15 @@ public class MurmurService extends AbstractService<Murmur> {
 	 * @param murmurId
 	 * @return
 	 */
-	public List<Murmur> SelectListSearch(List<Integer> murmurId){
+	public List<Murmur> SelectListSearch(List<Integer> murmurId, int userid){
 		return select()
 				.innerJoin("tuser")
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.leftOuterJoin("retweets",
+						new SimpleWhere().eq("retweets.userid", userid)
+						)
 				.where(
 						and(
 								new SimpleWhere().in("murmurid", murmurId.toArray()),

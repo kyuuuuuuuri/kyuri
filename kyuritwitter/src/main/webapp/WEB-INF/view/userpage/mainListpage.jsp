@@ -13,7 +13,6 @@
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 		<!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/newTwitCheck.js"></script>-->
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/image.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
 
 

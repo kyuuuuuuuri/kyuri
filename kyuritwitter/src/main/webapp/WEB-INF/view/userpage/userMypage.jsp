@@ -11,12 +11,14 @@
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" ></script>
+
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/userpage.js"></script>
 
+
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />
 
 
 
@@ -49,7 +51,7 @@
 		<!-- つぶやきが一件もなかった場合 -->
 		<c:if test="${empty murmurList }">
 			<div>
-				表示すべきつぶやきが一件もありません
+				つぶやきが一件もありません
 			</div>
 		</c:if>
 
@@ -77,7 +79,11 @@
 							<p class="twitid">
 							${f:h(tubuyaki.murmur)}
 							</p>
-							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">開く</span>
+							<c:if test="${not empty tubuyaki.imageurl}" >
+								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+							</c:if>
+
+							<span id="${tubuyaki.murmurid}open" class="open_details_twit twit_info_link" onclick="openRep(${tubuyaki.murmurid})">開く</span>
 							<span class="date twit_info">
 							<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
 							</span>
@@ -94,9 +100,13 @@
 							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
 
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
-							<c:if test="${fFlag==0 && tubuyaki.tuser.userid!=mine}">
-								<s:link href="/main/retwit/${tubuyaki.murmurid }"
-									styleClass="twit_info twit_info_link">リツイート</s:link>
+							<c:if test="${tubuyaki.tuser.userid != mine}">
+							<c:if test="${empty tubuyaki.retweets[0].userid}">
+								<c:set var = "retweetMsg" value="リツイート" />
+							</c:if>
+							<c:if test="${not empty tubuyaki.retweets[0].userid || tubuyaki.retweetuser == mine}">
+								<c:set var = "retweetMsg" value="リツイートを取り消す" />
+							</c:if>
 								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
 
 							</c:if>

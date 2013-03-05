@@ -42,7 +42,7 @@ public class SearchtwitAction extends SuperAction{
 	//返信リストを返すafter
 	@Execute(validator = false)
 	public String repListAfter() {
-		System.out.println("もろきゅう");
+//		System.out.println("もろきゅう");
 		int userid = userDto.userID;
 		String murId = req.getParameter("tubuyakiId");
 
@@ -82,7 +82,8 @@ public class SearchtwitAction extends SuperAction{
 	public String index(){
 		menuFlag = 1;
 		int id;
-		mine = userDto.userID;
+		int userid = userDto.userID;
+		mine = userid;
 		String searchWord = userDto.searchWord;
 		System.out.println(searchWord + "mokyusearch");
 		List<Integer> idList = new ArrayList<Integer>();
@@ -94,12 +95,13 @@ public class SearchtwitAction extends SuperAction{
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
 		searchDto = getTwitFromSolr.getAllTwit(searchWord, 0);
+
 		if(!searchDto.isEmpty()){
 			for (int i = 0; i < searchDto.size(); i++) {
 				id = Integer.valueOf(searchDto.get(i).getId());
 				idList.add(id);
 			}
-			murmurList = murmurService.SelectListSearch(idList);
+			murmurList = murmurService.SelectListSearch(idList, userid);
 		}
 
 		return "searchtwit.jsp";
@@ -110,6 +112,7 @@ public class SearchtwitAction extends SuperAction{
 
 		fFlag = 1;
 		//System.out.println("morokyumain");
+		int userid = userDto.userID;
 		int id;
 		String pagePram = req.getParameter("page");
 		int page = Integer.valueOf(pagePram);
@@ -125,7 +128,7 @@ public class SearchtwitAction extends SuperAction{
 				id = Integer.valueOf(searchDto.get(i).getId());
 				idList.add(id);
 			}
-			murmurList = murmurService.SelectListSearch(idList);
+			murmurList = murmurService.SelectListSearch(idList,userid);
 		}
 
 		return "showOldTwit.jsp";
@@ -164,11 +167,13 @@ public class SearchtwitAction extends SuperAction{
 	//hashタグリストを出力する
 	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
 	public String showHashData() {
+		int userid = userDto.userID;
+
 		menuFlag = 1;
 		int id;
 		String hash = searchtwitForm.hashtag;
 		List<Integer> idList = new ArrayList<Integer>();
-		mine = userDto.userID;
+		mine = userid;
 
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
@@ -179,11 +184,40 @@ public class SearchtwitAction extends SuperAction{
 			idList.add(id);
 		}
 
-		murmurList = murmurService.SelectListSearch(idList);
+		murmurList = murmurService.SelectListSearch(idList, userid);
 
 		return "searchtwit.jsp";
 	}
 
+
+	//trandを表示する
+	@Execute(validator = false, urlPattern="trandSearch/{searchTrand}")
+	public String trandSearch(){
+		int userid = userDto.userID;
+		mine = userid;
+		menuFlag = 1;
+
+		String searchW = searchtwitForm.searchTrand;
+		System.out.println(searchW);
+
+		List<Integer> idList = new ArrayList<Integer>();
+
+		int id;
+
+		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+
+		searchDto = getTwitFromSolr.getAllTwit(searchW, 0);
+
+		if(!searchDto.isEmpty()){
+			for (int i = 0; i < searchDto.size(); i++) {
+				id = Integer.valueOf(searchDto.get(i).getId());
+				idList.add(id);
+			}
+			murmurList = murmurService.SelectListSearch(idList, userid);
+		}
+
+		return "trand.jsp";
+	}
 
 
 }

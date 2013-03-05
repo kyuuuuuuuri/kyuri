@@ -8,7 +8,9 @@ $(function(){
 });
 
 function DoModal(){
-	$('[data-toggle="modal"]').click(function(e) {
+
+	$(document).on("click", '[data-toggle="modal"]', function(e) {
+		alert("ie");
 		e.preventDefault();
 		var url = $(this).attr('href');
 		if (url.indexOf('#') == 0) {
@@ -16,7 +18,7 @@ function DoModal(){
 		} else {
 			$.ajax({
 				type : "POST",
-				url : "showTwitImg",
+				url : "/kyuritwitter/main/showTwitImg",
 				data : {
 					'imgurl' : url
 				},
@@ -30,8 +32,9 @@ function DoModal(){
 			});
 		}
 	});
-}
 
+
+}
 
 // 検索エンジンに文字を入れたとき、ユーザを一緒に検索する
 function searchUser(){
@@ -172,7 +175,7 @@ function favoriteclick(id){
 	if($(".favorite", "#"+id).text()=="お気に入りに登録"){
 		$.ajax({
 			type:"POST",
-			url:"doFavorite",
+			url:"/kyuritwitter/main/doFavorite",
 			data:{
 				"murmurid":id
 			},
@@ -189,7 +192,7 @@ function favoriteclick(id){
 	if($(".favorite", "#"+id).text()=="★お気に入りを取り消す"){
 		$.ajax({
 			type:"POST",
-			url:"canselFavorite",
+			url:"/kyuritwitter/main/canselFavorite",
 			data:{
 				"murmurid":id
 			},
@@ -210,7 +213,7 @@ function favoriteclickInrep(id){
 	if($(".favorite", "#"+id +"r").text()=="お気に入りに登録"){
 		$.ajax({
 			type:"POST",
-			url:"doFavorite",
+			url:"/kyuritwitter/main/doFavorite",
 			data:{
 				"murmurid":id
 			},
@@ -227,7 +230,7 @@ function favoriteclickInrep(id){
 	if($(".favorite", "#"+id + "r").text()=="★お気に入りを取り消す"){
 		$.ajax({
 			type:"POST",
-			url:"canselFavorite",
+			url:"/kyuritwitter/main/canselFavorite",
 			data:{
 				"murmurid":id
 			},
@@ -334,17 +337,17 @@ function openRep(id){
 
 		$.ajax({
 			type:"POST",
-			url:"repListAfter",
+			url:"/kyuritwitter/main/repListAfter",
 			data:{
 				"tubuyakiId":id
 			},
 			dataType:"html",
 			success: function(data,dataType){
-				// alert("OK" + id);
+				 alert("OK" + id);
 				$("#"+id).append(data);
 				initWhenAjaxDo();
 
-				beforeQuery(id);
+				retAndFavoInfo(id);
 			},
 			error: function(){
 				alert("問題が発生しました");
@@ -356,6 +359,7 @@ function openRep(id){
 		$('.open_details_twit', "#"+id).attr("id", id+"open").text("開く");
 
 		$(".twitplus").remove();
+		$(".retAndFavoArea").remove();
 
 		$("#" + id).css({
 			"margin-top" : "0px"
@@ -373,19 +377,20 @@ function openRep(id){
 function retAndFavoInfo(id){
 	$.ajax({
 		type:"POST",
-		url:"BeRetwited",
+		url:"/kyuritwitter/main/BeRetwited",
 		data:{
 			"tubuyakiId":id
 		},
 		dataType:"html",
 		success: function(data,dataType){
 
-			$("#"+id).prepend(data);
+			$("#"+id).append(data);
 			beforeQuery(id);
 		},
 		error: function(){
 			alert("問題が発生しました");
 		}
+	});
 }
 
 function beforeQuery(id){
@@ -394,7 +399,7 @@ function beforeQuery(id){
 
 	$.ajax({
 		type:"POST",
-		url:"repListBefore",
+		url:"/kyuritwitter/main/repListBefore",
 		data:{
 			"tubuyakiId":id
 		},

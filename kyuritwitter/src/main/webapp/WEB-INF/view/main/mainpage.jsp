@@ -61,7 +61,7 @@
 							${f:h(tubuyaki.murmur)}
 							</p>
 							<c:if test="${not empty tubuyaki.imageurl}" >
-								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+								<a href="${tubuyaki.imageurl}" data-toggle="modal" >${tubuyaki.imageurl}</a><br>
 							</c:if>
 
 							<c:if test="${not empty tubuyaki.retweetuser}">
@@ -97,12 +97,11 @@
 							</c:if>
 								<span class="retweet twit_info twit_info_link" onclick="retweet(${tubuyaki.murmurid})">${f:h(retweetMsg)}</span>
 
-
 								<span class="twit_info twit_info_link" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
 							</c:if>
 
 							<!-- 自分のつぶやきだった場合削除リンクをつける -->
-							<c:if test="${tubuyaki.tuser.userid==mine}">
+							<c:if test="${tubuyaki.tuser.userid == mine}">
 								<s:link href="/main/delete/${tubuyaki.murmurid}" styleClass="twit_info twit_info_link">削除</s:link>
 							</c:if>
 

@@ -16,6 +16,7 @@
 		<link rel="Stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/searchtwit.js"></script>
 
 		<title>メインページ</title>
@@ -49,16 +50,41 @@
 							</s:link>
 							</span> <span class="username">${tubuyaki.tuser.username}</span>
 							<p class="twitid">${f:br(tubuyaki.murmur)}</p>
+
+							<c:if test="${not empty tubuyaki.imageurl}" >
+								<a href="${tubuyaki.imageurl}" data-toggle="modal">${tubuyaki.imageurl}</a><br>
+							</c:if>
+
 							<span id="${tubuyaki.murmurid}open"
 								class="open_details_twit twit_info_link" onclick="openRep(${tubuyaki.murmurid})">開く</span>
 								<span class="date twit_info">
 								<fmt:formatDate value="${tubuyaki.dateTime}" pattern="yyyy年MM月dd日 HH時mm分ss秒" />
 							</span>
-							<span class="favorite twit_info twit_info_link">お気に入りに登録</span>
+
+							<c:if test="${not empty tubuyaki.gpslocation}">
+							<span class="twit_info">${tubuyaki.gpslocation }</span>
+							</c:if>
+
+
+							<c:if test="${empty tubuyaki.favolite[0].userid || empty tubuyaki.favoliteReVar[0].userid}">
+								<c:set var = "favoriteMsg" value="お気に入りに登録" />
+							</c:if>
+							<c:if test="${not empty tubuyaki.favolite[0].userid || not empty tubuyaki.favoliteReVar[0].userid}">
+								<c:set var = "favoriteMsg" value="★お気に入りを取り消す" />
+							</c:if>
+							<span class="favorite twit_info twit_info_link" onclick="favoriteclick(${tubuyaki.murmurid})">${f:h(favoriteMsg)}</span>
+
 							<!-- 自分のつぶやきじゃない場合リツイートと返信をつける -->
 							<c:if test="${tubuyaki.tuser.userid != mine}">
-								<s:link href="/main/retwit/${tubuyaki.murmurid }"
-									styleClass="twit_info twit_info_link">リツイート</s:link>
+
+							<c:if test="${empty tubuyaki.retweets[0].userid}">
+								<c:set var = "retweetMsg" value="リツイート" />
+							</c:if>
+							<c:if test="${not empty tubuyaki.retweets[0].userid || tubuyaki.retweetuser == mine}">
+								<c:set var = "retweetMsg" value="リツイートを取り消す" />
+							</c:if>
+								<span class="retweet twit_info twit_info_link" onclick="retweet(${tubuyaki.murmurid})">${f:h(retweetMsg)}</span>
+
 								<span class="twit_info" onclick="changeRepform(${tubuyaki.murmurid})">返信</span>
 							</c:if>
 
