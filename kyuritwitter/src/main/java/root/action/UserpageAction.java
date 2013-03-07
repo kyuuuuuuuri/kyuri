@@ -64,6 +64,25 @@ public class UserpageAction extends SuperAction{
 		return "userMypage.jsp";
 	}
 
+	//ajaxload
+	@Execute(validator = false)
+	public String loadOldTwit() {
+		//System.out.println("ajaxdo");
+		int userid = userDto.userID;
+		mine = userid;
+		String lastId = req.getParameter("lastId");
+		String userni = req.getParameter("userNick");
+		int lastIdint = Integer.parseInt(lastId);
+		System.out.println(userni);
+
+//		this.total = murmurService.listPagerForMypage(lastIdint, userni, userid);
+
+		murmurList = murmurService.listPagerForMypage(lastIdint, userni, userid);
+
+		return "showOldTwit.jsp";
+	}
+
+
 	@Execute(validator = false)
 	public String userpage(){
 		return "";
@@ -408,6 +427,7 @@ public class UserpageAction extends SuperAction{
 
 		return null;
 	}
+
 
 
 	//お気に入りのタイムラインを表示する

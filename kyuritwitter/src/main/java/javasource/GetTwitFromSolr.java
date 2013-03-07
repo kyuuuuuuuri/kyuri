@@ -63,7 +63,7 @@ public class GetTwitFromSolr extends SuperAction{
 		return twitList;
 	}
 
-	public List<SearchDto> getHashTwit(String hash){
+	public List<SearchDto> getHashTwit(String hash, int start){
 		List<SearchDto> twitList = new ArrayList<SearchDto>();
 		String strId = null;
 		int id;
@@ -71,7 +71,7 @@ public class GetTwitFromSolr extends SuperAction{
 		SolrQuery query = new SolrQuery();
 		query.setQuery("hash:" + hash);
 		query.setSortField("id", ORDER.desc);
-		query.setStart(0);
+		query.setStart(start);
 		query.setRows(10);
 
 		//solrへ

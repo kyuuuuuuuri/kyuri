@@ -32,9 +32,10 @@ public class FollowlistAction extends SuperAction {
 	public List<Integer> fc_userid = new ArrayList<Integer>();
 	public long followcheckcount = 0;
 
+	@Resource
+	HttpServletRequest req;
 
 	public List<Tuser> tuserList = new ArrayList<Tuser>();
-
 
 	@Execute(validator = false)
 	public String index(){
@@ -49,7 +50,7 @@ public class FollowlistAction extends SuperAction {
 		int useridToShow;
 		useridToShow = followlistForm.id;
 
-		System.out.println(followFlag);
+//		System.out.println(followFlag);
 
 		if(followFlag.equals("follow")){
 
@@ -76,12 +77,34 @@ public class FollowlistAction extends SuperAction {
 		useridToShow = followlistForm.id;
 
 		//今探そうとしているユーザのデータ
-		mydata = tuserService.findById(useridToShow);
+		mydata = tuserService.findByID(useridToShow, userid);
 
 		followList = followService.findFollowUser(useridToShow, userid);
 
 		return followPageJsp;
 
+	}
+
+	//ajaxload
+	@Execute(validator = false)
+	public String followOld() {
+		//ログインしているユーザのユーザID
+		int userid = userDto.userID;
+		int useridToShow;
+		int lastId;
+
+		String useridToShowStr = req.getParameter("mydataId");
+		useridToShow = Integer.parseInt(useridToShowStr);
+
+		String lastIdStr = req.getParameter("lastFollowId");
+		lastId = Integer.parseInt(lastIdStr);
+
+		//今探そうとしているユーザのデータ
+		mydata = tuserService.findByID(useridToShow, userid);
+
+		followList = followService.findFollowUserOld(useridToShow, userid, lastId);
+
+		return "oldFollowInfo.jsp";
 	}
 
 	//フォローされているユーザを表示する
@@ -91,22 +114,47 @@ public class FollowlistAction extends SuperAction {
 		//ログインしているユーザのユーザID
 		int userid = userDto.userID;
 		mine = userid;
-
 		menuFlag = 3;
 
 		int useridToShow;
 		useridToShow = followlistForm.id;
 
 		//今探そうとしているユーザのデータ
-		mydata = tuserService.findById(useridToShow);
+		mydata = tuserService.findByID(useridToShow, userid);
 
 		followList = followService.findFollowedUser(useridToShow, userid);
 
 		return "followedpage.jsp";
 	}
 
-	@Resource
-	HttpServletRequest req;
+	//フォローされているユーザを表示するAjaxload
+	@Execute(validator = false)
+	public String followedlistOld() {
+
+		int userid = userDto.userID;
+		int useridToShow;
+		int lastId;
+
+		String useridToShowStr = req.getParameter("mydataId");
+		useridToShow = Integer.parseInt(useridToShowStr);
+
+		String lastIdStr = req.getParameter("lastFollowId");
+		lastId = Integer.parseInt(lastIdStr);
+
+		//今探そうとしているユーザのデータ
+		mydata = tuserService.findByID(useridToShow, userid);
+
+		followList = followService.findFollowedUserOld(useridToShow, userid, lastId);
+
+		return "oldFollowedInfo.jsp";
+	}
+
+	//
+	@Execute(validator = false)
+	public String recommendList() {
+
+		return "";
+	}
 
 	//フォローする
 	@Execute(validator = false)
@@ -121,7 +169,6 @@ public class FollowlistAction extends SuperAction {
 		if(bl != null){
 			return null;
 		}
-
 
 		//すでにフォローしていたら何もしない
 		Follow fol = followService.delFollow(toFollowUserId, userid);

@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +39,7 @@ import org.seasar.struts.exception.ActionMessagesException;
 import org.seasar.struts.util.ResponseUtil;
 
 import root.SuperAction;
+import root.dto.RecommendDto;
 import root.dto.SearchDto;
 import root.entity.Favolite;
 import root.entity.Follow;
@@ -84,6 +87,8 @@ public class MainAction extends SuperAction {
 
 	public List<SearchDto> searchDto;
 
+	public Map<Integer, RecommendDto> recommendMap = new HashMap<Integer, RecommendDto>();
+
 	@Execute(validator = false, urlPattern = "main")
 	public String index() {
 		return "main";
@@ -125,7 +130,6 @@ public class MainAction extends SuperAction {
 		murmur_userid.add(userid);
 
 		if(recommendUser == null){
-			System.out.println("moromoro");
 			recommendUserNull = tuserService.recommend(murmur_userid);
 		}
 
@@ -242,11 +246,33 @@ public class MainAction extends SuperAction {
 	}
 
 	@Execute(validator = false)
+	public String recommendAll(){
+		int userid = userDto.userID;
+		mine = userid;
+
+		menuFlag = 1;
+
+		//ユーザのフォローをリスト化
+		List<Follow> followResult = followService.findUserFollow(userid);
+		List<Integer> murmur_userid = new ArrayList<Integer>();
+
+		if (followResult != null) {
+			for (Follow f : followResult) {
+				murmur_userid.add(f.fuserid);
+			}
+		}
+
+		recommendMap = followService.recommendUserAllList(murmur_userid, userid);
+
+		return "recommendAll.jsp";
+	}
+
+	@Execute(validator = false)
 	public String checkNewTwit() {
 
-		int id=0;
-		fFlag = 1;
+		int id = 0;
 		int userid = userDto.userID;
+		fFlag = 1;
 		mine = userid;
 
 		List<Integer> murmur_userid = new ArrayList<Integer>();
@@ -904,6 +930,7 @@ public class MainAction extends SuperAction {
 		return "showOldTwit.jsp";
 	}
 
+	public String hashTitle;
 	//hashタグリストを出力する
 	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
 	public String showHashData() {
@@ -911,12 +938,13 @@ public class MainAction extends SuperAction {
 		menuFlag = 1;
 		int id;
 		String hash = mainForm.hashtag;
+		hashTitle = hash;
 		List<Integer> idList = new ArrayList<Integer>();
 		mine = userid;
 
 		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
 		searchDto = new ArrayList<SearchDto>();
-		searchDto = getTwitFromSolr.getHashTwit(hash);
+		searchDto = getTwitFromSolr.getHashTwit(hash, 0);
 
 		for (int i = 0; i < searchDto.size(); i++) {
 			id = Integer.valueOf(searchDto.get(i).getId());
@@ -926,6 +954,31 @@ public class MainAction extends SuperAction {
 		murmurList = murmurService.SelectListSearch(idList, userid);
 
 		return "hashpage.jsp";
+	}
+
+	//ajaxload
+	@Execute(validator = false)
+	public String showHashDataOld() {
+		int userid = userDto.userID;
+		int id;
+		int lastId;
+		String hash = req.getParameter("hashInfo");
+		String lastIdStr = req.getParameter("lastId");
+		List<Integer> idList = new ArrayList<Integer>();
+		lastId = Integer.parseInt(lastIdStr);
+
+		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+		searchDto = new ArrayList<SearchDto>();
+		searchDto = getTwitFromSolr.getHashTwit(hash,lastId);
+
+		for (int i = 0; i < searchDto.size(); i++) {
+			id = Integer.valueOf(searchDto.get(i).getId());
+			idList.add(id);
+		}
+
+		murmurList = murmurService.SelectListSearch(idList, userid);
+
+		return "showOldTwit.jsp";
 	}
 
 }

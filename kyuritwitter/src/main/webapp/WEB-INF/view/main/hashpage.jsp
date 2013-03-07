@@ -12,9 +12,7 @@
 
 		<script type="text/javascript" src="${f:url('/js/jquery.js')}"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/image.js"></script>
-
-
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/hash.js"></script>
 
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
 
@@ -31,7 +29,7 @@
 		<tiles:put name="content" type="string">
 
 		<div id="timeLine">
-			<div id="twitTitle"><h4>ツイート</h4></div>
+			<div id="twitTitle"><h4>${hashTitle}</h4></div>
 
 			<p class="timeLine_border"></p>
 

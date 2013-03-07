@@ -164,30 +164,30 @@ public class SearchtwitAction extends SuperAction{
 		return "/userpage?userni=" + nick + "?redirect=true";
 	}
 
-	//hashタグリストを出力する
-	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
-	public String showHashData() {
-		int userid = userDto.userID;
-
-		menuFlag = 1;
-		int id;
-		String hash = searchtwitForm.hashtag;
-		List<Integer> idList = new ArrayList<Integer>();
-		mine = userid;
-
-		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
-		searchDto = new ArrayList<SearchDto>();
-		searchDto = getTwitFromSolr.getHashTwit(hash);
-
-		for (int i = 0; i < searchDto.size(); i++) {
-			id = Integer.valueOf(searchDto.get(i).getId());
-			idList.add(id);
-		}
-
-		murmurList = murmurService.SelectListSearch(idList, userid);
-
-		return "searchtwit.jsp";
-	}
+//	//hashタグリストを出力する
+//	@Execute(validator = false, urlPattern = "showHashData/{hashtag}")
+//	public String showHashData() {
+//		int userid = userDto.userID;
+//
+//		menuFlag = 1;
+//		int id;
+//		String hash = searchtwitForm.hashtag;
+//		List<Integer> idList = new ArrayList<Integer>();
+//		mine = userid;
+//
+//		GetTwitFromSolr getTwitFromSolr = new GetTwitFromSolr();
+//		searchDto = new ArrayList<SearchDto>();
+//		searchDto = getTwitFromSolr.getHashTwit(hash);
+//
+//		for (int i = 0; i < searchDto.size(); i++) {
+//			id = Integer.valueOf(searchDto.get(i).getId());
+//			idList.add(id);
+//		}
+//
+//		murmurList = murmurService.SelectListSearch(idList, userid);
+//
+//		return "searchtwit.jsp";
+//	}
 
 
 	//trandを表示する

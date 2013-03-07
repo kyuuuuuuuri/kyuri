@@ -55,8 +55,40 @@ public class TuserService extends AbstractService<Tuser> {
 	}
 
 	/**
-	 * followしているユーザの検索
+	 * findById の usernick ver
 	 * @param userni
+	 * @return
+	 */
+	public Tuser findByID(int ThisUserid, int userid) {
+		return jdbcManager
+				.from(Tuser.class)
+				.leftOuterJoin("blockedUserList", new SimpleWhere().eq("blockedUserList.userid", userid))
+				.leftOuterJoin("ffollowList" , new SimpleWhere().eq("ffollowList.userid", userid))
+				.leftOuterJoin("ffollowList.tuser")
+				.where("userid = ?",ThisUserid)
+				.getSingleResult();
+	}
+
+
+	/**
+	 * findById の usernick ver
+	 * @param userni
+	 * @return
+	 */
+	public Tuser findByIDAjax(int ThisUserid, int userid) {
+		return jdbcManager
+				.from(Tuser.class)
+				.leftOuterJoin("blockedUserList", new SimpleWhere().eq("blockedUserList.userid", userid))
+				.leftOuterJoin("ffollowList" , new SimpleWhere().eq("ffollowList.userid", userid))
+				.leftOuterJoin("ffollowList.tuser")
+				.where("userid = ?",ThisUserid)
+				.getSingleResult();
+	}
+
+
+	/**
+	 * followしているユーザの検索
+	 * @param userid
 	 * @return
 	 */
 	public List<Tuser> findForFollow(int id , int userid){
@@ -65,6 +97,7 @@ public class TuserService extends AbstractService<Tuser> {
 				.innerJoin("followList")
 				.leftOuterJoin("ffollowList" , new SimpleWhere().eq("ffollowList.userid", userid))
 				.where("userid = ?", id)
+				.limit(10)
 				.getResultList();
 	}
 

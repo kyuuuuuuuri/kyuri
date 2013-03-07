@@ -15,8 +15,6 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/newTwitCheck.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/image.js"></script>
 
-
-
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ja"></script>
 
 		<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js" />

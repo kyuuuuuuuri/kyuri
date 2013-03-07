@@ -216,6 +216,23 @@ public class MurmurService extends AbstractService<Murmur> {
 				.getResultList();
 	}
 
+	public List<Murmur> listPagerForMypage (int lastId, String userni, int userid){
+		return select()
+				.innerJoin("tuser")
+				.leftOuterJoin("retweets",
+						new SimpleWhere().eq("retweets.userid", userid)
+						)
+				.leftOuterJoin("favolite",
+						new SimpleWhere().eq("userid", userid)
+						)
+				.where(new SimpleWhere().eq("tuser.usernick", userni).isNull("retwitflag", true),
+						new SimpleWhere().lt("murmurid", lastId)
+						)
+				.orderBy(desc("murmurid"))
+				.limit(10)
+				.getResultList();
+	}
+
 //コードの保存
 //	public List<Murmur> mainListPager(int LIMIT, int page, List<Integer> murmur_userid, int userid) {
 //		return jdbcManager.from(Murmur.class)

@@ -13,7 +13,6 @@ $(function(){
 		}
 	});
 
-
 	$("#dropDownMenu").hide();
 
 });

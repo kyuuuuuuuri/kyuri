@@ -15,6 +15,7 @@ import org.seasar.extension.jdbc.IterationCallback;
 import org.seasar.extension.jdbc.IterationContext;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
+import root.dto.RecommendDto;
 import root.entity.Follow;
 
 /**
@@ -62,9 +63,28 @@ public class FollowService extends AbstractService<Follow> {
 				.innerJoin("ftuser")
 				.leftOuterJoin("ftuser.ffollowList" , new SimpleWhere().eq("ftuser.ffollowList.userid", userid))
 				.where(new SimpleWhere().eq(follow().userid(), id))
+				.orderBy("followid")
+				.limit(10)
 				.getResultList();
-
 	}
+
+	/**
+	 * ユーザがフォローしているユーザを検索するajax
+	 * @param id
+	 * @return
+	 */
+	public List<Follow> findFollowUserOld(int id , int userid, int lastid) {
+		return jdbcManager
+				.from(Follow.class)
+				.innerJoin("ftuser")
+				.leftOuterJoin("ftuser.ffollowList" , new SimpleWhere().eq("ftuser.ffollowList.userid", userid))
+				.where(new SimpleWhere().eq(follow().userid(), id),
+						new SimpleWhere().lt("followid", lastid))
+				.orderBy(desc("followid"))
+				.limit(10)
+				.getResultList();
+	}
+
 
 	/**
 	 * フォローされているユーザを検索する
@@ -78,8 +98,29 @@ public class FollowService extends AbstractService<Follow> {
 				.innerJoin("tuser")
 				.leftOuterJoin("tuser.ffollowList" , new SimpleWhere().eq("tuser.ffollowList.userid", userid))
 				.where(new SimpleWhere().eq(follow().fuserid(), id))
+				.orderBy("followid")
+				.limit(10)
 				.getResultList();
 	}
+
+	/**
+	 * フォローされているユーザを検索する
+	 * @param id
+	 * @param userid
+	 * @return
+	 */
+	public List<Follow> findFollowedUserOld(int id, int userid, int lastid) {
+		return jdbcManager
+				.from(Follow.class)
+				.innerJoin("tuser")
+				.leftOuterJoin("tuser.ffollowList" , new SimpleWhere().eq("tuser.ffollowList.userid", userid))
+				.where(new SimpleWhere().eq(follow().fuserid(), id),
+						new SimpleWhere().lt("followid", lastid))
+				.orderBy(desc("followid"))
+				.limit(10)
+				.getResultList();
+	}
+
 
 	/**
 	 * follow しているユーザの数
@@ -203,6 +244,61 @@ public class FollowService extends AbstractService<Follow> {
 					}
 				});
 		//				.getResultList();
+	}
+
+	//おすすめユーザすべて！一覧！を表示する
+	public Map<Integer, RecommendDto> recommendUserAllList(List<Integer> useridList, int userid){
+		return select()
+				.innerJoin("tuser")
+				.innerJoin("ftuser")
+				.where(
+						and(
+								new SimpleWhere().in("userid", useridList),
+								new SimpleWhere().notIn("fuserid", useridList),
+								new SimpleWhere().notIn("fuserid", userid)
+						))
+				.orderBy(desc("followid"))
+				.iterate(new IterationCallback<Follow, Map<Integer, RecommendDto>>() {
+					int count = 0;
+
+					List<Follow> followList = new ArrayList<Follow>();
+//					List<Integer> idList = new ArrayList<Integer>();
+					Map<Integer, RecommendDto> userMap = new HashMap<Integer, RecommendDto>();
+
+					public Map<Integer, RecommendDto> iterate(Follow f, IterationContext context) {
+
+						if (userMap.containsKey(f.ftuser.userid)) {
+							RecommendDto rd = userMap.get(f.ftuser.userid);
+							List<String> fu = new ArrayList<String>();
+							int id = f.ftuser.userid;
+
+							rd = userMap.get(id);
+							fu = rd.followUserList;
+							fu.add(f.tuser.username);
+							rd.followUserList = fu;
+
+							userMap.put(id, rd);
+
+						}else{
+							RecommendDto re = new RecommendDto();
+							List<String> fu = new ArrayList<String>();
+							fu.add(f.tuser.username);
+
+							re.userid = f.ftuser.userid;
+							re.usernick = f.ftuser.usernick;
+							re.username = f.ftuser.username;
+							re.followUserList = fu;
+
+							userMap.put(f.ftuser.userid, re);
+							followList.add(f);
+							count++;
+						}
+						if(count == 10){
+							return userMap;
+						}
+						return userMap;
+					}
+				});
 	}
 
 

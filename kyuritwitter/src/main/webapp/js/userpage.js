@@ -1,9 +1,8 @@
 $(function(){
 
 	searchUser();
-
+	scrollEvent();
 });
-
 
 function searchUser(){
 
@@ -34,7 +33,6 @@ function searchUser(){
 			});
 		}
 	});
-
 }
 
 //openメソッド
@@ -175,5 +173,47 @@ function unfollow(id){
 	}else{
 		return false;
 	}
+}
 
+function scrollEvent(){
+
+	var currentLocation;
+	var scrollHeight;
+	//var clientHeight = document.body.clientHeight;
+	var clientHeight;
+
+	$(window).scroll(function(){
+		clientHeight = window.innerHeight
+		scrollHeight = document.body.scrollHeight || document.docomentElement.scrollHeight;
+		currentLocation = $(window).scrollTop();
+		var remain = scrollHeight - clientHeight - currentLocation;
+		if(remain <= 20){
+			var page =$("#lastLine").attr("class");
+			getOldTwit();
+		}
+	});
+}
+
+function getOldTwit(){
+	var lastid = $(".twitmain:last").attr("id"),
+		usernick = $("#usernickSuper").text();
+	$.ajax({
+		type:"POST",
+		url: "loadOldTwit",
+		data:{
+			'lastId':lastid,
+			'userNick':usernick
+		},
+		dataType:"html",
+		success: function(data, dataType){
+
+			$("#lastLine").before(data);
+
+			initWhenAjaxDo();
+			mouseHoverEvent();
+
+		},
+		error: function(){
+		}
+	});
 }

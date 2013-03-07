@@ -15,7 +15,6 @@ function mainInit(){
 	$("#existNewtwit").hide();
 	$(".gpsmenu").hide();
 
-
 	$('#twit_textarea').val("ツイートする")
 	.css("color", "#969696");
 
@@ -53,19 +52,16 @@ function twitsubmit(){
 					initWhenAjaxDo();
 					mouseHoverEvent();
 
-
 				}else if($("#noTwit").get(0)){
 					$("#noTwit").replaceWith(data);
 					mainInit();
 					initWhenAjaxDo();
 					mouseHoverEvent();
 
-
 				}else{
 					$("#twitTitle").after(data);
 					initWhenAjaxDo();
 					mouseHoverEvent();
-
 
 				}
 			},
@@ -77,6 +73,7 @@ function twitsubmit(){
 	});
 }
 
+//新しいツイートがあるかないかチェックする
 window.onload = function(){
 	setInterval("checkNewTwit()",30*1000);
 };
@@ -114,7 +111,6 @@ function menu(){
 
 			$(this).hide();
 			$(".gpsmenu").show();
-
 			getGps();
 	});
 
@@ -150,7 +146,6 @@ function menu(){
 			$("#input_text_size").show();
 		}
 	});
-
 }
 
 //つぶやきの更新があるかどうかをチェックする
@@ -224,12 +219,15 @@ function scrollEvent(){
 
 function getOldTwit(){
 	var lastid = $(".twitmain:last").attr("id");
-	//alert(lastid);
+	var usernick = $("#usernickSuper").text();
+//	alert(lastid + usernick);
+
 	$.ajax({
 		type:"POST",
 		url: "loadOldTwit",
 		data:{
-			'lastId':lastid
+			'lastId':lastid,
+			'userNick':usernick
 		},
 		dataType:"html",
 		success: function(data, dataType){

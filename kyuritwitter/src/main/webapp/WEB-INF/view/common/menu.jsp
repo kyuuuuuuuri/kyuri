@@ -67,7 +67,7 @@
 		</div>
 
 		<div id="recommend">
-		<p id="recommendTitle">おすすめユーザ</p>
+		<div id="recommendTitle">おすすめユーザ / <s:link styleId="moreRecommend" href="recommendAll">もっと見る</s:link></div>
 		<c:if test="${not empty recommendUser }">
 
 			<c:forEach var="recom" items="${recommendUser}">

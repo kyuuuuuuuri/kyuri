@@ -238,15 +238,20 @@ div#timeLine{
 	width:540px;
 }
 
-.twitmain{
-	background-color:#F4F4F4;
-}
-
 .twitmainplus{
 	background-color:#e6e6e6;
 	width:500px;
 	height:60px;
 	padding-top:10px;
+}
+
+#moreRecommend {
+	font-size:x-small;
+}
+
+.followUserList {
+	color:#6D3A33;
+	font-size:x-small;
 }
 
 .followdesc {
@@ -301,7 +306,10 @@ div.twitmain{
 	padding-right:20px;
 	padding-top:10px;
 	padding-bottom:10px;
+
+	background-color:#F4F4F4;
 }
+
 .twit_info{
 	font-size:x-small;
 	visibility:hidden;

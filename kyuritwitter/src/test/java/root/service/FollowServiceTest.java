@@ -8,12 +8,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.seasar.framework.unit.Seasar2;
 
+import root.dto.RecommendDto;
 import root.entity.Follow;
 
 /**
@@ -119,9 +125,9 @@ public class FollowServiceTest {
 	 */
 	public void findFollowUserTest() {
 		List<Follow> followlist = followService.findFollowUser(1, 1);
-//		for (Follow f : followlist) {
-//			System.out.println(f.followid + " " + f.ftuser.username);
-//		}
+		//		for (Follow f : followlist) {
+		//			System.out.println(f.followid + " " + f.ftuser.username);
+		//		}
 
 	}
 
@@ -129,22 +135,52 @@ public class FollowServiceTest {
 		List<Integer> i = new ArrayList<Integer>();
 		i.add(1);
 		i.add(3);
-		List<Follow> followRe = followService.recommendUser(i,1);
+		List<Follow> followRe = followService.recommendUser(i, 1);
 
-		for(Follow f : followRe){
+		for (Follow f : followRe) {
 			System.out.println(f.fuserid + f.tuser.usernick + f.ftuser.usernick);
 		}
 
 	}
 
-	public void recommendUserNullTest(){
+	public void recommendUserNullTest() {
 		List<Integer> i = new ArrayList<Integer>();
 		i.add(1);
 		i.add(3);
 		List<Follow> followRe = followService.recommendUserNull(i);
 
-		for(Follow f : followRe){
-			System.out.println(f.userid + f.tuser.username + f.tuser.usernick);
-		}
+		//		for(Follow f : followRe){
+		//			System.out.println(f.userid + f.tuser.username + f.tuser.usernick);
+		//		}
 	}
+
+	public void recommendUserAllListTest() {
+		Map<Integer, RecommendDto> map = new HashMap<Integer, RecommendDto>();
+		List<Integer> intList = new ArrayList<Integer>();
+		intList.add(1);
+		intList.add(3);
+
+		map = followService.recommendUserAllList(intList, 2);
+		//Mapから全てのキーと値のエントリをSet型のコレクションとして取得する
+		Set<Entry<Integer, RecommendDto>> entrySet = map.entrySet();
+
+		//キーと値のコレクションの反復子を取得する
+		Iterator<Entry<Integer, RecommendDto>> it = entrySet.iterator();
+
+		while (it.hasNext())
+		{
+			//キーと値をセットを持つ、Map.Entry型のオブジェクトを取得する
+			Entry<Integer, RecommendDto> entry = it.next();
+
+			//Map.Entry型のオブジェクトからキーを取得する
+			Integer key = entry.getKey();
+			//Map.Entry型のオブジェクトから値を取得する
+			RecommendDto value = entry.getValue();
+
+			//標準出力に表示する
+			System.out.println(key + " " + value.username + value.usernick + value.followUserList.get(0));
+		}
+
+	}
+
 }

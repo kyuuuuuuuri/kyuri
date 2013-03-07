@@ -10,7 +10,7 @@ $(function(){
 function DoModal(){
 
 	$(document).on("click", '[data-toggle="modal"]', function(e) {
-		alert("ie");
+//		alert("ie");
 		e.preventDefault();
 		var url = $(this).attr('href');
 		if (url.indexOf('#') == 0) {
