@@ -1,6 +1,7 @@
 package root.entity;
 
 import javax.annotation.Generated;
+import root.entity.BlockidNames._BlockidNames;
 import root.entity.FavoliteNames._FavoliteNames;
 import root.entity.FollowNames._FollowNames;
 import root.entity.InListUserNames._InListUserNames;
@@ -14,8 +15,17 @@ import root.entity.TuserNames._TuserNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2013/03/03 13:56:58")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2013/03/05 13:26:11")
 public class Names {
+
+    /**
+     * {@link Blockid}の名前クラスを返します。
+     * 
+     * @return Blockidの名前クラス
+     */
+    public static _BlockidNames blockid() {
+        return new _BlockidNames();
+    }
 
     /**
      * {@link Favolite}の名前クラスを返します。

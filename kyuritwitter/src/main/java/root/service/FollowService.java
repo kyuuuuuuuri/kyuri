@@ -4,12 +4,15 @@ import static org.seasar.extension.jdbc.operation.Operations.*;
 import static root.entity.FollowNames.*;
 import static root.entity.Names.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.IterationCallback;
+import org.seasar.extension.jdbc.IterationContext;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import root.entity.Follow;
@@ -129,5 +132,84 @@ public class FollowService extends AbstractService<Follow> {
 				)
 				.getSingleResult();
 	}
+
+
+	public List<Follow> recommendUserNull(List<Integer> useridList){
+
+		return select()
+				.innerJoin("ftuser")
+				.where(new SimpleWhere().notIn("fuserid", useridList))
+				.orderBy(desc("ftuser.followed"))
+				.iterate(new IterationCallback<Follow, List<Follow>>() {
+					List<Follow> followList = new ArrayList<Follow>();
+					int count = 0;
+					List<Integer> idList = new ArrayList<Integer>();
+
+					public List<Follow> iterate(Follow f, IterationContext context) {
+
+						if (idList.contains(f.fuserid)) {
+							//何もしない
+
+						}else{
+							idList.add(f.fuserid);
+							followList.add(f);
+							++count;
+						}
+						if(count == 3){
+							return followList;
+						}
+						return followList;
+					}
+				});
+	}
+
+	/**
+	 * おすすめユーザ
+	 * @param useridList
+	 * @return
+	 */
+	public List<Follow> recommendUser(List<Integer> useridList, int userid){
+
+		return select()
+				.innerJoin("tuser")
+				.innerJoin("ftuser")
+				.where(
+						and(
+								new SimpleWhere().in("userid", useridList),
+								new SimpleWhere().notIn("fuserid", useridList),
+								new SimpleWhere().notIn("fuserid", userid)
+						))
+//				.getResultList();
+
+				.iterate(new IterationCallback<Follow, List<Follow>>() {
+					List<Follow> followList = new ArrayList<Follow>();
+					int count = 0;
+					List<Integer> idList = new ArrayList<Integer>();
+
+					public List<Follow> iterate(Follow f, IterationContext context) {
+
+						if (idList.contains(f.fuserid)) {
+							//何もしない
+
+						}else{
+							idList.add(f.fuserid);
+							followList.add(f);
+							++count;
+						}
+						if(count == 3){
+							return followList;
+						}
+						return followList;
+					}
+				});
+		//				.getResultList();
+	}
+
+
+
+
+
+
+
 
 }

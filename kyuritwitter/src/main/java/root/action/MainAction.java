@@ -22,6 +22,8 @@ import javasource.MakeImgType;
 import javasource.SetTwitToSolr;
 
 import javax.annotation.Resource;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +62,12 @@ public class MainAction extends SuperAction {
 	//jspファイルに渡すつぶやきリストを格納する変数
 	public List<Murmur> murmurList = new ArrayList<Murmur>();
 
+	//トレンドリストを格納
 	public List<String> trandList  = new ArrayList<String>();
+
+	//おすすめユーザの格納
+	public List<Tuser> recommendUserNull = new ArrayList<Tuser>();
+	public List<Follow> recommendUser = new ArrayList<Follow>();
 
 	public Tuser mydata = new Tuser();
 
@@ -83,10 +90,14 @@ public class MainAction extends SuperAction {
 	}
 
 	//メインページ表示メソッド(自分のつぶやき＋他人のつぶやき
+
 	@Execute(validator = false, urlPattern = "main")
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public String main() {
 		int userid = userDto.userID;
 		mine = userid;
+
+//		List<Follow> recommendList = new ArrayList<Follow>();
 
 		GetFacetFromSolr getFacetFromSolr = new GetFacetFromSolr();
 
@@ -106,7 +117,30 @@ public class MainAction extends SuperAction {
 				murmur_userid.add(f.fuserid);
 			}
 		}
+
+		//おすすめユーザの出力
+		recommendUser = followService.recommendUser(murmur_userid, userid);
+
+		//自分自身の番号を加える
 		murmur_userid.add(userid);
+
+		if(recommendUser == null){
+			System.out.println("moromoro");
+			recommendUserNull = tuserService.recommend(murmur_userid);
+		}
+
+//		recommendList = followService.recommendUser(murmur_userid);
+//
+//		if(recommendList != null){
+//			for(Follow f : recommendList){
+//				if(!(recommendUser.containsKey(f.ftuser.usernick))){
+//					ArrayList<String> valueList = new ArrayList<String>();
+//					valueList.add(f.tuser.usernick);
+//
+//					recommendUser.put(f.ftuser.usernick, valueList);
+//				}
+//			}
+//		}
 
 //		this.total = murmurService.listCount(murmur_userid);
 

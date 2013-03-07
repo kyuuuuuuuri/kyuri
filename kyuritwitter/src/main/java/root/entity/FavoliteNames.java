@@ -3,12 +3,13 @@ package root.entity;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import root.entity.MurmurNames._MurmurNames;
+import root.entity.TuserNames._TuserNames;
 
 /**
  * {@link Favolite}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/03 13:56:58")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/05 13:26:11")
 public class FavoliteNames {
 
     /**
@@ -45,6 +46,24 @@ public class FavoliteNames {
      */
     public static _MurmurNames murmur() {
         return new _MurmurNames("murmur");
+    }
+
+    /**
+     * reMurmurFavoのプロパティ名を返します。
+     * 
+     * @return reMurmurFavoのプロパティ名
+     */
+    public static _MurmurNames reMurmurFavo() {
+        return new _MurmurNames("reMurmurFavo");
+    }
+
+    /**
+     * tuserのプロパティ名を返します。
+     * 
+     * @return tuserのプロパティ名
+     */
+    public static _TuserNames tuser() {
+        return new _TuserNames("tuser");
     }
 
     /**
@@ -114,6 +133,24 @@ public class FavoliteNames {
          */
         public _MurmurNames murmur() {
             return new _MurmurNames(this, "murmur");
+        }
+
+        /**
+         * reMurmurFavoのプロパティ名を返します。
+         * 
+         * @return reMurmurFavoのプロパティ名
+         */
+        public _MurmurNames reMurmurFavo() {
+            return new _MurmurNames(this, "reMurmurFavo");
+        }
+
+        /**
+         * tuserのプロパティ名を返します。
+         * 
+         * @return tuserのプロパティ名
+         */
+        public _TuserNames tuser() {
+            return new _TuserNames(this, "tuser");
         }
     }
 }

@@ -10,6 +10,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import root.SuperAction;
+import root.entity.Blockid;
 import root.entity.Favolite;
 import root.entity.Follow;
 import root.entity.Retweets;
@@ -115,6 +116,13 @@ public class FollowlistAction extends SuperAction {
 		System.out.println(useridStr + "きゅうり");
 		int toFollowUserId = Integer.parseInt(useridStr);
 
+		//ブロックされていたら何もしない
+		Blockid bl = blockidService.findBlockid(userid, toFollowUserId);
+		if(bl != null){
+			return null;
+		}
+
+
 		//すでにフォローしていたら何もしない
 		Follow fol = followService.delFollow(toFollowUserId, userid);
 
@@ -150,14 +158,13 @@ public class FollowlistAction extends SuperAction {
 //		System.out.println(useridStr + "きゅうり");
 		int toFollowUserId = Integer.parseInt(useridStr);
 
-		//すでにフォローしていたら何もしない
+		//フォローしてなかったら何もしない
 		Follow fol = followService.delFollow(toFollowUserId, userid);
 
 		if (fol == null) {
-			System.out.println("おかしいよ");
+			System.out.println("フォローしてないよ");
 			return null;
 		} else {
-			//フォローしていなかったらフォロワ―をinsertする。
 
 			followService.delete(fol);
 

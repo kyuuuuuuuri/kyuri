@@ -2,15 +2,14 @@ package root.entity;
 
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
-import root.entity.MurmurNames._MurmurNames;
 import root.entity.TuserNames._TuserNames;
 
 /**
- * {@link Retweets}のプロパティ名の集合です。
+ * {@link Blockid}のプロパティ名の集合です。
  * 
  */
 @Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/05 13:26:11")
-public class RetweetsNames {
+public class BlockidNames {
 
     /**
      * idのプロパティ名を返します。
@@ -19,15 +18,6 @@ public class RetweetsNames {
      */
     public static PropertyName<Integer> id() {
         return new PropertyName<Integer>("id");
-    }
-
-    /**
-     * murmuridのプロパティ名を返します。
-     * 
-     * @return murmuridのプロパティ名
-     */
-    public static PropertyName<Integer> murmurid() {
-        return new PropertyName<Integer>("murmurid");
     }
 
     /**
@@ -40,6 +30,15 @@ public class RetweetsNames {
     }
 
     /**
+     * blockUseridのプロパティ名を返します。
+     * 
+     * @return blockUseridのプロパティ名
+     */
+    public static PropertyName<Integer> blockUserid() {
+        return new PropertyName<Integer>("blockUserid");
+    }
+
+    /**
      * tuserのプロパティ名を返します。
      * 
      * @return tuserのプロパティ名
@@ -49,23 +48,23 @@ public class RetweetsNames {
     }
 
     /**
-     * murmurのプロパティ名を返します。
+     * blockのプロパティ名を返します。
      * 
-     * @return murmurのプロパティ名
+     * @return blockのプロパティ名
      */
-    public static _MurmurNames murmur() {
-        return new _MurmurNames("murmur");
+    public static _TuserNames block() {
+        return new _TuserNames("block");
     }
 
     /**
      * @author S2JDBC-Gen
      */
-    public static class _RetweetsNames extends PropertyName<Retweets> {
+    public static class _BlockidNames extends PropertyName<Blockid> {
 
         /**
          * インスタンスを構築します。
          */
-        public _RetweetsNames() {
+        public _BlockidNames() {
         }
 
         /**
@@ -74,7 +73,7 @@ public class RetweetsNames {
          * @param name
          *            名前
          */
-        public _RetweetsNames(final String name) {
+        public _BlockidNames(final String name) {
             super(name);
         }
 
@@ -86,7 +85,7 @@ public class RetweetsNames {
          * @param name
          *            名前
          */
-        public _RetweetsNames(final PropertyName<?> parent, final String name) {
+        public _BlockidNames(final PropertyName<?> parent, final String name) {
             super(parent, name);
         }
 
@@ -100,21 +99,21 @@ public class RetweetsNames {
         }
 
         /**
-         * murmuridのプロパティ名を返します。
-         *
-         * @return murmuridのプロパティ名
-         */
-        public PropertyName<Integer> murmurid() {
-            return new PropertyName<Integer>(this, "murmurid");
-        }
-
-        /**
          * useridのプロパティ名を返します。
          *
          * @return useridのプロパティ名
          */
         public PropertyName<Integer> userid() {
             return new PropertyName<Integer>(this, "userid");
+        }
+
+        /**
+         * blockUseridのプロパティ名を返します。
+         *
+         * @return blockUseridのプロパティ名
+         */
+        public PropertyName<Integer> blockUserid() {
+            return new PropertyName<Integer>(this, "blockUserid");
         }
 
         /**
@@ -127,12 +126,12 @@ public class RetweetsNames {
         }
 
         /**
-         * murmurのプロパティ名を返します。
+         * blockのプロパティ名を返します。
          * 
-         * @return murmurのプロパティ名
+         * @return blockのプロパティ名
          */
-        public _MurmurNames murmur() {
-            return new _MurmurNames(this, "murmur");
+        public _TuserNames block() {
+            return new _TuserNames(this, "block");
         }
     }
 }

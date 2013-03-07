@@ -3,17 +3,19 @@ package root.entity;
 import java.sql.Timestamp;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
+import root.entity.FavoliteNames._FavoliteNames;
 import root.entity.FollowNames._FollowNames;
 import root.entity.InListUserNames._InListUserNames;
 import root.entity.ListFollowNames._ListFollowNames;
 import root.entity.MurmurNames._MurmurNames;
+import root.entity.RetweetsNames._RetweetsNames;
 import root.entity.TlistNames._TlistNames;
 
 /**
  * {@link Tuser}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/03 13:56:58")
+@Generated(value = {"S2JDBC-Gen 2.4.45", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2013/03/05 13:26:11")
 public class TuserNames {
 
     /**
@@ -194,6 +196,33 @@ public class TuserNames {
      */
     public static _FollowNames ffollowList() {
         return new _FollowNames("ffollowList");
+    }
+
+    /**
+     * favoliteListのプロパティ名を返します。
+     * 
+     * @return favoliteListのプロパティ名
+     */
+    public static _FavoliteNames favoliteList() {
+        return new _FavoliteNames("favoliteList");
+    }
+
+    /**
+     * retweetsListのプロパティ名を返します。
+     * 
+     * @return retweetsListのプロパティ名
+     */
+    public static _RetweetsNames retweetsList() {
+        return new _RetweetsNames("retweetsList");
+    }
+
+    /**
+     * reMurmurListのプロパティ名を返します。
+     * 
+     * @return reMurmurListのプロパティ名
+     */
+    public static _MurmurNames reMurmurList() {
+        return new _MurmurNames("reMurmurList");
     }
 
     /**
@@ -407,6 +436,33 @@ public class TuserNames {
          */
         public _FollowNames ffollowList() {
             return new _FollowNames(this, "ffollowList");
+        }
+
+        /**
+         * favoliteListのプロパティ名を返します。
+         * 
+         * @return favoliteListのプロパティ名
+         */
+        public _FavoliteNames favoliteList() {
+            return new _FavoliteNames(this, "favoliteList");
+        }
+
+        /**
+         * retweetsListのプロパティ名を返します。
+         * 
+         * @return retweetsListのプロパティ名
+         */
+        public _RetweetsNames retweetsList() {
+            return new _RetweetsNames(this, "retweetsList");
+        }
+
+        /**
+         * reMurmurListのプロパティ名を返します。
+         * 
+         * @return reMurmurListのプロパティ名
+         */
+        public _MurmurNames reMurmurList() {
+            return new _MurmurNames(this, "reMurmurList");
         }
     }
 }

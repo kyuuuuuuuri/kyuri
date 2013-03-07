@@ -82,6 +82,55 @@ function openRep(id){
 
 }
 
+// ユーザをブロックする
+function block(id) {
+	if (confirm("本当にこのユーザをブロックしますか？")) {
+
+		$.ajax({
+			type : "POST",
+			url : "blockUser",
+			data : {
+				"blockUserid" : id
+			},
+			dataType : "text",
+			success : function(data, dataType) {
+				$("#blockButton")
+				.attr("id", "unBlockButton")
+				.attr("class", "btn btn-success")
+				.attr("onclick","unBlock(" + id + ")")
+				.attr("value", "ブロックを解除する");
+			},
+			error : function() {
+				alert("問題が発生しました");
+			}
+		});
+
+	} else {
+		return false;
+	}
+}
+
+//ブロックを解除する
+function unBlock(id){
+	$.ajax({
+		type:"POST",
+		url:"unBlockUser",
+		data:{
+			"blockUserid":id
+		},
+		dataType:"text",
+		success: function(data,dataType){
+			$("#unBlockButton")
+			.attr("id", "unfollowSub")
+			.attr("class","btn btn-danger")
+			.attr("onclick", "block(" + id + ")")
+			.attr("value","ブロックする");
+		},
+		error: function(){
+			alert("問題が発生しました");
+		}
+	});
+}
 
 function follow(id){
 

@@ -193,6 +193,16 @@ textarea{
 	-moz-border-radius: 5px;    /* Firefox */
 	-webkit-border-radius: 5px; /* Safari,Chrome */
 
+}
+
+#recommend{
+	background-color:#EBEBEB;
+	padding:20px;
+	margin-top:20px;
+
+	border-radius: 5px;         /* CSS3 */
+	-moz-border-radius: 5px;    /* Firefox */
+	-webkit-border-radius: 5px; /* Safari,Chrome */
 
 }
 
@@ -237,6 +247,11 @@ div#timeLine{
 	width:500px;
 	height:60px;
 	padding-top:10px;
+}
+
+.followdesc {
+	font-size:x-small;
+	color:#6B3E08;
 }
 
 .repform{

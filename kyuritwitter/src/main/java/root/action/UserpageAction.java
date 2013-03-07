@@ -11,6 +11,7 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ResponseUtil;
 
 import root.SuperAction;
+import root.entity.Blockid;
 import root.entity.Favolite;
 import root.entity.Follow;
 import root.entity.ListFollow;
@@ -100,6 +101,12 @@ public class UserpageAction extends SuperAction{
 		System.out.println(useridStr + "きゅうり");
 		int toFollowUserId = Integer.parseInt(useridStr);
 
+		//ブロックされていたら何もしない
+		Blockid bl = blockidService.findBlockid(userid, toFollowUserId);
+		if(bl != null){
+			return null;
+		}
+
 		//すでにフォローしていたら何もしない
 		Follow fol = followService.delFollow(toFollowUserId, userid);
 
@@ -134,6 +141,8 @@ public class UserpageAction extends SuperAction{
 		String useridStr = req.getParameter("unFollowUserId");
 		int toFollowUserId = Integer.parseInt(useridStr);
 
+
+
 		//すでにフォローしていたら何もしない
 		Follow fol = followService.delFollow(toFollowUserId, userid);
 
@@ -166,7 +175,7 @@ public class UserpageAction extends SuperAction{
 		int thisUserId = userpageForm.userid;
 		menuFlag = 2;
 		mydata = tuserService.findById(thisUserId);
-		System.out.println(userid+"lemon");
+//		System.out.println(userid+"lemon");
 
 		listFollow = listFollowService.findListFollowByUserAndMyInfo(thisUserId, userid);
 
@@ -347,6 +356,56 @@ public class UserpageAction extends SuperAction{
 		if (!favoliteList.isEmpty()) {
 			favoliteService.deleteById(favoliteList);
 		}
+		return null;
+	}
+
+	//ブロックする
+	@Execute(validator = false)
+	public String blockUser(){
+		int userid = userDto.userID;
+		int blockUserid;
+
+		String useridStr = req.getParameter("blockUserid");
+		blockUserid = Integer.parseInt(useridStr);
+
+		//フォローしていたら消す
+		Follow fol = followService.delFollow(blockUserid, userid);
+
+		if (fol != null) {
+			followService.delete(fol);
+		}
+
+		//フォローされていたら消す
+		fol = followService.delFollow(userid, blockUserid);
+
+		if(fol != null){
+			followService.delete(fol);
+		}
+
+		//ブロックに追加する
+		Blockid bl = new Blockid();
+		bl.userid = userid;
+		bl.blockUserid = blockUserid;
+		blockidService.insert(bl);
+
+		return null;
+	}
+
+	//ブロックを解除
+	@Execute(validator = false)
+	public String unBlockUser(){
+		int userid = userDto.userID;
+		int blockedUserid;
+		String useridStr = req.getParameter("blockUserid");
+		blockedUserid = Integer.parseInt(useridStr);
+
+		Blockid bl = blockidService.findBlockid(userid, blockedUserid);
+		if(bl == null){
+			return null;
+		}
+
+		blockidService.delete(bl);
+
 		return null;
 	}
 

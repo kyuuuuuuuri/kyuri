@@ -65,6 +65,27 @@
 			<div class="trandBody"><s:link href="/searchtwit/trandSearch/${trand}">${trand}</s:link></div>
 		</c:forEach>
 		</div>
+
+		<div id="recommend">
+		<p id="recommendTitle">おすすめユーザ</p>
+		<c:if test="${not empty recommendUser }">
+
+			<c:forEach var="recom" items="${recommendUser}">
+				<div><s:link href="userpage/${recom.ftuser.usernick}">${recom.ftuser.usernick}</s:link></div>
+
+				<div class="followdesc">${recom.tuser.usernick} がフォローしています</div>
+
+			</c:forEach>
+
+		</c:if>
+
+		<c:if test="${empty recommendUser }">
+		<c:forEach var="recom" items="${recommendUserNull}">
+			<div><s:link href="userpage/${recom.usernick}">${recom.usernick}</s:link></div>
+		</c:forEach>
+		</c:if>
+
+		</div>
 	</c:if>
 	<c:if test="${menuFlag == 1 }">
 		menu2

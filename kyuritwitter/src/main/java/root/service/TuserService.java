@@ -47,6 +47,7 @@ public class TuserService extends AbstractService<Tuser> {
 	public Tuser findByName(String userni, int userid) {
 		return jdbcManager
 				.from(Tuser.class)
+				.leftOuterJoin("blockedUserList", new SimpleWhere().eq("blockedUserList.userid", userid))
 				.leftOuterJoin("ffollowList" , new SimpleWhere().eq("ffollowList.userid", userid))
 				.leftOuterJoin("ffollowList.tuser")
 				.where("usernick = ?",userni)
@@ -107,6 +108,7 @@ public class TuserService extends AbstractService<Tuser> {
 				.offset(page * LIMIT)
 				.getResultList();
 	}
+
 
 	/**
 	 * User検索メソッド
@@ -236,5 +238,12 @@ public class TuserService extends AbstractService<Tuser> {
 				.getResultList();
 	}
 
+	public List<Tuser> recommend (List<Integer> idList) {
+		return select()
+				.where(new SimpleWhere().notIn("userid", idList))
+				.orderBy(desc("followed"))
+				.limit(3)
+				.getResultList();
+	}
 
 }

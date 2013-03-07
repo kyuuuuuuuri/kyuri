@@ -114,6 +114,13 @@ public class Tuser implements Serializable {
 	@OneToMany(mappedBy = "tuser")
 	public List<Retweets> retweetsList;
 
+	/** block関連のプロパティ*/
+	@OneToMany(mappedBy = "tuser")
+	public List<Blockid> blockTuserList;
+
+	@OneToMany(mappedBy = "block")
+	public List<Blockid> blockedUserList;
+
 	/** --------- 結合 --------- */
 	@OneToMany(mappedBy = "retuser")
 	public List<Murmur> reMurmurList;

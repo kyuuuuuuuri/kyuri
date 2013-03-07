@@ -8,6 +8,7 @@ import org.seasar.struts.annotation.Execute;
 import root.dto.MurmurDto;
 import root.dto.UserDto;
 import root.entity.Tuser;
+import root.service.BlockidService;
 import root.service.FavoliteService;
 import root.service.FollowService;
 import root.service.InListUserService;
@@ -42,6 +43,8 @@ public class SuperAction {
 	protected ListFollowService listFollowService;
 	@Resource
 	protected RetweetsService retweetsService;
+	@Resource
+	protected BlockidService blockidService;
 
 	//loginUser number
 	public int mine = 0;

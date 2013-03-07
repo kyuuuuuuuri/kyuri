@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -118,9 +119,32 @@ public class FollowServiceTest {
 	 */
 	public void findFollowUserTest() {
 		List<Follow> followlist = followService.findFollowUser(1, 1);
-		for (Follow f : followlist) {
-			System.out.println(f.followid + " " + f.ftuser.username);
+//		for (Follow f : followlist) {
+//			System.out.println(f.followid + " " + f.ftuser.username);
+//		}
+
+	}
+
+	public void recommendUserTest() {
+		List<Integer> i = new ArrayList<Integer>();
+		i.add(1);
+		i.add(3);
+		List<Follow> followRe = followService.recommendUser(i,1);
+
+		for(Follow f : followRe){
+			System.out.println(f.fuserid + f.tuser.usernick + f.ftuser.usernick);
 		}
 
+	}
+
+	public void recommendUserNullTest(){
+		List<Integer> i = new ArrayList<Integer>();
+		i.add(1);
+		i.add(3);
+		List<Follow> followRe = followService.recommendUserNull(i);
+
+		for(Follow f : followRe){
+			System.out.println(f.userid + f.tuser.username + f.tuser.usernick);
+		}
 	}
 }
